@@ -1,0 +1,518 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+<link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
+    />
+<div class="container">
+  <!-- Header -->
+  <div id="header">
+      <div class="header-top">
+         <div class="logo">
+              <a href="./main.html"><img src="../assets/img/logo.jpg" alt=""></a>
+         </div>
+         <div class="btn-search" >
+          <form class="inputSearch" onsubmit="submitForm(event)">
+              <input type="text" class="search" id="inputvalue">
+
+              <button class="ti-search"></button>
+          </form>
+         </div>
+          <div class="right-header-top">
+              <div class="account">
+                  <a href="#" >
+                      <i class="fa-solid fa-user"></i>
+                     <span>Tài khoản</span>
+                  </a>
+                  <ul class="sub-nav">
+                      <li>
+                          <a href="./myAccount.html">
+                              <i class="fa-solid fa-user"></i> Tài khoản của tôi
+                          </a>
+                      </li>
+                      <li>
+                          <a href="./register.html">
+                              <i class="fa-solid fa-user-plus"></i> Đăng kí
+                          </a>
+                      </li>
+                      <li>
+                          <a href="./login.html">
+                              <i class="fa-solid fa-right-to-bracket"></i> Đăng nhập
+                          </a>
+                      </li>
+
+                  </ul>
+              </div>
+              <div class="cart">
+                  <a href="./cart.html">
+                      <i class="fa-solid fa-cart-shopping"></i>
+                      <span>Giỏ hàng</span></a>
+              </div>
+              <div class="phone">
+                  <a href="#">
+                      <i class="fa-solid fa-phone"></i>
+                      <span> 0905792559</span>
+                  </a>
+              </div>
+          </div>
+      </div>
+      <div class="header-bottom">
+          <ul class="nav">
+              <li>
+                      <a href="../html/listProduct.html">
+                          <i class="fa-sharp fa-solid fa-list"></i>
+                          Danh mục sản phẩm
+                          <i class="nav-arrow-down ti-angle-down"></i>
+                      </a>
+                      <ul class="sub-nav">
+                          <li class="type_category"><a href="./productBanhkem.html"> Bánh kem</a></li>
+                          <li class="type_category"><a href="./productCupcakes.html"> Cupcakes</a></li>
+                          <li class="type_category"><a href="./productBanhquy.html"> Bánh quy</a></li>
+                          <li class="type_category"><a href="./productDonuts.html"> Donuts</a></li>
+                          <li class="type_category"><a href="./productBanhmi.html"> Bánh mì</a></li>
+                      </ul>
+              </li>
+              <li class="main now"><a href="../html/main.html"><span> Trang chủ</span></a></li>
+              <li class="promotion"><a href="./promotion.html">Khuyến mãi</a></li>
+              <li class="story btnn"><a href="./aboutUs.html">Câu chuyện thương hiệu</a></li>
+              <li class="blog"><a href="./blog.html">Tin tức</a></li>
+              <li class="contact"><a href="./contact.html">Liên hệ</a></li>
+          </ul>
+      </div>
+  </div>
+  <!-- Slider -->
+  <div class="body">
+      <div class="slider">
+          <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+              <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+              </div>
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                 <a href="./listProduct.html"><img src="../assets/img/BANNER/1.png" class="d-block w-100" alt="..."></a>
+                </div>
+
+                <div class="carousel-item">
+                  <a href="./promotion.html"> <img src="../assets/img/BANNER/2.png"class="d-block w-100" alt="..."></a>
+                </div>
+                <div class="carousel-item">
+                  <a href="./main.html"> <img src="../assets/img/BANNER/3.png"class="d-block w-100" alt="..."></a>
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+          </div>
+      </div>
+  <!-- Category -->
+  <div class="category">
+      <a href="./productBanhkem.html" class="type_category"><img src="../assets/img/Category/Bánh sinh nhật.png" alt=""><span>Bánh kem</span></a>
+      <a href="./productCupcakes.html" class="type_category"><img src="../assets/img/Category/Cupcake.png" alt=""><span>Cupcakes</span></a>
+      <a href="./productBanhquy.html" class="type_category"><img src="../assets/img/Category/Bánh quy.png" alt=""><span>Bánh quy</span></a>
+      <a href="./productDonuts.html" class="type_category"><img src="../assets/img/Category/Donut.png" alt=""><span>Donuts</span></a>
+      <a href="./productBanhmi.html" class="type_category"><img src="../assets/img/Category/Bánh mì.png" alt=""><span>Bánh mì</span></a>
+  </div>
+
+  <!-- New Product -->
+
+  <div id="new_product" class="carousel slide" data-bs-ride="true">
+      <div class="carousel-indicators">
+          <button type="button" data-bs-target="#new_product" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#new_product" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#new_product" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+      <div class="carousel-inner">
+          <p class="main-title">Sản phẩm mới</p>
+        <div class="carousel-item active">
+          <div class="new-product">
+              <a href="./productDetail.html">
+              <img src="../assets/img/78.png" alt=""></a>
+              <div class="new-product__right">
+                  <a href="./productDetail.html">
+                      <p class="name">Bánh kem Cat Cakes</p>
+                  </a>
+                  <p class="price">
+                      <span class="old-price">250.000 VNĐ</span>
+                      <span class="new-price">199.999 VNĐ</span>
+                  </p>
+                  <p class="content">
+                      "Chiếc bánh xinh đẹp với lớp mứt xoài vàng óng phía trên gây ấn tượng với khách hàng bởi màu sắc bắt mắt cùng hương vị thơm ngon khó cưỡng."
+                  </p>
+              </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="new-product">
+              <a href="./productDetail.html">
+              <img src="../assets/img/ẢNH SẢN PHẨM MỚI/84.png" alt=""></a>
+              <div class="new-product__right">
+                  <a href="./productDetail.html">
+                      <p class="name">Bánh kem Romantic</p>
+                  </a>
+                  <p class="price">
+                      <span class="old-price">235.000 VNĐ</span>
+                      <span class="new-price">220.000 VNĐ</span>
+                  </p>
+                  <p class="content">
+                      "Chiếc bánh xinh đẹp với lớp mứt xoài vàng óng phía trên gây ấn tượng với khách hàng bởi màu sắc bắt mắt cùng hương vị thơm ngon khó cưỡng."
+                  </p>
+              </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="new-product">
+              <a href="./productDetail.html">
+              <img src="../assets/img/ẢNH SẢN PHẨM MỚI/5.png" alt=""></a>
+              <div class="new-product__right">
+                  <a href="./productDetail.html">
+                      <p class="name">Vanilla Pink Cupcake</p>
+                  </a>
+                  <p class="price">
+                      <span class="old-price">120.000 VNĐ</span>
+                      <span class="new-price">125.000 VNĐ</span>
+                  </p>
+                  <p class="content">
+                      "Chiếc bánh xinh đẹp với lớp mứt xoài vàng óng phía trên gây ấn tượng với khách hàng bởi màu sắc bắt mắt cùng hương vị thơm ngon khó cưỡng."
+                  </p>
+              </div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#new_product" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon prev-newproduct" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#new_product" data-bs-slide="next">
+        <span class="carousel-control-next-icon next-newproduct" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+  </div>
+
+
+
+
+
+
+  <!-- Hot Product -->
+  <p class="main-title" style="margin: 40px 0">Sản phẩm bán chạy</p>
+  <section class="hot-products">
+  <div class="swiper mySwiper hot-product">
+      <div class="swiper-wrapper products">
+          <div class="swiper-slide product">
+              <div class="img-product">
+                  <a href="./productDetail.html">
+                  <img src="../assets/img/ẢNH SẢN PHẨM BÁN CHẠY/2.png" alt=""></a>
+                  <div class="cart-love">
+                     <a href=""> <i class="fa-solid fa-cart-shopping"></i></a> <a href="#"> <i class="fa-solid fa-heart"></i></a>
+                  </div>
+              </div>
+              <p class="name">Pumpkin Cupcake</p>
+              <p class="price">
+                  <span class="old-price">70.000 VNĐ</span>
+                  <span class="new-price">65.000 VNĐ</span>
+              </p>
+              <div><span class="star"> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> </span><span>530</span></div>
+          </div>
+
+
+
+          <div class="swiper-slide product">
+              <div class="img-product">
+                  <a href="./productDetail.html">
+                  <img src="../assets/img/ẢNH SẢN PHẨM BÁN CHẠY/31.png" alt=""></a>
+                  <div class="cart-love">
+                     <a href=""> <i class="fa-solid fa-cart-shopping"></i></a> <a href="#"> <i class="fa-solid fa-heart"></i></a>
+                  </div>
+              </div>
+              <p class="name">Wholesome Bluberry Donuts</p>
+              <p class="price">
+                  <span class="old-price">65.000 VNĐ</span>
+                  <span class="new-price">50.000 VNĐ</span>
+              </p>
+              <div><span class="star"> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> </span><span>530</span></div>
+          </div>
+          <div class="swiper-slide product">
+              <div class="img-product">
+                  <a href="./productDetail.html">
+                  <img src="../assets/img/ẢNH SẢN PHẨM BÁN CHẠY/17.png" alt=""></a>
+                  <div class="cart-love">
+                     <a href=""> <i class="fa-solid fa-cart-shopping"></i></a> <a href="#"> <i class="fa-solid fa-heart"></i></a>
+                  </div>
+              </div>
+              <p class="name">Mini Bouquet Box</p>
+              <p class="price">
+                  <span class="old-price">168.000 VNĐ</span>
+                  <span class="new-price">150.000 VNĐ</span>
+              </p>
+              <div><span class="star"> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> </span><span>530</span></div>
+          </div>
+          <div class="swiper-slide product">
+              <div class="img-product">
+                  <a href="./productDetail.html">
+                  <img src="../assets/img/ẢNH SẢN PHẨM BÁN CHẠY/103.png" alt=""></a>
+                  <div class="cart-love">
+                     <a href=""> <i class="fa-solid fa-cart-shopping"></i></a> <a href="#"> <i class="fa-solid fa-heart"></i></a>
+                  </div>
+              </div>
+              <p class="name">Bánh Kem Chocolate Fruit</p>
+              <p class="price">
+                  <span class="old-price">240.000 VNĐ</span>
+                  <span class="new-price">210.000 VNĐ</span>
+              </p>
+              <div><span class="star"> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> </span><span>530</span></div>
+          </div>
+          <div class="swiper-slide product">
+              <div class="img-product">
+                  <a href="./productDetail.html">
+                  <img src="../assets/img/ẢNH SẢN PHẨM BÁN CHẠY/91.png" alt=""></a>
+                  <div class="cart-love">
+                     <a href=""> <i class="fa-solid fa-cart-shopping"></i></a> <a href="#"> <i class="fa-solid fa-heart"></i></a>
+                  </div>
+              </div>
+              <p class="name">Bánh Mousse Mango</p>
+              <p class="price">
+                  <span class="old-price">270.000 VNĐ</span>
+                  <span class="new-price">250.000 VNĐ</span>
+              </p>
+              <div><span class="star"> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> </span><span>530</span></div>
+          </div>
+          <div class="swiper-slide product">
+              <div class="img-product">
+                  <a href="./productDetail.html">
+                  <img src="../assets/img/ẢNH SẢN PHẨM BÁN CHẠY/104.png" alt=""></a>
+                  <div class="cart-love">
+                     <a href=""> <i class="fa-solid fa-cart-shopping"></i></a> <a href="#"> <i class="fa-solid fa-heart"></i></a>
+                  </div>
+              </div>
+              <p class="name">Bánh Mì Hoa Cúc</p>
+              <p class="price">
+                  <span class="old-price">22.000 VNĐ</span>
+                  <span class="new-price">20.000 VNĐ</span>
+              </p>
+              <div><span class="star"> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> </span><span>530</span></div>
+          </div>
+      </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-pagination"></div>
+  </div>
+</section>
+  <!-- Promotion Product -->
+  <p class="main-title" style="margin-top:50px">Sản phẩm khuyến mãi</p>
+  <div class="promotion-product">
+
+      <div class="list-product">
+      <div class="product">
+          <div class="img-product">
+              <a href="./productDetail.html"> <img src="../assets/img/ẢNH SẢN PHẨM KHUYẾN MÃI/2.png" alt=""></a>
+           <div class="cart-love">
+                  <a href=""> <i class="fa-solid fa-cart-shopping"></i></a> <a href="#"> <i class="fa-solid fa-heart"></i></a>
+             </div>
+          </div>
+          <p class="name">Pumpkin Cupcake</p>
+          <p class="price">
+              <span class="old-price">70.000 VNĐ</span>
+              <span class="new-price">65.000 VNĐ</span>
+          </p>
+          <div><span class="star"> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> </span><span>530</span></div>
+      </div>
+      <div class="product">
+          <div class="img-product">
+              <a href="./productDetail.html"> <img src="../assets/img/ẢNH SẢN PHẨM KHUYẾN MÃI/94.png" alt=""></a>
+               <div class="cart-love">
+                  <a href=""> <i class="fa-solid fa-cart-shopping"></i></a> <a href="#"> <i class="fa-solid fa-heart"></i></a>
+            </div>
+          </div>
+          <p class="name">Bánh Kem Tasty Love</p>
+          <p class="price">
+              <span class="old-price">240.000 VNĐ</span>
+              <span class="new-price">210.000 VNĐ</span>
+          </p>
+          <div><span class="star"> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> </span><span>530</span></div>
+      </div>
+      <div class="product">
+          <div class="img-product">
+              <a href="./productDetail.html"> <img src="../assets/img/ẢNH SẢN PHẨM KHUYẾN MÃI/98.png" alt=""></a>
+               <div class="cart-love">
+                  <a href=""> <i class="fa-solid fa-cart-shopping"></i></a> <a href="#"> <i class="fa-solid fa-heart"></i></a>
+         </div>
+          </div>
+          <p class="name">Bánh Kem Seasonal Fruit</p>
+          <p class="price">
+              <span class="old-price">240.000 VNĐ</span>
+              <span class="new-price">210.000 VNĐ</span>
+          </p>
+          <div><span class="star"> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> </span><span>530</span></div>
+      </div>
+      <div class="product final">
+          <div class="img-product">
+              <a href="./productDetail.html"> <img src="../assets/img/ẢNH SẢN PHẨM KHUYẾN MÃI/9.png" alt="">
+</a>                     <div class="cart-love">
+                  <a href="./productDetail.html"> <i class="fa-solid fa-cart-shopping"></i></a> <a href="#"> <i class="fa-solid fa-heart"></i></a>
+              </div>
+          </div>
+          <p class="name">Vanilla Blue Cupcake</p>
+          <p class="price">
+              <span class="old-price">140.000 VNĐ</span>
+              <span class="new-price">130.000 VNĐ</span>
+          </p>
+          <div><span class="star"> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> </span><span>530</span></div>
+      </div>
+
+  </div>
+
+      <div id="continute">
+          <a href="../html/listProduct.html">
+              <button type="button" class="btn btn-primary input">
+                  Xem thêm sản phẩm
+              </button>
+          </a>
+      </div>
+  </div>
+
+  <!-- Comments -->
+
+  <div class="slider">
+      <div id="carouselComment" class="carousel slide" data-bs-ride="true">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="comments">
+                  <div class="comments-left">
+                      <div><img src="../assets/img/CUSTOMERS/ThuyTien.jpg" alt=""></div>
+                      <div>Thùy Tiên</div>
+                      <div class="star"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                  </div>
+                  <div class="comments-right">
+                      “Shop ngon lắm ạ. Chất lượng rất tốt, shop tư vấn nhiệt tình. Bánh có thể để dùng lâu. Em dùng từ đầu nhiệm kỳ đến hết nhiệm kỳ vẫn rất okela ạ. Anh Nawat cũng rất mê ạ, hãy ăn bánh của shop để mãi xinh như tôi!”
+                  </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="comments">
+                  <div class="comments-left">
+                      <div><img src="../assets/img/thanhthuy.jpg" alt=""></div>
+                      <div>Thanh Thùy</div>
+                      <div class="star"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                  </div>
+                  <div class="comments-right">
+                      “Shop ngon lắm ạ. Chất lượng rất tốt, shop tư vấn nhiệt tình. Bánh có thể để dùng lâu. Em dùng từ đầu nhiệm kỳ đến hết nhiệm kỳ vẫn rất okela ạ. Anh Nawat cũng rất mê ạ, hãy ăn bánh của shop để mãi xinh như tôi!”
+                  </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="comments">
+                  <div class="comments-left">
+                      <div><img src="../assets/img/thuyenthuyen.jpg" alt=""></div>
+                      <div>Thuyên Thuyên </div>
+                      <div class="star"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                  </div>
+                  <div class="comments-right">
+                      “Shop ngon lắm ạ. Chất lượng rất tốt, shop tư vấn nhiệt tình. Bánh có thể để dùng lâu. Em dùng từ đầu nhiệm kỳ đến hết nhiệm kỳ vẫn rất okela ạ. Anh Nawat cũng rất mê ạ, hãy ăn bánh của shop để mãi xinh như tôi!”
+                  </div>
+              </div>
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselComment" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon prev-comment" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselComment" data-bs-slide="next">
+            <span class="carousel-control-next-icon next-comment" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+      </div>
+  </div>
+
+
+
+
+
+</div>
+<!-- Footer -->
+<div class="footer">
+  <div class="footer-top">
+      <div class="footer-top__left">
+          <i class="ti-email"></i>
+          <div class="content">
+              <p class="title" style="font-family: 'Montserrat', sans-serif;">ĐĂNG KÍ NHẬN BẢN TIN</p>
+              <p class="para">Bạn sẽ luôn nhận được thông tin khuyến mãi mới và đặc biệt nhất!</p>
+          </div>
+      </div>
+      <div class="footer-top__right">
+          <input type="text" placeholder="Nhập email của bạn tại đây!">
+          <button type="button" class="btn btn-primary input">
+              Gửi
+          </button>
+
+      </div>
+  </div>
+  <div class="footer-bottom">
+      <div class="introduction col-5">
+          <h5>Giới thiệu</h5>
+          <p>Memory Bakery là một kênh bán hàng trực tuyến chuyên cung cấp các mặt hàng bánh ngọt bao gồm các loại bánh và phụ kiện dành cho các buổi tiệc. Memory Bakery hướng tới cung cấp một kênh bán hàng sinh động, đơn giản nhưng đầy đủ các tính năng cần thiết để mang tới những trải nghiệm tốt nhất cho khách hàng</p>
+          <a href="./main.html"><img src="../assets/img/logo.jpg" alt=""></a><br>
+          <a href="https://www.facebook.com/xn2002"><i class="fa-brands fa-facebook"></i></a>
+          <a href="https://www.youtube.com/@F8VNOfficial"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+      <div class="contact col-3" >
+          <h5>Thông tin liên hệ</h5>
+          <span style="display:flex"><i style="margin-top: 5px;padding-right: 10px;" class="fa-solid fa-location-dot"></i> Ký túc xá khu B, Linh Trung, Thủ Đức, Hồ Chí Minh</span>
+          <span><i class="fa-solid fa-phone"></i> 0905792559</span> <br>
+          <span><i class="fa-solid fa-fax"></i> 1900.900.900</span><br>
+          <span><i class="fa-sharp fa-solid fa-envelope"></i> memory@gmail.com</span>
+          <h5>Phương thức thanh toán</h5>
+          <div class="payment-top">
+              <img class="payment-method" src="../assets/img/PHƯƠNG THỨC THANH TOÁN/DOB.png" alt="">
+              <img src="../assets/img/PHƯƠNG THỨC THANH TOÁN/Momo.png" alt="" class="payment-method">
+              <img src="../assets/img/PHƯƠNG THỨC THANH TOÁN/Mastercard.png" alt="" class="payment-method">
+          </div>
+          <div class="payment-bottom">
+              <img src="../assets/img/PHƯƠNG THỨC THANH TOÁN/JCB.png" alt="" class="payment-method">
+              <img src="../assets/img/PHƯƠNG THỨC THANH TOÁN/VISA.png" alt="" class="payment-method">
+          </div>
+      </div>
+      <div class="support col-2" >
+          <h5>Hỗ trợ</h5>
+          <a href="">Tìm kiếm</a><br>
+          <a href="./aboutUs.html">Giới thiệu</a><br>
+          <a href="./paymentPolicy.html">Chính sách thanh toán</a><br>
+          <a href="./privacyPolicy.html">Chính sách bảo mật</a><br>
+          <a href="./contact.html">Liên hệ</a>
+      </div>
+      <div class="link col-2">
+          <h5>Liên kết</h5>
+          <a href="./productBanhkem.html">Bánh kem</a><br>
+          <a href="./productCupcakes.html">Cupcakes</a><br>
+          <a href="./productBanhquy.html">Bánh quy</a><br>
+          <a href="./productDonuts.html">Donuts</a><br>
+          <a href="./productBanhmi.html">Bánh mì</a>
+      </div>
+  </div>
+</div>
+<div id="chatbox" onclick="showChatbox()">
+  <i class="fa-regular fa-message"></i>
+</div>
+<div id="phone">
+  <i class="fa-solid fa-phone"></i>
+</div>
+<div id="backtop">
+  <i class="fa-solid fa-angle-up"></i>
+</div>
+<div id="chatWrapper">
+  <div class="header-chatWrapper">
+      <img src="../assets/img/CUSTOMERS/QuangLinh.jpg" alt="">
+      <div id="close" onclick="btnclose()"><span><i class="fa-solid fa-minus"></i> </span></div>
+  </div>
+  <h4>Chat với Memory Bakery</h4>
+  <p>Xin chào! Chúng tôi có thể giúp gì cho bạn?</p>
+  <button class="button1">Tiếp tục dưới tên Linh</button>
+  <button class="button2">Tiếp tục dưới vai trò khách</button>
+</div>
+</div>

@@ -1,0 +1,7 @@
+{
+  "context": ["/exchange"],
+  "target": "https://www.dongabank.com.vn",
+  "secure": true,
+  "changeOrigin":true,
+  "logLevel":"debug"
+  }

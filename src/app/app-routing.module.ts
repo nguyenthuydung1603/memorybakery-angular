@@ -5,6 +5,11 @@ import { MainComponent } from './main/main.component';
 import { ContactComponent } from './contact/contact.component';
 import { BlogComponent } from './blog/blog.component';
 import { ListProductComponent } from './list-product/list-product.component';
+import { PromotionComponent } from './promotion/promotion.component';
+import { CartComponent } from './cart/cart.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { PaymentPolicyComponent } from './payment-policy/payment-policy.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 const routes: Routes = [
   {path:"",component:MainComponent},
@@ -12,6 +17,11 @@ const routes: Routes = [
   {path:"contact",component:ContactComponent},
   {path:"blog",component:BlogComponent},
   {path:"listProduct",component:ListProductComponent},
+  {path:"promotion",component:PromotionComponent},
+  {path:"cart",component:CartComponent},
+  {path:"checkout",component:CheckoutComponent},
+  {path:"paymentPolicy",component:PaymentPolicyComponent  },
+  {path:"privacyPolicy",component:PrivacyPolicyComponent},
 ];
 
 @NgModule({

@@ -9,6 +9,13 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { ContactComponent } from './contact/contact.component';
 import { BlogComponent } from './blog/blog.component';
 import { ListProductComponent } from './list-product/list-product.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { PromotionComponent } from './promotion/promotion.component';
+import { CartComponent } from './cart/cart.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { PaymentPolicyComponent } from './payment-policy/payment-policy.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +24,14 @@ import { ListProductComponent } from './list-product/list-product.component';
     AboutUsComponent,
     ContactComponent,
     BlogComponent,
-    ListProductComponent
+    ListProductComponent,
+    HeaderComponent,
+    FooterComponent,
+    PromotionComponent,
+    CartComponent,
+    CheckoutComponent,
+    PaymentPolicyComponent,
+    PrivacyPolicyComponent
   ],
   imports: [
     BrowserModule,

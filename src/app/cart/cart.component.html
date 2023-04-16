@@ -1,0 +1,245 @@
+<div class="body">
+  <div class="main">
+      <div class="navigation">
+          <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="">Trang chủ</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Giỏ hàng</li>
+              </ol>
+            </nav>
+      </div>
+      <div class="cart-container">
+          <div class="cart-title">
+              <h4>Giỏ hàng</h4>
+          </div>
+          <div class="line"></div>
+          <div class="cart-info-container">
+              <div class="cart-header">
+                  <div><input type="checkbox" name="all" id="all" checked></div>
+                  <div>Sản phẩm</div>
+                  <div>Đơn giá</div>
+                  <div>Số lượng</div>
+                  <div>Thành tiền</div>
+                  <div>Xoá</div>
+              </div>
+
+              <div class="line"></div>
+
+              <div class="cart-product-container">
+                  <div class="cart-product">
+                      <!-- chekbox -->
+                      <div><input type="checkbox" name="pr1" id="pr1" checked></div>
+                      <!-- Tên sản phẩm -->
+                      <div class="cart-info">
+                          <div>
+                              <img src="../assets/img/ẢNH SẢN PHẨM/25.png" style="border-radius: 50%" width="100%">
+                          </div>
+                          <div class="product-description">
+                              <b>Donut Chocolate</b>
+                          </div>
+                      </div>
+                      <!-- Giá sản phẩm -->
+                      <div class="price-info">
+                          <div class="price">30000</div>
+                          <div class="currency">
+                              VNĐ
+                          </div>
+                      </div>
+                      <!-- Số lượng -->
+                      <div class="quantity-box">
+                        <button class="quantity-decrease" id="decrease" (click)="decreaseValue()">-</button>
+                        <input type="number" [value]="value" (input)="onChange(this.value)" #quantityInput>
+                        <button class="quantity-increase" id="increase" (click)="increaseValue()" >+</button>
+                    </div>
+
+                      <!-- Thành tiền -->
+                      <div class="price-info">
+                          <div class="price">60000</div>
+                          <div class="currency">
+                              VNĐ
+                          </div>
+                      </div>
+
+                      <!-- Button xoá -->
+                      <div>
+                          <img src="../assets/img/trash.png" style="width: 25px">
+                      </div>
+                  </div>
+
+                  <div class="cart-product">
+                      <!-- chekbox -->
+                      <div><input type="checkbox" name="pr1" id="pr1" checked></div>
+                      <!-- Tên sản phẩm -->
+                      <div class="cart-info">
+                          <div>
+                              <img style="border-radius:50%" src="../assets/img/ẢNH SẢN PHẨM/13.png" width="100%">
+                          </div>
+                          <div class="product-description">
+                              <b>Flourless Chocolate Cupcake</b>
+                          </div>
+                      </div>
+                      <!-- Giá sản phẩm -->
+                      <div class="price-info">
+                          <div class="price">
+                              45.000
+                          </div>
+                          <div class="currency">
+                              VNĐ
+                          </div>
+                      </div>
+                      <!-- Số lượng -->
+                      <div class="quantity-box">
+                        <button class="quantity-decrease" id="decrease" (click)="decreaseValue()">-</button>
+                        <input type="text" [value]="value" (input)="onChange(this.value)" #quantityInput>
+                        <button class="quantity-increase" id="increase" (click)="increaseValue()" >+</button>
+                    </div>
+
+                      <!-- Thành tiền -->
+                      <div class="price-info">
+                          <div class="price">
+                              45.000
+                          </div>
+                          <div class="currency">
+                              VNĐ
+                          </div>
+                      </div>
+
+                      <!-- Button xoá -->
+                      <div>
+                          <img src="../assets/img/trash.png" style="width: 25px">
+                      </div>
+                  </div>
+
+                  <div class="cart-product">
+                      <!-- chekbox -->
+                      <div><input type="checkbox" name="pr1" id="pr1" checked></div>
+                      <!-- Tên sản phẩm -->
+                      <div class="cart-info">
+                          <div>
+                              <img src="../assets/img/ẢNH SẢN PHẨM/81.png" style="border-radius: 50%" width="100%">
+                          </div>
+                          <div class="product-description">
+                              <b>Bánh Kem Romantic</b>
+                          </div>
+                      </div>
+                      <!-- Giá sản phẩm -->
+                      <div class="price-info">
+                          <div class="price">
+                              320.000
+                          </div>
+                          <div class="currency">
+                              VNĐ
+                          </div>
+                      </div>
+                      <!-- Số lượng -->
+                      <div class="quantity-box">
+                        <button class="quantity-decrease" id="decrease" (click)="decreaseValue()">-</button>
+                        <input type="text" [value]="value" (input)="onChange(this.value)" #quantityInput>
+                        <button class="quantity-increase" id="increase" (click)="increaseValue()" >+</button>
+                    </div>
+
+                      <!-- Thành tiền -->
+                      <div class="price-info">
+                          <div class="price">
+                              320.000
+                          </div>
+                          <div class="currency">
+                              VNĐ
+                          </div>
+                      </div>
+
+                      <!-- Button xoá -->
+                      <div>
+                          <img src="../assets/img/trash.png" style="width: 25px">
+                      </div>
+                  </div>
+              </div>
+          </div>
+             <hr>
+
+          <div class="container text-center">
+              <div class="row2">
+                  <div>
+                      <div style="
+                      padding: 10px  ; margin-bottom: 10px;" class="row-">
+                        <h4 class="col left-title">
+                          Mã giảm giá
+                        </h4>
+                      </div>
+                      <div>
+                          <div class="voucher-info" style="width: 600px">
+                      <div>
+                        <input type="text" placeholder="Nhập vào mã giảm giá" id="input-voucher" (keyup) ="changeState()">
+                      </div>
+                    <div>
+                        <input type="button" value="ÁP DỤNG" id="apply" disabled="disabled">
+
+                    </div>
+                    </div>
+                  </div>
+                  </div>
+                  <div class="col-5 payment">
+                      <div class="row">
+                        <div class="col-7 left-title">Tổng số tiền (tạm tính)</div>
+                        <div class="col-5 right-title">
+                          <div class="row">
+                            <div class="col-12" style="font-weight:bold;">425.000 VNĐ</div>
+                            <!-- <div class="col-4 left-title">VNĐ</div> -->
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-7 left-title">Giảm giá</div>
+                          <div class="col-5 right-title">
+                            <div class="row">
+                              <div class="col-12" style="font-weight:bold">-20.000 VNĐ</div>
+                              <!-- <div class="col-4 left-title">VNĐ</div> -->
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="row total-payment">
+                          <div class="col-7 left-title">Thành tiền</div>
+                          <div class="col-5 right-title">
+                            <div class="row">
+                              <div class="col-12 total1" >405.000 VNĐ</div>
+                              <!-- <div class="col-4">VNĐ</div> -->
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+
+              </div>
+          </div>
+
+          <hr>
+
+          <div class="button">
+          <div class="button_left">
+              <!-- Chèn link vào -->
+              <a href="./main.html">
+                  <button type="button" class="btn btn-primary input">
+                      Quay lại mua hàng
+                  </button>
+              </a>
+
+              <a href="./noCart.html">
+                  <button type="button" class="btn btn-primary input">
+                      Xoá hết
+                   </button>
+              </a>
+
+          </div>
+
+          <div class="button_right">
+              <a href="./checkout">
+                  <button type="button" class="btn btn-primary input">
+                      Đặt hàng
+                  </button>
+              </a>
+          </div>
+          </div>
+      </div>
+  </div>
+</div>

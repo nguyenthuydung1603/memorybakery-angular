@@ -1,0 +1,67 @@
+<div class="container">
+  <!-- Header -->
+   <div class="body">
+
+       <div class="account_nav">
+           <div class="profile">
+               <img src="../assets/img/CUSTOMERS/QuangLinh.jpg" alt="">
+               <div class="profile-right">
+                   <h3>Phạm Quang Linh</h3>
+                   <a href="./accountProfile.html" target="my_iframe"><i class="fa-solid fa-pen"></i> Sửa hồ sơ</a>
+               </div>
+           </div>
+           <hr>
+           <div class="nav">
+               <ul>
+                   <li id="nav-profile5" onclick="showColor5()">
+                       <a href="#" onclick="showSublist()" ><i class="fa-regular fa-user"></i> Tài khoản của tôi</a>
+                       <div id="sub_nav">
+                           <ul >
+                               <li id="sub-nav_profile1"><a onclick="showColor6()" href="./accountProfile.html" target="my_iframe"> Hồ sơ</a></li>
+                               <li id="sub-nav_profile2"><a onclick="showColor7()" href="./accountChangePassWord.html" target="my_iframe"> Đổi mật khẩu</a></li>
+                               <li id="sub-nav_profile3"><a onclick="showColor8()" href="./myAddress.html" target="my_iframe"> Địa chỉ</a></li>
+                           </ul>
+                       </div>
+                   </li>
+                   <li id="nav-profile1"><a href="./confirmOrder.html" onclick="showColor1()" target="my_iframe"> <i style="padding-right: 6px" class="fa-regular fa-clipboard"></i> <span> Đơn hàng</span></a></li>
+                   <li id="nav-profile2"><a href="./account_voucher.html" onclick="showColor2()" target="my_iframe"> <i style="padding-right: 6px" class="fa-solid fa-tag"></i> <span> Voucher</span></a> </li>
+                   <li id="nav-profile3"><a href="./myLoveproduct.html" onclick="showColor3()"  target="my_iframe"> <i style="padding-right: 4px" class="fa-regular fa-heart"></i> <span> Sản phẩm yêu thích</span></a></li>
+                   <li id="nav-profile4"><a href="./account_review.html" onclick="showColor4()" target="my_iframe"> <i class="fa-regular fa-comments"></i> <span> Đánh giá</span></a></li>
+                   <li ><a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"> <i style="padding-right: 3px" class="fa-solid fa-arrow-right-from-bracket"></i> <span> Đăng xuất</span></a>
+                   </li>
+               </ul>
+           </div>
+       </div>
+
+
+       <div class="right">
+           <iframe name="my_iframe" src="./accountProfile.html" frameborder="0"  height="100%" width="100%"></iframe>
+           <iframe name="my_iframe1" src="" frameborder="0" height="100%" width="100%"></iframe>
+
+
+       </div>
+   </div>
+
+
+   <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered">
+ <div class="modal-content">
+   <div class="modal-header">
+     <h1 class="modal-title fs-5" id="exampleModalLabel">Xác nhận</h1>
+   </div>
+   <div class="modal-body">
+     Bạn có muốn đăng xuất?
+   </div>
+   <div class="modal-footer">
+     <button type="button" class="btn btn-primary input" data-bs-dismiss="modal" style="background-color: gray;">Huỷ</button>
+     <a href="./main.html">
+       <button type="button" class="btn btn-primary input">Đồng ý</button>
+     </a>
+   </div>
+ </div>
+</div>
+</div>
+    <!-- Footer -->
+
+</div>

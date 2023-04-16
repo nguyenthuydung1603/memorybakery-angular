@@ -16,6 +16,7 @@ import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { PaymentPolicyComponent } from './payment-policy/payment-policy.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { AccountComponent } from './account/account.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
     CartComponent,
     CheckoutComponent,
     PaymentPolicyComponent,
-    PrivacyPolicyComponent
+    PrivacyPolicyComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,

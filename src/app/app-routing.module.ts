@@ -10,6 +10,7 @@ import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { PaymentPolicyComponent } from './payment-policy/payment-policy.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { AccountComponent } from './account/account.component';
 
 const routes: Routes = [
   {path:"",component:MainComponent},
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path:"checkout",component:CheckoutComponent},
   {path:"paymentPolicy",component:PaymentPolicyComponent  },
   {path:"privacyPolicy",component:PrivacyPolicyComponent},
+  {path:"myAccount",component:AccountComponent},
 ];
 
 @NgModule({

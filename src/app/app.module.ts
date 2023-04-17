@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
@@ -17,6 +17,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { PaymentPolicyComponent } from './payment-policy/payment-policy.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { AccountComponent } from './account/account.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -33,12 +35,15 @@ import { AccountComponent } from './account/account.component';
     CheckoutComponent,
     PaymentPolicyComponent,
     PrivacyPolicyComponent,
-    AccountComponent
+    AccountComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

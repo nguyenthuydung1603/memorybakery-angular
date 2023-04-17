@@ -11,6 +11,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { PaymentPolicyComponent } from './payment-policy/payment-policy.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { AccountComponent } from './account/account.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   {path:"",component:MainComponent},
@@ -24,6 +26,8 @@ const routes: Routes = [
   {path:"paymentPolicy",component:PaymentPolicyComponent  },
   {path:"privacyPolicy",component:PrivacyPolicyComponent},
   {path:"myAccount",component:AccountComponent},
+  {path:"login",component:LoginComponent},
+  {path:"register",component:RegisterComponent},
 ];
 
 @NgModule({

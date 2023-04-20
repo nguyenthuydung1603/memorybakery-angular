@@ -1,0 +1,247 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.item{
+  display: flex;
+  justify-content: space-evenly;
+  border-radius: 10px;
+  border-color: white;
+ background-color: rgb(243, 230, 230);
+ padding:10px;
+ margin-top: 30px;
+}
+.items{
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.donut-chart {
+  position: relative;
+	width: 200px;
+  height: 200px;
+	margin: 0 auto 2rem;
+	border-radius: 100%
+ }
+p.center {
+  background: white;
+  position: absolute;
+  text-align: center;
+  font-size: 28px;
+  top:0;left:0;bottom:0;right:0;
+  width: 115px;
+  height: 115px;
+  margin: auto;
+  border-radius: 50%;
+  line-height: 35px;
+  padding: 15% 0 0;
+}
+
+
+.portion-block {
+    border-radius: 50%;
+    clip: rect(0px, 200px, 200px, 100px);
+    height: 100%;
+    position: absolute;
+    width: 100%;
+  }
+.circle {
+    border-radius: 50%;
+    clip: rect(0px, 100px, 200px, 0px);
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    font-family: monospace;
+    font-size: 1.5rem;
+  }
+
+
+#part1 {
+    transform: rotate(0deg);
+  }
+
+	#part1 .circle {
+		background-color: yellow;
+		/*transform: rotate(76deg);*/
+		animation: first 1s 1 forwards;
+	  }
+
+
+#part2 {
+    transform: rotate(100deg);
+  }
+#part2 .circle {
+    background-color: yellow;
+    animation: second 1s 1 forwards 1s;
+  }
+
+  #part4 {
+    transform: rotate(0deg);
+  }
+
+	#part4 .circle {
+		background-color: green;
+		/*transform: rotate(76deg);*/
+		animation: first 1s 1 forwards;
+	  }
+
+
+#part5 {
+    transform: rotate(100deg);
+  }
+#part5 .circle {
+    background-color: green;
+    animation: second 1s 1 forwards 1s;
+  }
+
+
+  #part6 {
+    transform: rotate(0deg);
+  }
+
+	#part6 .circle {
+		background-color: rgb(79, 225, 248);
+		/*transform: rotate(76deg);*/
+		animation: first 1s 1 forwards;
+	  }
+
+
+#part7 {
+    transform: rotate(100deg);
+  }
+#part7 .circle {
+    background-color: rgb(79, 225, 248);
+    animation: second 1s 1 forwards 1s;
+  }
+
+
+#part3 {
+    transform: rotate(250deg);
+}
+	#part3 .circle {
+		background-color: black;
+		animation: third 0.5s 1 forwards 2s;
+	}
+
+
+/* Animation */
+@keyframes first {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(100deg);}
+}
+
+@keyframes second {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(150deg);}
+}
+
+@keyframes third {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(111deg);}
+}
+
+
+.bar-chart{
+  width: 600px;
+  height: 300px;
+}
+
+
+
+
+
+
+
+.progress-container {
+  height: 30px;
+  background-color: #ccc;
+  border-radius: 5px;
+  position: relative;
+  width: 450px;
+}
+
+.progress-container .progress-fill {
+  position: absolute;
+  height: 100%;
+  border-radius: 5px;
+
+}
+
+.progress-container .item1 {
+  background-color: var(--primary_color);
+  animation: loaditem1 1s forwards;
+}
+
+.progress-container .item2 {
+  background-color: var(--primary_color);
+  animation: loaditem2 1s forwards;
+}
+
+.progress-container .item3 {
+  background-color: var(--primary_color);
+  animation: loaditem3 1s forwards;
+}
+
+.progress-container .item4 {
+  background-color: var(--primary_color);
+  animation: loaditem4 1s forwards;
+}
+.progress-container .item5 {
+  background-color: var(--primary_color);
+  animation: loaditem5 1s forwards;
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  font: bold 14px 'Montserrat';
+  color: black;
+}
+
+@keyframes loaditem1 {
+  0% {
+      width: 0%;
+  }
+  100% {
+      width: 75%;
+  }
+}
+
+@keyframes loaditem2 {
+  0% {
+      width: 0%;
+  }
+  100% {
+      width: 60%;
+  }
+}
+
+@keyframes loaditem3 {
+  0% {
+      width: 0%;
+  }
+  100% {
+      width: 55%;
+  }
+}
+
+@keyframes loaditem4 {
+  0% {
+      width: 0%;
+  }
+  100% {
+      width: 85%;
+  }
+}
+@keyframes loaditem5 {
+  0% {
+      width: 0%;
+  }
+  100% {
+      width: 70%;
+  }
+}

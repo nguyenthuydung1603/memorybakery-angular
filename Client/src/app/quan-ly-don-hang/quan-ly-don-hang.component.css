@@ -1,0 +1,83 @@
+h1,h4{
+  color: #E75C6B;
+
+  font-family: 'Montserrat', sans-serif;
+}
+h1{
+  font-size: 30px;
+}
+/* Tùy chỉnh CSS cho button */
+.btn button {
+  float: left;
+  border: solid black 1px;
+  margin-right: 20px;
+  background-color: rgb(228, 168, 168); /* màu nền */
+  color:black; /* màu chữ */
+  padding: 10px 20px; /* khoảng cách giữa nội dung và lề */
+  border: none; /* không có đường viền */
+  border-radius: 5px; /* bo tròn các góc */
+  cursor: pointer; /* trỏ tay khi di chuột vào button */
+}
+.btn button:hover{
+  background-color: #E75C6B;
+}
+
+/* Tùy chỉnh CSS cho input */
+.search input[type="text"] {
+  width: 200px; /* chiều rộng của input */
+  padding: 10px; /* khoảng cách giữa nội dung và lề */
+  border: 1px solid #ccc; /* đường viền mảnh */
+  border-radius: 5px; /* bo tròn các góc */
+}
+
+/* Tùy chỉnh CSS cho button */
+.search button {
+  background-color: white;
+  color: white; /* màu chữ */
+  padding: 10px 20px; /* khoảng cách giữa nội dung và lề */
+  border: none; /* không có đường viền */
+  border-radius: 5px; /* bo tròn các góc */
+  cursor: pointer; /* trỏ tay khi di chuột vào button */
+}
+.tren{
+  display: flex;
+  justify-content: center;
+}
+
+
+table{
+  border-spacing:15px;
+  text-align: center;
+}
+.tieude{
+  font-weight: bold;
+}
+.trangthai{
+  background-color: rgb(205, 202, 202);
+  font-weight: bold;
+  height: 40px;
+  padding-top: 10px;
+  border-radius: 15px;
+
+}
+.xacnhan{
+  width: 250px;
+  height: 50px;
+  text-align: right;
+  margin-right: 10px;
+  background-color:  #E75C6B;
+    color: white;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 20px;
+    float: right;
+}
+.main{
+  display: flex;
+  justify-content: center;
+}

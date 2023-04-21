@@ -1,0 +1,67 @@
+<h1>Quản lý đơn hàng</h1>
+<h4>Tất cả đơn hàng</h4>
+<hr>
+<div class="tren">
+  <div class="btn">
+    <button>Sắp xếp theo</button>
+  </div>
+  <div class="search">
+    <form class="inputSearch" onsubmit="submitForm(event)">
+      <input type="text" class="search" id="inputvalue" placeholder="Tìm kiếm">
+      <button class="ti-search"><img src="assets/searchicon.png" width="30px" height="20px"></button>
+  </form>
+  </div>
+</div>
+<div class="main">
+  <table>
+    <tr class="tieude">
+      <td></td>
+      <td>Mã đơn hàng</td>
+      <td>Ngày đặt</td>
+      <td>Khách Hàng</td>
+      <td>Trạng thái</td>
+      <td>Tổng tiền</td>
+      <td>Tùy chỉnh</td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" name="all" id="all" checked></td>
+      <td><div><span>SO100001</span></div></td>
+      <td>24/04/2023</td>
+      <td>0912345678</td>
+      <td><div class="trangthai" style="border:solid black 1px;">Chờ xác nhận</div></td>
+      <td>390.000 VNĐ</td>
+      <td><a href="#"><img src="assets/editiconpng.png" width="30px"></a></td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" name="all" id="all" checked></td>
+      <td><div><span>SO100002</span></div></td>
+      <td>19/03/2023</td>
+      <td>0912345678</td>
+      <td><div class="trangthai" style="border:solid black 1px;">Chờ đóng gói</div></td>
+      <td>390.000 VNĐ</td>
+      <td><a href="#"><img src="assets/editiconpng.png" width="30px"></a></td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" name="all" id="all" checked></td>
+      <td><div><span>SO100003</span></div></td>
+      <td>10/02/2023</td>
+      <td>0912345678</td>
+      <td><div class="trangthai" style="border:solid black 1px;">Chờ đóng gói</div></td>
+      <td>390.000 VNĐ</td>
+      <td><a href="#"><img src="assets/editiconpng.png" width="30px"></a></td>
+    </tr>
+    <tr>
+      <td><input type="checkbox" name="all" id="all" checked></td>
+      <td><div><span>SO100003</span></div></td>
+      <td>10/02/2023</td>
+      <td>0912345678</td>
+      <td><div class="trangthai" style="border:solid black 1px; ;">Chờ xác nhận</div></td>
+      <td>390.000 VNĐ</td>
+      <td><a href="#"><img src="assets/editiconpng.png" width="30px"></a></td>
+    </tr>
+  </table>
+</div>
+<div><button class="xacnhan">Xác nhận đơn hàng</button></div>
+
+
+

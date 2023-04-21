@@ -19,6 +19,8 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { AccountComponent } from './account/account.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { ChiTietDonHangComponent } from './chi-tiet-don-hang/chi-tiet-don-hang.component';
+import { QuanLyDonHangComponent } from './quan-ly-don-hang/quan-ly-don-hang.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { RegisterComponent } from './register/register.component';
     PrivacyPolicyComponent,
     AccountComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ChiTietDonHangComponent,
+    QuanLyDonHangComponent
   ],
   imports: [
     BrowserModule,

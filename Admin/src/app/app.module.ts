@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -10,6 +12,7 @@ import { QuanLyDonHangComponent } from './quan-ly-don-hang/quan-ly-don-hang.comp
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
+import { ProductManagementComponent } from './product-management/product-management.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,8 @@ import { FormsModule } from '@angular/forms';
     HeaderComponent,
     ChiTietDonHangComponent,
     QuanLyDonHangComponent,
-    CustomerManagementComponent
+    CustomerManagementComponent,
+    ProductManagementComponent
   ],
   imports: [
     BrowserModule,
@@ -26,6 +30,8 @@ import { FormsModule } from '@angular/forms';
     FontAwesomeModule,
     NgxPaginationModule,
     FormsModule,
+    HttpClientModule,
+    AngularEditorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

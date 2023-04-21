@@ -1,0 +1,301 @@
+<div class="container">
+  <div class="header-box">
+      <h1>Danh sách sản phẩm</h1>
+      <button (click)="actionAdd()"><fa-icon [icon]="faPlus" size="lg"></fa-icon> Thêm sản phẩm</button>
+  </div>
+  <div class="content-box">
+      <span class="content-box-title">
+          Tất cả sản phẩm
+      </span>
+      <div class="line"></div>
+      <div class="content-box-action">
+          <button class="content-box-action--sort">
+              <fa-icon [icon]="faFilter" [style]="{margin: '0 10px'}" size="lg"></fa-icon>
+              <span>Sắp xếp theo</span>
+          </button>
+          <div class="content-box-action--search">
+              <input class="content-box-action--search-input" placeholder="Tìm Kiếm . . ." />
+              <fa-icon [icon]="faSearchPlus" [style]="{cursor: 'pointer'}" size="lg" class="search-icon"></fa-icon>
+          </div>
+      </div>
+      <div class="content-box-table">
+          <table>
+              <thead>
+                  <tr>
+                      <th>Tên sản phẩm</th>
+                      <th>Danh mục</th>
+                      <th>Kích thước</th>
+                      <th>Giá bán</th>
+                      <th>Ngày tạo</th>
+                      <th>Ngày chỉnh sửa</th>
+                      <th>Hành động</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr class="tr-custom">
+                      <td>
+                          <p title="Dunut Cốm" class="trundicate">
+                              Donut Cốm
+                          </p>
+                      </td>
+                      <td>Bánh Donuts</td>
+                      <td>
+                          <select name="" id="">
+                              <option value="" [defaultSelected]="true">
+                                  Size S
+                              </option>
+                              <option value="">
+                                  Size M
+                              </option>
+                              <option value="">
+                                  Size L
+                              </option>
+                          </select>
+                      </td>
+                      <td>40.000đ</td>
+                      <td>24/4/2023</td>
+                      <td>24/4/2023</td>
+                      <td>
+                          <div class="table-action">
+                              <fa-icon (click)="actionUpdate(1)" [icon]="faEdit" class="edit-icon"
+                                  [style]="{cursor: 'pointer'}" size="lg"></fa-icon>
+                              <fa-icon [icon]="faDelete" class="delete-icon" [style]="{cursor: 'pointer'}"
+                                  size="lg"></fa-icon>
+                          </div>
+                      </td>
+                  </tr>
+                  <tr class="tr-custom">
+                      <td>
+                          <p title="Bánh Black Forest Đức" class="trundicate">
+                              Bánh Black Forest Đức
+                          </p>
+                      </td>
+                      <td>Bánh ngọt</td>
+                      <td>
+                          None
+                      </td>
+                      <td>140.000đ</td>
+                      <td>24/4/2023</td>
+                      <td>24/4/2023</td>
+                      <td>
+                          <div class="table-action">
+                              <fa-icon [icon]="faEdit" class="edit-icon" [style]="{cursor: 'pointer'}"
+                                  size="lg"></fa-icon>
+                              <fa-icon [icon]="faDelete" class="delete-icon" [style]="{cursor: 'pointer'}"
+                                  size="lg"></fa-icon>
+                          </div>
+                      </td>
+                  </tr>
+                  <tr class="tr-custom">
+                      <td>
+                          <p title="Bánh Tiramisu Ý" class="trundicate">
+                              Bánh Tiramisu Ý
+                          </p>
+                      </td>
+                      <td>Bánh ngọt</td>
+                      <td>
+                          None
+                      </td>
+                      <td>140.000đ</td>
+                      <td>24/4/2023</td>
+                      <td>24/4/2023</td>
+                      <td>
+                          <div class="table-action">
+                              <fa-icon [icon]="faEdit" class="edit-icon" [style]="{cursor: 'pointer'}"
+                                  size="lg"></fa-icon>
+                              <fa-icon [icon]="faDelete" class="delete-icon" [style]="{cursor: 'pointer'}"
+                                  size="lg"></fa-icon>
+                          </div>
+                      </td>
+                  </tr>
+                  <tr class="tr-custom">
+                      <td>
+                          <p title="Bánh Limburg Pie Hà Lan" class="trundicate">
+                              Bánh Limburg Pie Hà Lan
+                          </p>
+                      </td>
+                      <td>Bánh ngọt</td>
+                      <td>
+                          <select name="" id="">
+                              <option value="" [defaultSelected]="true">
+                                  Size S
+                              </option>
+                              <option value="">
+                                  Size M
+                              </option>
+                              <option value="">
+                                  Size L
+                              </option>
+                          </select>
+                      </td>
+                      <td>90.000đ</td>
+                      <td>24/4/2023</td>
+                      <td>24/4/2023</td>
+                      <td>
+                          <div class="table-action">
+                              <fa-icon [icon]="faEdit" class="edit-icon" [style]="{cursor: 'pointer'}"
+                                  size="lg"></fa-icon>
+                              <fa-icon [icon]="faDelete" class="delete-icon" [style]="{cursor: 'pointer'}"
+                                  size="lg"></fa-icon>
+                          </div>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+</div>
+
+<!-- form create/update -->
+<div class="fog" *ngIf="isShow">
+
+  <!-- form mac dinh -->
+  <div class="form" action="">
+      <div class="form-title">
+          Điền thông tin sản phẩm
+      </div>
+      <div class="form-input">
+          <label for="">Tên sản phẩm</label>
+          <input type="text">
+      </div>
+      <div class="form-input">
+          <label for="">Danh mục</label>
+          <input type="text">
+      </div>
+      <div class="form-input">
+          <label for="">Kích thước</label>
+          <select name="" id="">
+              <option value="" [defaultSelected]="true">
+                  Size S
+              </option>
+              <option value="">
+                  Size M
+              </option>
+              <option value="">
+                  Size L
+              </option>
+          </select>
+      </div>
+      <div class="form-input">
+          <label for="">Giá bán</label>
+          <input type="text">
+          <span>VND</span>
+      </div>
+      <div class="form-input">
+          <label for="">Giá khuyến mãi</label>
+          <input type="text">
+          <span>VND</span>
+      </div>
+      <div class="form-input" style="display: flex; flex-direction: column; align-items: flex-start;">
+          <label for="">Mô tả</label>
+          <angular-editor [placeholder]="'Enter text here...'"></angular-editor>
+      </div>
+      <div class="form-input">
+          <label for="">Hình ảnh sản phẩm</label>
+          <button>Thêm hình ảnh</button>
+      </div>
+      <div class="form-image-box">
+          <img src="https://cdn.pastaxi-manager.onepas.vn/content/uploads/articles/banh-kem-hinh-con-heo-1.jpg"
+              alt="">
+          <img src="https://cdn.pastaxi-manager.onepas.vn/content/uploads/articles/banh-kem-hinh-con-heo-1.jpg"
+              alt="">
+          <img src="https://cdn.pastaxi-manager.onepas.vn/content/uploads/articles/banh-kem-hinh-con-heo-1.jpg"
+              alt="">
+      </div>
+      <div class="form-button-box">
+          <button *ngIf="isCreate" (click)="isVarian = true">Tạo biến thể</button>
+          <button *ngIf="isCreate">Lưu</button>
+          <button *ngIf="isUpdate">Chỉnh sửa</button>
+          <button (click)="actionCancel()">Huỷ bỏ</button>
+      </div>
+      <div *ngIf="isUpdate" class="varian-list">
+          <h4>Các biến thể khác</h4>
+          <div class="varian-item">
+              <div class="varian-info">
+                  <img src="https://cdn.pastaxi-manager.onepas.vn/content/uploads/articles/banh-kem-hinh-con-heo-1.jpg"
+                      alt="">
+                  <div class="varian-info-text">
+                      <span>Bánh kem Hêu</span>
+                      <span>Size M</span>
+                      <span>200.000 VND</span>
+                  </div>
+              </div>
+              <div class="varian-action">
+                  <fa-icon (click)="isShowVarian(1)" [icon]="faEdit" class="edit-icon" [style]="{cursor: 'pointer'}"
+                      size="lg"></fa-icon>
+                  <fa-icon [icon]="faDelete" class="delete-icon" [style]="{cursor: 'pointer'}" size="lg"></fa-icon>
+              </div>
+          </div>
+          <div class="varian-item">
+              <div class="varian-info">
+                  <img src="https://cdn.pastaxi-manager.onepas.vn/content/uploads/articles/banh-kem-hinh-con-heo-1.jpg"
+                      alt="">
+                  <div class="varian-info-text">
+                      <span>Bánh kem Hêu </span>
+                      <span>Size S</span>
+                      <span>300.000 VND</span>
+                  </div>
+              </div>
+              <div class="varian-action">
+                  <fa-icon (click)="isShowVarian(1)" [icon]="faEdit" class="edit-icon" [style]="{cursor: 'pointer'}"
+                      size="lg"></fa-icon>
+                  <fa-icon [icon]="faDelete" class="delete-icon" [style]="{cursor: 'pointer'}" size="lg"></fa-icon>
+              </div>
+          </div>
+          <div class="varian-item">
+              <div class="varian-info">
+                  <img src="https://cdn.pastaxi-manager.onepas.vn/content/uploads/articles/banh-kem-hinh-con-heo-1.jpg"
+                      alt="">
+                  <div class="varian-info-text">
+                      <span>Bánh gì hông biết nhưng ngon lắm</span>
+                      <span>Size XL</span>
+                      <span>500.000 VND</span>
+                  </div>
+              </div>
+              <div class="varian-action">
+                  <fa-icon (click)="isShowVarian(1)" [icon]="faEdit" class="edit-icon" [style]="{cursor: 'pointer'}"
+                      size="lg"></fa-icon>
+                  <fa-icon [icon]="faDelete" class="delete-icon" [style]="{cursor: 'pointer'}" size="lg"></fa-icon>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- form biến thể -->
+  <div *ngIf="isVarian" action="" class="variant-form">
+      <div class="form-title">
+          Điền thông tin biến thể
+      </div>
+      <div class="form-input">
+          <label for="">Kích thước</label>
+          <select name="" id="">
+              <option value="" [defaultSelected]="true">
+                  Size S
+              </option>
+              <option value="">
+                  Size M
+              </option>
+              <option value="">
+                  Size L
+              </option>
+          </select>
+      </div>
+      <div class="form-input">
+          <label for="">Giá bán</label>
+          <input type="text">
+          <span>VND</span>
+      </div>
+      <div class="form-input">
+          <label for="">Giá khuyến mãi</label>
+          <input type="text">
+          <span>VND</span>
+      </div>
+      <div class="form-button-box">
+          <button *ngIf="isCreate">Lưu</button>
+          <button *ngIf="isUpdate">Chỉnh sửa</button>
+          <button (click)="isVarian = false">Huỷ bỏ</button>
+      </div>
+  </div>
+
+  <div *ngIf="isLoading" class="loader"></div>
+</div>

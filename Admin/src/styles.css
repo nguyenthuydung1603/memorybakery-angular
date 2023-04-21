@@ -12,4 +12,12 @@
   font-family: 'Montserrat', sans-serif;
   font-size: 19px;
 }
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #E75C6B;
+}

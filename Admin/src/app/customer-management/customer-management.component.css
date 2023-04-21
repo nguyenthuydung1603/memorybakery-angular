@@ -1,0 +1,147 @@
+/* CSS cho title */
+:root {
+  --primary_color: #e75c6b;
+}
+h4 {
+  width: 100%;
+  font-size: 40px;
+  color: var(--primary_color);
+  font-weight: bold;
+  margin: auto;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 20px;
+}
+
+.function {
+  margin-bottom: 20px;
+}
+.sort_function {
+  position: relative;
+  display: inline-block;
+  font-size: 14px;
+}
+
+.sort_function select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("https://img.favpng.com/22/12/5/sort-icon-png-favpng-asjcimaWY1abmY7GYUzMu6ham.jpg");
+  background-position: 95% center;
+  background-repeat: no-repeat;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding: 6px 32px 6px 12px;
+  color: #212529;
+  font-size: 14px;
+}
+
+.sort_function select:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+}
+/* CSS cho Search */
+.search-box {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.search-box input[type="text"] {
+  width: 100%;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  outline: none;
+  font-size: 16px;
+}
+
+.search-box button[type="submit"] {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background-color: #fff;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.search-box button[type="submit"] i {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-image: url("https://img.favpng.com/22/12/5/sort-icon-png-favpng-asjcimaWY1abmY7GYUzMu6ham.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  font-size: 0;
+}
+
+.search-box button[type="submit"] span {
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 16px;
+  color: #666;
+}
+
+.search-box button[type="submit"]:hover span {
+  color: #333;
+}
+
+/* CSS table */
+.displayList {
+  margin-top: 10px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+td input[type="checkbox"] {
+  margin-right: 5px;
+}
+td span {
+  margin-right: 20px;
+}
+td span img {
+  width: 20px;
+  height: 20px;
+}
+/* CSS cho button View, delete */
+td button {
+  background: none;
+  border: none;
+}
+.fa-detail {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-image: url("https://cdn2.iconfinder.com/data/icons/picol-vector/32/view-512.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  font-size: 0;
+}
+.fa-delete {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-image: url("https://cdn-icons-png.flaticon.com/512/3405/3405244.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  font-size: 0;
+}

@@ -14,6 +14,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
 import { ProductManagementComponent } from './product-management/product-management.component';
 import { PromotionManagementComponent } from './promotion-management/promotion-management.component';
+import { BlogManagementComponent } from './blog-management/blog-management.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { PromotionManagementComponent } from './promotion-management/promotion-m
     QuanLyDonHangComponent,
     CustomerManagementComponent,
     ProductManagementComponent,
-    PromotionManagementComponent
+    PromotionManagementComponent,
+    BlogManagementComponent
   ],
   imports: [
     BrowserModule,

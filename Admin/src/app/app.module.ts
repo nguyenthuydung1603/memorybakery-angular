@@ -13,6 +13,7 @@ import { CustomerManagementComponent } from './customer-management/customer-mana
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
 import { ProductManagementComponent } from './product-management/product-management.component';
+import { PromotionManagementComponent } from './promotion-management/promotion-management.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ProductManagementComponent } from './product-management/product-managem
     ChiTietDonHangComponent,
     QuanLyDonHangComponent,
     CustomerManagementComponent,
-    ProductManagementComponent
+    ProductManagementComponent,
+    PromotionManagementComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,193 @@
+
+<div class="container">
+    <div>
+      <div class="row">
+        <!-- <h3 class="col">Danh sách khách hàng</h3>
+        <div class="col d-flex justify-content-end">
+          <a class="btn btn-secondary" href="./promotion-create/">Tạo khuyến mãi</a>
+        </div> -->
+        <div class="header-box">
+          <h1>Danh sách khuyến mãi</h1>
+          <button (click)="actionAdd()"><fa-icon [icon]="faPlus" size="lg"></fa-icon> Thêm khuyến mãi</button>
+      </div>
+      </div>
+      <hr>
+      <div class="d-flex justify-content-between">
+        <div class="sort-function">
+          <select class="form-select">
+            <option selected>Sắp xếp theo:</option>
+            <option value="sort_name">Tăng dần theo mức giảm</option>
+            <option value="sort_date_decrease">Ngày bắt đầu tăng dần</option>
+            <option value="sort_date_increase">Ngày bắt đầu giảm dần</option>
+          </select>
+        </div>
+  
+        <div class="search-box">
+          <form class="d-flex">
+            <input class="form-control me-2" style="width: 400px;" type="search" placeholder="Tìm kiếm..." aria-label="Search">
+            <button class="btn btn-outline-success" style="width: 40px;" type="submit"><i class="fa fa-search"></i></button>
+          </form>
+        </div>
+      </div>
+  
+      <div class="display-list mt-3">
+        <table class="table text-center table-hover">
+          <thead>
+            <tr>
+              <th>Mã khuyến mãi</th>
+              <th>Mức giảm</th>
+              <th>Điều kiện</th>
+              <th>Ngày bắt đầu</th>
+              <th>Ngày kết thúc</th>
+              <th>Chức năng</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of promotions">
+              <td>{{p.PromotionName}}</td>
+              <td>{{p.Reduction}}</td>
+              <td>{{p.Condition}}</td>
+              <td>{{p.Start}}</td>
+              <td>{{p.End}}</td>
+              <td class="d-flex justify-content-end" >
+                <div class="table-action">
+                  <fa-icon (click)="actionUpdate(1)" [icon]="faEdit" class="edit-icon"
+                      [style]="{cursor: 'pointer'}" size="lg"></fa-icon>
+                  <fa-icon [icon]="faDelete" class="delete-icon" [style]="{cursor: 'pointer'}"
+                      size="lg"></fa-icon>
+              </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+
+  <div class="fog" *ngIf="isShow">
+    <div class="form">
+      <h1 class="text-center mt-5 mb-4">TẠO MÃ KHUYẾN MÃI MỚI</h1>
+      <form>
+          <div class="row mb-3">
+              <label for="PromotionId" class="col-sm-3 col-form-label">Mã khuyến mãi</label>
+              <div class="col-sm-9">
+                  <input type="text" class="form-control" name="PromotionId" id="PromotionId" placeholder="Nhập mã khuyến mãi">
+              </div>
+          </div>
+          <div class="row mb-3">
+              <label for="PromotionDescription" class="col-sm-3 col-form-label">Mô tả</label>
+              <div class="col-sm-9" >
+                  <angular-editor name="PromotionDescription" id="PromotionDescription" placeholder="Mô tả về mã khuyến mãi" [config]="config" ></angular-editor>
+              </div>
+          </div>
+          <div class="row mb-3">
+              <label for="PromotionPrice" class="col-sm-3 col-form-label ">Mức giá</label>
+              <div class="col-sm-9 d-flex">
+                  <input type="text" class="form-control" id="PromotionPrice" name="PromotionPrice" placeholder="Nhập mức giá">
+                  <span>
+                      <select class="form-select form-control flex-fill mx-md-1" id="DiscountType" name="DiscountType">
+                          <option value="%">%</option>
+                          <option value="VND">VND</option>
+                      </select>
+                  </span>
+              </div>
+          </div>
+          <div class="row mb-3">
+              <label for="MinPrice" class="col-sm-3 col-form-label">Giá mua tối thiểu</label>
+              <div class="col-sm-9">
+                  <input type="text" class="form-control" name="MinPrice" id="MinPrice" placeholder="Nhập giá trị tối thiểu của đơn hàng áp dụng khuyến mãi">
+              </div>
+          </div>
+          <div class="row mb-3">
+              <label for="PromotionQuantity" class="col-sm-3 col-form-label">Số lượng</label>
+              <div class="col-sm-9">
+                  <input type="text" class="form-control" id="PromotionQuantity" name="PromotionQuantity" placeholder="Nhập số lượng mã khuyến mãi">
+              </div>
+          </div>
+          <div class="row mb-3">
+              <label for="PromotionStartDate" class="col-sm-3 col-form-label">Thời gian bắt đầu</label>
+              <div class="col-sm-9">
+                  <input type="date" class="form-control" id="PromotionStartDate" name="PromotionStartDate"placeholder="Chọn thời gian bắt đầu">
+              </div>
+          </div>
+          <div class="row mb-3">
+              <label for="PromotionEndDate" class="col-sm-3 col-form-label">Thời gian kết thúc</label>
+              <div class="col-sm-9">
+                  <input type="date" class="form-control" id="PromotionEndDate" name="PromotionEndDate"placeholder="Chọn thời gian kết thúc">
+              </div>
+          </div>
+          <div class="d-flex justify-content-end" >
+              <button *ngIf="isCreate" type="submit" class="btn me-2">Tạo khuyến mãi</button>
+              <button (click)="actionCancel()" type="cancel" class="btn">Hủy bỏ</button>
+          </div>
+      </form>
+  </div>
+  </div>
+  
+
+
+
+  
+  <div class="fog" *ngIf="isShow">
+    <div class="form">
+      <h1 class="text-center mt-5 mb-4">CHỈNH SỬA THÔNG TIN KHUYẾN MÃI</h1>
+      <form>
+          <div class="row mb-3">
+              <label for="PromotionId" class="col-sm-3 col-form-label">Mã khuyến mãi</label>
+              <div class="col-sm-9">
+                  <input type="text" class="form-control" name="PromotionId" id="PromotionId" placeholder="Nhập mã khuyến mãi">
+              </div>
+          </div>
+          <div class="row mb-3">
+              <label for="PromotionDescription" class="col-sm-3 col-form-label">Mô tả</label>
+              <div class="col-sm-9" >
+                  <angular-editor name="PromotionDescription" id="PromotionDescription" placeholder="Mô tả về mã khuyến mãi" [config]="config" ></angular-editor>
+              </div>
+          </div>
+          <div class="row mb-3">
+              <label for="PromotionPrice" class="col-sm-3 col-form-label ">Mức giá</label>
+              <div class="col-sm-9 d-flex">
+                  <input type="text" class="form-control" id="PromotionPrice" name="PromotionPrice" placeholder="Nhập mức giá">
+                  <span>
+                      <select class="form-select form-control flex-fill mx-md-1" id="DiscountType" name="DiscountType">
+                          <option value="%">%</option>
+                          <option value="VND">VND</option>
+                      </select>
+                  </span>
+              </div>
+          </div>
+          <div class="row mb-3">
+              <label for="MinPrice" class="col-sm-3 col-form-label">Giá mua tối thiểu</label>
+              <div class="col-sm-9">
+                  <input type="text" class="form-control" name="MinPrice" id="MinPrice" placeholder="Nhập giá trị tối thiểu của đơn hàng áp dụng khuyến mãi">
+              </div>
+          </div>
+          <div class="row mb-3">
+              <label for="PromotionQuantity" class="col-sm-3 col-form-label">Số lượng</label>
+              <div class="col-sm-9">
+                  <input type="text" class="form-control" id="PromotionQuantity" name="PromotionQuantity" placeholder="Nhập số lượng mã khuyến mãi">
+              </div>
+          </div>
+          <div class="row mb-3">
+              <label for="PromotionStartDate" class="col-sm-3 col-form-label">Thời gian bắt đầu</label>
+              <div class="col-sm-9">
+                  <input type="date" class="form-control" id="PromotionStartDate" name="PromotionStartDate"placeholder="Chọn thời gian bắt đầu">
+              </div>
+          </div>
+          <div class="row mb-3">
+              <label for="PromotionEndDate" class="col-sm-3 col-form-label">Thời gian kết thúc</label>
+              <div class="col-sm-9">
+                  <input type="date" class="form-control" id="PromotionEndDate" name="PromotionEndDate"placeholder="Chọn thời gian kết thúc">
+              </div>
+          </div>
+          <div class="d-flex justify-content-end" >
+              <button type="submit" class="btn me-2">Lưu chỉnh sửa</button>
+              <button (click)="actionCancel()" type="cancel" class="btn">Hủy bỏ</button>
+          </div>
+      </form>
+  </div>
+  </div>
+  
+  
+  

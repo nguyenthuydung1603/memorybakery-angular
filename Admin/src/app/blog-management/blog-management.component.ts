@@ -93,6 +93,7 @@ blogs=[{
   "Title":"Cách làm bánh Matcha Latte",
   "Start": "20-4-2023",
   "Author": "Đinh Trần Xuân Nguyên",
+  "View": 40
 },
 {   
   "BlogId":"2",
@@ -100,6 +101,7 @@ blogs=[{
   "Title":"Sự hấp dẫn của Cupcakes",
   "Start": "20-4-2023",
   "Author": "Trần Thị Thuận",
+  "View": 40
 }
 ]
 }

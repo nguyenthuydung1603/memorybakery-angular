@@ -54,3 +54,8 @@ app.post("/login", cors(), async(req, res) => {
         }
     }
 })
+app.get("/products",cors(),async (req,res)=>{
+    const result = await productCollection.find({}).toArray();
+    res.send(result)
+    }
+    )

@@ -1,7 +1,16 @@
-{
+[{
   "context": ["/exchange"],
   "target": "https://www.dongabank.com.vn",
   "secure": true,
   "changeOrigin":true,
   "logLevel":"debug"
-  }
+  },
+  {
+    "context": ["/products"],
+    "target": "http://localhost:10",
+    "secure": true,
+    "changeOrigin":true,
+    "logLevel":"debug"
+    }
+]
+

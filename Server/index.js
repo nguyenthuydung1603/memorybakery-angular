@@ -114,3 +114,8 @@ app.get("/products/:id",cors(),async (req,res)=>{
     res.send(result[0])
     }
     )
+app.get("/products/:category", async (req, res) => {
+    const category = req.params.category;
+    const result = await productCollection.find({ Category: category }).toArray();
+    res.send(result);
+  });

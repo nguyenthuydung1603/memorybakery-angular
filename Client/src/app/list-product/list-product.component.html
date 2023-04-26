@@ -8,13 +8,12 @@
               <p class="title">Danh mục sản phẩm</p>
               <hr>
               <ul>
-                 <span class="now"> <a href="./listProduct.html" ><li>Tất cả</li></a></span>
-                  <a href="./productBanhkem.html" class="type_category"> <li>Bánh kem</li></a>
-                  <a href="./productCupcakes.html" class="type_category"> <li>Cupcakes</li></a>
-                  <a href="./productBanhquy.html" class="type_category"> <li>Bánh quy</li></a>
-
-                  <a href="./productDonuts.html" class="type_category"> <li>Donuts</li></a>
-                  <a href="./productBanhmi.html" class="type_category"> <li>Bánh mì</li></a>
+                <span class="now"> <a href="./listProduct" ><li>Tất cả</li></a></span>
+                <a class="type_category" (click)="getListProductByCategory('Bánh kem')"><li>Bánh kem</li></a>
+                <a class="type_category" (click)="getListProductByCategory('Cupcakes')"><li>Cupcakes</li></a>
+                <a class="type_category" (click)="getListProductByCategory('Banh quy')"><li>Bánh quy</li></a>
+                <a class="type_category" (click)="getListProductByCategory('Donuts')"><li>Donuts</li></a>
+                <a class="type_category" (click)="getListProductByCategory('Banh mi')"><li>Bánh mì</li></a>
               </ul>
               <p class="title">Khoảng giá</p>
               <hr>

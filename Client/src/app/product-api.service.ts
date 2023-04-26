@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, retry, throwError } from 'rxjs';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from
-'@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Product } from './models/Product';
-
+import { IProduct } from './models/Product';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +27,17 @@ export class ProductAPIService {
   handleError(error:HttpErrorResponse){
   return throwError(()=>new Error(error.message))
   }
-
+  getListProductByCategory(Category: string): Observable<any> {
+    const headers = new HttpHeaders().set("Content-Type", "text/plain;charset=utf-8")
+    const requestOptions: Object = {
+      headers: headers,
+      responseType: "text"
+    }
+    return this._http.get<any>("/products/" + Category, requestOptions).pipe(
+      map(res => JSON.parse(res) as Array<IProduct>),
+      retry(3),
+      catchError(this.handleError))
+  }
   getProduct(_id:string):Observable<any>
 {
 const headers=new HttpHeaders().set("Content-Type","text/plain;charset=utf-8")

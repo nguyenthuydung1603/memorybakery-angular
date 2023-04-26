@@ -108,3 +108,9 @@ app.get("/products",cors(),async (req,res)=>{
     res.send(result)
     }
 )
+app.get("/products/:id",cors(),async (req,res)=>{
+    var o_id = new ObjectId(req.params["id"]);
+    const result = await productCollection.find({_id:o_id}).toArray();
+    res.send(result[0])
+    }
+    )

@@ -22,6 +22,7 @@ import { RegisterComponent } from './register/register.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +41,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     AccountComponent,
     LoginComponent,
     RegisterComponent,
+    ProductDetailComponent,
   ],
   imports: [
     BrowserModule,

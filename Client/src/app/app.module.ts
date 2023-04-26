@@ -19,10 +19,9 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { AccountComponent } from './account/account.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { ChiTietDonHangComponent } from './chi-tiet-don-hang/chi-tiet-don-hang.component';
-import { QuanLyDonHangComponent } from './quan-ly-don-hang/quan-ly-don-hang.component';
-import { ProductComponent } from './product/product.component';
 
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,15 +40,14 @@ import { ProductComponent } from './product/product.component';
     AccountComponent,
     LoginComponent,
     RegisterComponent,
-    ChiTietDonHangComponent,
-    QuanLyDonHangComponent,
-    ProductComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FontAwesomeModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,7 @@
 import { Component, HostListener } from '@angular/core';
-
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { AuthGuard } from '../guards/auth.guard';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -7,6 +9,10 @@ import { Component, HostListener } from '@angular/core';
 })
 export class HeaderComponent {
   showHeader = false;
+  login: boolean = false
+  constructor(private router: Router, private authService: AuthService,private authGuard:AuthGuard) {
+    this.login=this.authGuard.isLoggedIn()
+  }
   @HostListener('window:scroll', ['$event'])
   onScroll(event: Event) {
     const currentScrollPos = window.pageYOffset;
@@ -19,5 +25,15 @@ export class HeaderComponent {
   }
 
   prevScrollpos = window.pageYOffset;
-
+  id: any;
+  ngOnInit() {
+    this.id = localStorage.getItem('token');
+  }
+  logout() {
+    this.authService.logout();
+    alert('Bạn đã đăng xuất');
+    window.location.reload()
+  }
 }
+
+

@@ -208,3 +208,6 @@ ul{
 .nav>li:hover>a{
   color: var(--hover_color);
 }
+.logout{
+  cursor: pointer;
+}

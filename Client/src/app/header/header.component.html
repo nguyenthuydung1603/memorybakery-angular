@@ -17,19 +17,24 @@
                  <span>Tài khoản</span>
               </a>
               <ul class="sub-nav">
-                  <li>
+                  <li class="">
                       <a href="./myAccount">
                           <i class="fa-solid fa-user"></i> Tài khoản của tôi
                       </a>
                   </li>
-                  <li>
-                      <a href="./register">
-                          <i class="fa-solid fa-user-plus"></i> Đăng kí
+                  <li class="register" *ngIf="!login">
+                      <a routerLink="register">
+                          <i class="fa-solid fa-user-plus register" ></i> Đăng kí
                       </a>
                   </li>
-                  <li>
-                      <a href="./login">
-                          <i class="fa-solid fa-right-to-bracket"></i> Đăng nhập
+                  <li class="login" *ngIf="!login">
+                      <a routerLink="/login" >
+                          <i class="fa-solid fa-right-to-bracket" ></i> Đăng nhập
+                      </a>
+                  </li>
+                  <li class="logout" *ngIf="login">
+                      <a (click)="logout()" >
+                          <i class="fa-solid fa-right-to-bracket"   ></i> Đăng xuất
                       </a>
                   </li>
 

@@ -3,6 +3,13 @@
   <!-- Header -->
 
   <!-- Slider -->
+  <div class="abc" *ngIf="login">
+     <marquee class="intro"> Chào mừng <span style="font-style: italic;">{{id}}</span> đã ghé website của chúng tôi </marquee>
+    </div>
+  <div class="abc" *ngIf="!login">
+    <!-- your login form goes here -->
+  </div>
+</div>
   <div class="body">
       <div class="slider">
           <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
@@ -276,4 +283,7 @@
   <button class="button1">Tiếp tục dưới tên Linh</button>
   <button class="button2">Tiếp tục dưới vai trò khách</button>
 </div>
-</div>
+
+
+
+

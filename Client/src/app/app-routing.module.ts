@@ -13,7 +13,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { AccountComponent } from './account/account.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-
+import { AuthGuard } from './guards/auth.guard';
 const routes: Routes = [
   {path:"",component:MainComponent},
   {path:"aboutUs",component:AboutUsComponent},
@@ -25,7 +25,7 @@ const routes: Routes = [
   {path:"checkout",component:CheckoutComponent},
   {path:"paymentPolicy",component:PaymentPolicyComponent  },
   {path:"privacyPolicy",component:PrivacyPolicyComponent},
-  {path:"myAccount",component:AccountComponent},
+  {path:"myAccount",component:AccountComponent,canActivate : [AuthGuard]},
   {path:"login",component:LoginComponent},
   {path:"register",component:RegisterComponent},
 ];

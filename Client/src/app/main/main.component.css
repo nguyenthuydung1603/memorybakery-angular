@@ -869,3 +869,9 @@ h5 {
       display: none;
   }
 }
+.intro{
+  background-color: aqua;
+  font-weight:500;
+  height: 40px;
+  margin: 0;
+}

@@ -59,3 +59,52 @@ app.get("/products",cors(),async (req,res)=>{
     res.send(result)
     }
     )
+
+app.post("/cart",cors(),(req,res)=>{
+    product=req.body;
+    if(req.session.carts=null)
+    req.session.carts=[]
+    req.session.carts.push(product)
+    res.send(product)
+}
+)
+
+app.get("/cart",cors(),(req,res)=>{
+    res.send(req.session.carts)
+}
+)
+
+app.get("cart/:id",cors(),(req,res)=>{
+    if(req.session.carts=null){
+        p=req.session.carts.find(x=>x.barcode==req.body.barcode)
+        res.send(p)
+    }
+    else
+        res.send(null)
+}
+)
+
+app.delete("cart/:id",cors(),(req,res)=>{
+    if(req.session.carts=null){
+        id=req.params['id']
+        req.session.carts=req.session.carts.filter(x=>x.barcode!=id)
+    }
+    res.send(req.session.carts)
+}
+)
+
+app.put("cart/:id",cors(),(req,res)=>{
+    if(req.session.carts=null){
+        p=req.session.carts.find(x=>x.barcode==req.body.barcode)
+        if(p!=null){
+            p.quantity=req.body.quantity
+        }
+        req.send(req.session.carts)
+    }
+}
+)
+app.get("/products",cors(),async (req,res)=>{ 
+    const result = await productCollection.find({}).toArray();
+    res.send(result)
+    }
+)

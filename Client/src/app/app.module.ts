@@ -23,6 +23,7 @@ import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +43,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
     LoginComponent,
     RegisterComponent,
     ProductDetailComponent,
+    BlogDetailComponent,
   ],
   imports: [
     BrowserModule,

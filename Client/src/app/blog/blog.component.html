@@ -1,162 +1,57 @@
-<body>
-
-      <div class="banner">
-          <img src="../assets/img/blog.png" usemap="#readnow">
-      </div>
-      <div class="blogs">
-          <div class="baivietnoibat">
-              <h2>Bài viết nổi bật</h2>
-              <hr>
-              <div class="baiviet-item">
-                  <div class="baiviet-img">
-                      <img src="../assets/img/blog1.jpg" alt="">
-                  </div>
-                  <div class="baiviet-mota">
-                      <div class="baiviet-tieude">
-                          <a href="./blogdetail.html"><b>Ăn đồ ngọt thế nào cho tốt ?</b></a>
-                      </div>
-                      <div class="baiviet-ngaydang">
-                          <p>Ngày đăng: 20.11.2022</p>
-                      </div>
-                      <div class="baiviet-tacgia">
-                          <p>Người viết: Đỗ Văn Dương</p>
-                      </div>
-                  </div>
+<div class="banner">
+  <img src="../assets/img/blog.png" usemap="#readnow">
+</div>
+<div class="blogs">
+  <div class="baivietnoibat">
+      <h2>Bài viết nổi bật</h2>
+      <hr>
+      <div *ngFor="let o of outstandingList" class="baiviet-item">
+          <div class="baiviet-img">
+              <img src="../assets/img/blog1.jpg" alt="">
+          </div>
+          <div class="baiviet-mota">
+              <div class="baiviet-tieude">
+                  <a href="./blogdetail.html"><b>{{o.Title}}</b></a>
               </div>
-              <div class="baiviet-item">
-                  <div class="baiviet-img">
-                      <img src="../assets/img/blog2.jpg" alt="">
-                  </div>
-                  <div class="baiviet-mota">
-                      <div class="baiviet-tieude">
-                          <a href="./blogdetail.html"><b>Quyết tâm làm "nghệ sĩ" bánh ngọt</b></a>
-                      </div>
-                      <div class="baiviet-ngaydang">
-                          <p>Ngày đăng: 05.11.2022</p>
-                      </div>
-                      <div class="baiviet-tacgia">
-                          <p>Người viết: Mai Trần Đan Nhi</p>
-                      </div>
-                  </div>
+              <div class="baiviet-ngaydang">
+                  <p>Ngày đăng:{{convertDate(o.CreateDate)}}</p>
               </div>
-              <div class="baiviet-item">
-                  <div class="baiviet-img">
-                      <img src="../assets/img/blog3.jpg" alt="">
-                  </div>
-                  <div class="baiviet-mota">
-                      <div class="baiviet-tieude">
-                          <a href="./blogdetail.html"><b>Những món bánh ngọt nổi tiếng trên thế giới</b></a>
-                      </div>
-                      <div class="baiviet-ngaydang">
-                          <p>Ngày đăng: 03.11.2022</p>
-                      </div>
-                      <div class="baiviet-tacgia">
-                          <p>Người viết: Trần Thị Thuận</p>
-                      </div>
-                  </div>
+              <div class="baiviet-tacgia">
+                  <p>Người viết: {{o.Writer}}</p>
               </div>
           </div>
-          <div class="tintuc">
-              <h1>Tin tức</h1>
-              <div class="tintuc-item">
-                  <div class="tintuc-img">
-                      <img src="../assets/img/blog5.jpg" alt="">
-                  </div>
-                  <div class="tintuc-mota">
-                      <div class="tintuc-tieude">
-                          <a href="./blogdetail.html"><b>"Bánh ngụy trang" - trào lưu mạng xã hội</b></a>
-                      </div>
-                      <div class="tintuc-nguoiviet">
-                          <p><i>Người viết: Văn Dương / 20.11.2022</i></p>
-                      </div>
-                      <div class="tintuc-mieuta">
-                          <p>Mạng xã hội là nơi mà thứ gì cũng có thể thành trào lưu, là nguồn cảm hứng bất tận cho ảnh chế (meme). Việc người dân ở nhiều nước vẫn phải tự giam mình...</p>
-
-                      </div>
-                  </div>
+      </div>
+  </div>
+  <div class="tintuc">
+      <h1>Tin tức</h1>
+      <div *ngFor="let blog of blogsList" class="tintuc-item">
+          <div class="tintuc-img">
+              <img src="/assets/img/blog5.jpg" alt="">
+          </div>
+          <div class="tintuc-mota">
+              <div class="tintuc-tieude">
+                  <a [routerLink]="['/blog', blog._id]"><b>{{blog.Title}}</b></a>
               </div>
-              <div class="tintuc-item">
-                  <div class="tintuc-img">
-                      <img src="../assets/img/blog4.jpg" alt="">
-                  </div>
-                  <div class="tintuc-mota">
-                      <div class="tintuc-tieude">
-                          <a href="./blogdetail.html"><b>Đại tiệc sô-cô-la tại Hà Nội</b></a>
-                      </div>
-                      <div class="tintuc-nguoiviet">
-                          <p><i>Người viết: Thuỳ Dung / 18.11.2022</i></p>
-                      </div>
-                      <div class="tintuc-mieuta">
-                          <p>Có một sản phẩm thơm ngon, quyến rũ, làm say lòng người … Hãy cảm nhận từ từ sự tan chảy của nó khi cho vào miệng, vị thơm của cacao, vị đăng đắng thú vị hòa quyện với vị ngọt ngào quyến rũ, … Điều bí ẩn… nằm trong viên sô-cô- la.</p>
-                      </div>
-                  </div>
+              <div class="tintuc-nguoiviet">
+                  <p><i>Người viết: {{blog.Writer}} - {{convertDate(blog.CreateDate)}}</i></p>
               </div>
-
-              <div class="tintuc-item">
-                  <div class="tintuc-img">
-                      <img src="../assets/img/blog2.jpg" alt="">
-                  </div>
-                  <div class="tintuc-mota">
-                      <div class="tintuc-tieude">
-                          <a href="./blogdetail.html"><b>Quyết tâm làm "nghệ sĩ" bánh ngọt</b></a>
-                      </div>
-                      <div class="tintuc-nguoiviet">
-                          <p><i>Người viết: Đan Nhi / 05.11.2022</i></p>
-                      </div>
-                      <div class="tintuc-mieuta">
-                          <p>Có một sản phẩm thơm ngon, quyến rũ, làm say lòng người … Hãy cảm nhận từ từ sự tan chảy của nó khi cho vào miệng, vị thơm của cacao, vị đăng đắng thú vị hòa quyện với vị ngọt ngào quyến rũ, … Điều bí ẩn… nằm trong viên sô-cô- la.</p>
-                      </div>
-                  </div>
+              <div class="tintuc-mieuta">
+                  <p class="trundicate">{{blog.Content}}</p>
               </div>
-
-              <div class="tintuc-item">
-                  <div class="tintuc-img">
-                      <img src="../assets/img/blog3.jpg" alt="">
-                  </div>
-                  <div class="tintuc-mota">
-                      <div class="tintuc-tieude">
-                          <a href="./blogdetail.html"><b>Những món bánh ngọt nổi tiếng trên thế giới</b></a>
-                      </div>
-                      <div class="tintuc-nguoiviet">
-                          <p><i>Người viết: Thị Thuận / 03.11.2022</i></p>
-                      </div>
-                      <div class="tintuc-mieuta">
-                          <p>Hãy cảm nhận từ từ sự tan chảy của nó khi cho vào miệng, vị thơm của cacao, vị đăng đắng thú vị hòa quyện với vị ngọt ngào quyến rũ, … Điều bí ẩn… nằm trong viên sô-cô- la.</p>
-                      </div>
-                  </div>
-              </div>
-              <div class="tintuc-item">
-                  <div class="tintuc-img">
-                      <img src="../assets/img/blog1.jpg" alt="">
-                  </div>
-                  <div class="tintuc-mota">
-                      <div class="tintuc-tieude">
-                          <a href="./blogdetail.html"><b>Ăn đồ ngọt thế nào cho tốt ?</b></a>
-                      </div>
-                      <div class="tintuc-nguoiviet">
-                          <p><i>Người viết: Văn Dương / 01.11.2022</i></p>
-                      </div>
-                      <div class="tintuc-mieuta">
-                          <p>Có một sản phẩm thơm ngon, quyến rũ, làm say lòng người … Hãy cảm nhận từ từ sự tan chảy của nó khi cho vào miệng, vị thơm của cacao, vị đăng đắng thú vị hòa quyện với vị ngọt ngào quyến rũ, … Điều bí ẩn… nằm trong viên sô-cô- la.</p>
-                      </div>
-                  </div>
-              </div>
-              <div class="sotrang">
-                  <a href="./blog.html"><i class="fa-solid fa-chevron-left"></i></a>
-                  <a href="./blog.html">1</a>
-                  <a href="./blog.html">2</a>
-                  <a href="./blog.html">3</a>
-                  <a href="./blog.html">4</a>
-                  <a href="./blog.html">5</a>
-                  <a href="./blog.html"><i class="fa-solid fa-chevron-right"></i></a>
-              </div>
-
           </div>
       </div>
-      <figure>
-      <map name="readnow">
-          <area href="./blogdetail.html" coords="253,385,263,366,266,363,353,363,393,363,437,366,447,367,463,372,449,399,266,398,250,366" shape="poly">
-      </map>
-  </figure>
-
-</body>
+      <div class="sotrang">
+          <p (click)="paginateIcon('pre')"><i class="fa-solid fa-chevron-left"></i></p>
+          <p *ngFor="let i of totalPage; let indexOfElement=index" (click)="getList(indexOfElement + 1) "
+              [class.active]="page == indexOfElement + 1">{{indexOfElement + 1}}</p>
+          <p (click)="paginateIcon('next')"><i class="fa-solid fa-chevron-right"></i></p>
+      </div>
+  </div>
+</div>
+<figure>
+  <map name="readnow">
+      <area href="./blogdetail.html"
+          coords="253,385,263,366,266,363,353,363,393,363,437,366,447,367,463,372,449,399,266,398,250,366"
+          shape="poly">
+  </map>
+</figure>

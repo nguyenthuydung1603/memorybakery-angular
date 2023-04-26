@@ -21,6 +21,7 @@ database = client.db("Memory_Bakery");
 productCollection = database.collection("Product");
 userCollection = database.collection("User");
 orderCollection = database.collection("Order");
+const blogCollection = database.collection("Blog")
 
 
 
@@ -119,3 +120,78 @@ app.get("/products/:category", async (req, res) => {
     const result = await productCollection.find({ Category: category }).toArray();
     res.send(result);
   });
+// blog
+app.get('/blogs-sorted', cors(), async (req, res) => {
+    let perPage = 5
+    let page = req.query.page || 1
+    let totalItem = await blogCollection.count()
+
+    let blogs = await blogCollection
+        .find({}, { _id: 0 })
+        .sort({ 'CreateDate': -1 })
+        .skip((perPage * page) - perPage)
+        .limit(perPage)
+        .toArray()
+
+    const data = {
+        totalItem: totalItem,
+        data: blogs
+    }
+    res.send(data)
+})
+
+app.get('/blogs-outstanding', cors(), async (req, res) => {
+    res.send(await blogCollection.find({ Outstanding: { $ne: false } }).toArray())
+})
+
+app.get('/blog/:id', cors(), async (req, res) => {
+    const id = new ObjectId(req.params['id'])
+    res.send(await blogCollection.findOne({ _id: id }))
+})
+
+app.post('/blogs', cors(), (req, res) => {
+    try {
+        blogCollection.insertOne({
+            BlogID: null,
+            Title: req.body.title,
+            CreateDate: new Date().toISOString(),
+            Writer: req.body.writer,
+            Content: req.body.content,
+            Image: [],
+            Outstanding: req.body.outstanding
+        })
+        res.send(responseSuccess('Create', 'blog'))
+    } catch (e) {
+        res.send(responseError())
+    }
+})
+
+app.put('/blogs/:id', cors(), (req, res) => {
+    const id = new ObjectId(req.params['id'])
+    const filter = { _id: id }
+
+    blogCollection.updateOne(filter,
+        {
+            $set: {
+                BlogID: null,
+                Title: req.body.title,
+                Writer: req.body.writer,
+                Content: req.body.content,
+                Image: [],
+                Outstanding: req.body.outstanding
+            }
+        }, function (err) {
+            if (err) throw err
+        })
+    res.send(responseSuccess('Update', 'blog'))
+})
+
+app.delete('/blogs/:id', cors(), async (req, res) => {
+    const id = new ObjectId(req.params['id'])
+    const result = await blogCollection.deleteOne({ _id: id })
+    if (result.deletedCount === 1) {
+        res.send(responseSuccess('Delete', 'blog'))
+    } else {
+        res.send(responseError())
+    }
+})

@@ -140,3 +140,22 @@ hr{
   text-overflow: ellipsis;
   -webkit-line-clamp: 4;
 }
+
+.title {
+    text-align: center;
+    color: #EB7884;
+    font-weight: bold;
+}
+
+.info {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.content {
+    margin-top: 30px;
+    width: 100%;
+    text-align: left;
+    text-indent: 50px;
+    line-height: 40px;
+}

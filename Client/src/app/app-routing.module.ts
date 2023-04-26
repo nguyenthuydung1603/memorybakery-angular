@@ -15,6 +15,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 const routes: Routes = [
   {path:"",component:MainComponent},
   {path:"aboutUs",component:AboutUsComponent},
@@ -30,6 +31,7 @@ const routes: Routes = [
   {path:"myAccount",component:AccountComponent,canActivate : [AuthGuard]},
   {path:"login",component:LoginComponent},
   {path:"register",component:RegisterComponent},
+  {path:"blog/:id",component:BlogDetailComponent},
 ];
 
 @NgModule({

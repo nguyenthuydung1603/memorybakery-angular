@@ -8,7 +8,7 @@ import { Product } from '../models/Product';
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent {
-  product:Product | undefined;
+  product:any;
   errMessage:string=''
   constructor(private _service: ProductAPIService){
   }

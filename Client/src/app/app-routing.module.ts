@@ -14,12 +14,14 @@ import { AccountComponent } from './account/account.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './guards/auth.guard';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
 const routes: Routes = [
   {path:"",component:MainComponent},
   {path:"aboutUs",component:AboutUsComponent},
   {path:"contact",component:ContactComponent},
   {path:"blog",component:BlogComponent},
   {path:"listProduct",component:ListProductComponent},
+  {path:"productdetail",component:ProductDetailComponent},
   {path:"promotion",component:PromotionComponent},
   {path:"cart",component:CartComponent},
   {path:"checkout",component:CheckoutComponent},

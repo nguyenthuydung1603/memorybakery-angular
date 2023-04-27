@@ -23,4 +23,10 @@ export class ListProductComponent {
     error:(err)=>{this.errMessage=err}
     })
   }
+  getListProductByPrice(minprice: string,maxprice:string){
+    this._service.getListProductByPrice(minprice,maxprice).subscribe({
+    next:(data)=>{this.products=data},
+    error:(err)=>{this.errMessage=err}
+    })
+  }
 }

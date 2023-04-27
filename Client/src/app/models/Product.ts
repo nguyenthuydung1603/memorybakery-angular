@@ -2,7 +2,7 @@
 
 export interface IProductVariant {
   Size: string;
-  UnitPrice: string;
+  UnitPrice: number;
   PromotionPrice: string;
   Quantity: number;
 }
@@ -27,7 +27,7 @@ export class Product{
  export class ProductVariant{
   constructor(
     public Size: string="",
-    public UnitPrice: string="",
+    public UnitPrice: number=0,
     public PromotionPrice: string="",
     public Quantity: number=0,
    ){}

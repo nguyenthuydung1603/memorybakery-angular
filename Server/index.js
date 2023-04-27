@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 10;
+const port = 6868;
 const morgan=require("morgan")
 app.use(morgan("combined"))
 const bodyParser=require("body-parser")
@@ -115,10 +115,18 @@ app.get("/products/:id",cors(),async (req,res)=>{
     res.send(result[0])
     }
     )
-app.get("/products/:category", async (req, res) => {
-    const category = req.params.category;
+app.get("/products/category/:category", async (req, res) => {
+    const category = req.params["category"];
     const result = await productCollection.find({ Category: category }).toArray();
     res.send(result);
+});
+app.get("/products/price/:minprice/:maxprice", async (req, res) => {
+    const minPrice = parseFloat(req.params.minprice);
+    const maxPrice = parseFloat(req.params.maxprice);
+    const products = await productCollection.find({
+        "Variant[0].PromotionPrice": { $gte: minPrice, $lte: maxPrice },
+    }).toArray();   
+    res.send(products);
   });
 // blog
 app.get('/blogs-sorted', cors(), async (req, res) => {
@@ -195,3 +203,15 @@ app.delete('/blogs/:id', cors(), async (req, res) => {
         res.send(responseError())
     }
 })
+
+function responseSuccess(action = 'your action', type = '') {
+    return {
+        "message": `${action} ${type} successful`
+    }
+}
+
+function responseError(action, type) {
+    return {
+        "message": `Something went wrong! Please check again`
+    }
+}

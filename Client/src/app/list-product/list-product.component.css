@@ -61,12 +61,16 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   width: 1100px;
 }
+.hot-product {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
 .product{
   background-color: #f0d9d8;
   text-align: center;
   border-radius: 10px;
-  margin: 30px;
-  display: inline-block;
+  margin: 12px 0;
   padding: 5px;
   height: 380px;
   width: 260px;
@@ -485,3 +489,10 @@ h5 {
 }
 
 
+.old-price{
+  color: #887e7d;
+  text-decoration: line-through;
+}
+.new-price{
+  color: red;
+}

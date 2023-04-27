@@ -11,7 +11,7 @@
           </div>
           <div class="baiviet-mota">
               <div class="baiviet-tieude">
-                  <a href="./blogdetail.html"><b>{{o.Title}}</b></a>
+                  <a [routerLink]="['/blog', o._id]"><b>{{o.Title}}</b></a>
               </div>
               <div class="baiviet-ngaydang">
                   <p>Ngày đăng:{{convertDate(o.CreateDate)}}</p>

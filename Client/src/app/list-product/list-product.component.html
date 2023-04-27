@@ -11,17 +11,17 @@
                 <span class="now"> <a href="./listProduct" ><li>Tất cả</li></a></span>
                 <a class="type_category" (click)="getListProductByCategory('Bánh kem')"><li>Bánh kem</li></a>
                 <a class="type_category" (click)="getListProductByCategory('Cupcakes')"><li>Cupcakes</li></a>
-                <a class="type_category" (click)="getListProductByCategory('Banh quy')"><li>Bánh quy</li></a>
+                <a class="type_category" (click)="getListProductByCategory('Bánh quy')"><li>Bánh quy</li></a>
                 <a class="type_category" (click)="getListProductByCategory('Donuts')"><li>Donuts</li></a>
-                <a class="type_category" (click)="getListProductByCategory('Banh mi')"><li>Bánh mì</li></a>
+                <a class="type_category" (click)="getListProductByCategory('Bánh mì')"><li>Bánh mì</li></a>
               </ul>
               <p class="title">Khoảng giá</p>
               <hr>
               <p>Từ</p>
-              <input id="price-from" type="text">
+              <input #minprice type="text">
               <p> Đến</p>
-              <input id="price-to" type="text">
-              <button class="search-price">Tìm kiếm</button>
+              <input #maxprice type="text">
+              <button (click)="getListProductByPrice(minprice.value,maxprice.value)" class="search-price">Tìm kiếm</button>
               <p class="title">Đánh giá</p>
               <hr>
               <a class="star-product" href="#"> <div><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div></a>
@@ -33,18 +33,18 @@
           <div id="products">
             <section class="hot-products">
               <div class="swiper mySwiper hot-product">
-                <div class="swiper-wrapper products" *ngFor="let product of products">
+                <div class=" products" *ngFor="let product of products">
                   <div class="swiper-slide product">
                     <div class="img-product">
-                      <a href="#"><img src="{{product.Img[0]}}"></a>
+                      <a href="#"><img style="height: 200px " src="{{product.Img[0]}}"></a>
                       <div class="cart-love">
                         <a href=""> <i class="fa-solid fa-cart-shopping"></i></a> <a href="#"> <i class="fa-solid fa-heart"></i></a>
                      </div>
                     </div>
                     <p class="name">{{product.Name}}</p>
                     <p class="price">
-                      <span class="old-price">{{product.Variant[0].UnitPrice}} VND</span>
-                      <span class="new-price">{{product.Variant[0].PromotionPrice}} VND</span>
+                      <span class="old-price">{{product.Variant[0].UnitPrice}}VND </span>
+                      <span class="new-price">{{product.Variant[0].PromotionPrice}}VND</span>
                   </p>
                   <div><span class="star"> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> </span><span>530</span></div>
                   </div>

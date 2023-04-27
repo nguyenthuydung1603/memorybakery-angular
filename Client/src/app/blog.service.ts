@@ -7,7 +7,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
   providedIn: 'root'
 })
 export class BlogService {
-  API_URL: string = 'http://localhost:10'
+  API_URL: string = 'http://localhost:6868'
 
   headers = new HttpHeaders().set('Content-Type', 'text/plain;charset=utf-8')
   requestOptions: Object = {

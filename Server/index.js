@@ -124,7 +124,7 @@ app.get("/products/price/:minprice/:maxprice", async (req, res) => {
     const minPrice = parseFloat(req.params.minprice);
     const maxPrice = parseFloat(req.params.maxprice);
     const products = await productCollection.find({
-        "Variant[0].PromotionPrice": { $gte: minPrice, $lte: maxPrice },
+        "Variant.0.PromotionPrice" : { $gte: minPrice, $lte: maxPrice },
     }).toArray();   
     res.send(products);
   });

@@ -7,7 +7,7 @@ export interface IProductVariant {
   Quantity: number;
 }
  export interface IProduct {
-  id:number ;
+
   Name: string;
   Variant: IProductVariant[];
   Description: string;
@@ -16,8 +16,6 @@ export interface IProductVariant {
 }
 export class Product{
   constructor(
-    public _id=null,
-   public id: number=0,
    public Name: string="",
    public Variant: IProductVariant[],
    public Img: string[],

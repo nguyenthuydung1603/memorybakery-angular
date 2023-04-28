@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IProduct } from '../models/Product';
+import { IProduct, Product } from '../models/Product';
 import { ProductAPIService } from '../product-api.service';
+import { CartService } from '../cart.service';
 @Component({
   selector: 'app-list-product',
   templateUrl: './list-product.component.html',
@@ -9,9 +10,10 @@ import { ProductAPIService } from '../product-api.service';
 export class ListProductComponent {
   product:IProduct[] =[] ;
   products: any;
+  cart= new Product('',[],[],'');
   Category:any;
   errMessage:string=''
-  constructor(public _service: ProductAPIService){
+  constructor(public _service: ProductAPIService,public _cart: CartService){
   this._service.getProducts().subscribe({
   next:(data: IProduct[])=>{this.products=data},
   error:(err)=>{this.errMessage=err}
@@ -29,4 +31,12 @@ export class ListProductComponent {
     error:(err)=>{this.errMessage=err}
     })
   }
+  postCart()
+  {
+  this._cart.postCart(this.products).subscribe({
+  next:(data)=>{this.product=data},
+  error:(err)=>{this.errMessage=err}
+  })
+  alert("Bạn đã thêm sản phẩm thành công");
+}
 }

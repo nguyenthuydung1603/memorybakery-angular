@@ -1,1 +1,112 @@
-<p>product-detail works!</p>
+<div class="body">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-4 left-container">
+                <div class="img-display">
+                    <div class="img-showcase">
+                        <img src="{{product.Img[0]}}" alt="Không tìm thấy ảnh">
+                        <img src="{{product.Img[1]}}" alt="Không tìm thấy ảnh">
+                        <img src="{{product.Img[2]}}" alt="Không tìm thấy ảnh">
+                        <img src="{{product.Img[3]}}" alt="Không tìm thấy ảnh">
+                    </div>
+                </div>
+                <div class="img-select">
+                    <div class="img-item">
+                        <a href="#" data-id="1">
+                            <img src="{{product.Img[0]}}" alt="Không tìm thấy ảnh">
+                        </a>
+                    </div>
+                    <div class="img-item">
+                        <a href="#" data-id="2">
+                            <img src="{{product.Img[1]}}" alt="Không tìm thấy ảnh">
+                        </a>
+                    </div>
+                    <div class="img-item">
+                        <a href="#" data-id="3">
+                            <img src="{{product.Img[2]}}" alt="Không tìm thấy ảnh">
+                        </a>
+                    </div>
+                    <div class="img-item">
+                        <a href="#" data-id="4">
+                            <img src="{{product.Img[3]}}" alt="Không tìm thấy ảnh">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8 right-container">
+                <div class="container text-center">
+                    <div class="row">
+                        <div class="col title">
+                            {{product.Name}}
+                        </div>
+                    </div>
+                    <!-- Đánh sao -->
+                    <div class="row" style="text-align: left;">
+                        <div><span class="star star2"> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></span>
+                            <span>530</span>               
+                        </div> 
+                    </div>
+                    <div class="row">
+                        <p class="price left">
+                            <span class="old-price">{{product.Variant[0].UnitPrice}}VND</span>
+                            <span class="new-price">{{product.Variant[0].PromotionPrice}}VND</span>
+                        </p>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 left sub_title">
+                            Mô tả sản phẩm
+                        </div>
+                    </div>  
+                    <div class="row">
+                        <div class="col-12 left description">{{product.Description}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="quantity">
+                            <div class="sub_title">Số lượng</div>
+                            <div class="quantity-box">
+                                <button class="quantity-decrease" id="decrease" onclick="decreaseValue1(quantity1.value)">-</button>
+                                <input type="text" value="1" class="quantity-input" id="quantity1">
+                                <button class="quantity-increase" id="increase" onclick="increaseValue1(quantity1.value)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary input" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Thêm vào giỏ hàng
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Thành công</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Bạn đã thêm vào giỏ hàng thành công!
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary input" data-bs-dismiss="modal" style="background-color: gray;">Đóng</button>
+                                            <a href="./cart">
+                                                <button type="button" class="btn btn-primary input">Đi đến giỏ hàng</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <a href="./cart">
+                                <button type="button" class="btn btn-primary input">Mua ngay</button>                                                    
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

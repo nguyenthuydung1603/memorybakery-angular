@@ -1,0 +1,224 @@
+/* Khai báo biến màu */
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+@import url('https://fonts.googleapis.com/css?family=Inter:400,800');
+:root {
+    --primary_color: #E75C6B;
+    --color_button: #F38A95;
+    --background-color: #F9F2F2;
+    --button: #F38A95;
+    --button_hover: #81C6E8;
+}
+
+/* Thanh điều hướng */
+.navigation {
+    margin-left: 0 !important;
+    width: auto;
+    height: 35px;
+    background-color: var(--background-color);
+}
+
+ol {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    line-height: 35px;
+    margin-left: 10px;
+}
+ol li {
+    margin-left: 10px;
+    font-size: 14px ;
+}
+
+/*  */
+.left {
+    text-align: justify;
+    font-family: 'Inter', sans-serif;
+    font-size: 19px;
+
+}
+.right {
+    text-align: right;
+}
+/*  */
+
+.container_main {
+    display: flex;
+    flex-direction: column;
+}
+
+.body {
+    margin: auto !important ;
+    margin-top: 0 !important;
+}
+/* Chi tiết sản phẩm */
+
+/* CSS cho tất cả IMG */
+.left-container img {
+    width: 60%;
+    display: block;
+}
+/* Nếu chiều cao của box img không đủ chứa thì ẩn đi */
+.img-display {
+    overflow: hidden;
+}
+.img-showcase {
+    display: flex;
+    width: 100%;
+    transition: all 0.5s ease;
+    /* Chưa thấy gì xảy ra */
+}
+.img-showcase img {
+    min-width: 100%; /*cho hiện 1 hình lớn 1 lần*/
+}
+.img-select {
+    display: flex;
+}
+.img-item {
+    margin: 3px;
+    margin-right: 0;
+}
+.img-item:hover{
+    opacity: 0.8;
+    /* Khi hover vô thì có độ mờ mờ */
+}
+
+/* Right */
+/* Mô tả */
+.title {
+    text-align: left;
+    font-size: 40px;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--primary_color)
+}
+
+:root {
+    --height: 35px;
+}
+.price {
+    font-family: 'Inter', sans-serif;
+}
+
+.old-price{
+    color: #887e7d;
+    text-decoration: line-through;
+    font-size: 22px;
+}
+.new-price{
+    color: red;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.sub_title {
+    font-weight: bold;
+    font-size: 26px;
+    font-family: 'Montserrat', sans-serif;
+
+}
+.description {
+    font-size: 20px;
+    line-height: 1.7;
+    text-align: justify;
+    font-family: 'Inter', sans-serif;
+}
+.quantity {
+    display: flex;
+}
+.quantity-box {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-left: 30px;
+}
+
+.quantity-box button,
+.quantity-box input {
+    height: 35px;
+    width: 35px;
+    border: none;
+    outline: none;
+    text-align: center;
+    font-weight: bold;
+    background-color: #f1f1f1;
+    color: #333333;
+    font-size: 16px;
+    padding: 0;
+}
+
+.quantity-decrease {
+    border-radius: 50% 0 0 50%;
+    cursor: pointer;
+}
+
+.quantity-increase {
+    border-radius: 0 50% 50% 0;
+    cursor: pointer;
+}
+.row {
+    margin: 5px;
+}
+
+.input {
+    background-color: var(--primary_color);
+    color: white;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    vertical-align: middle;
+    margin: 15px;
+    font-size: 22px;
+
+}
+
+.input:hover {
+    background-color: var(--button_hover);
+    color: black;
+}
+.add {
+    width: 250px;
+}
+
+.button {
+    display: flex;
+}
+
+.buy_now {
+    width: 200px;
+}
+
+.star{
+    color: yellow;
+
+}
+.star2 {
+    font-size: 22px;
+}
+
+
+/* Bình luận */
+
+.review {
+    margin: auto !important;
+    margin-top: 10px !important;
+
+}
+
+.star1 {
+    margin-left: 10px;
+}
+
+.col-1 img {
+    width:80px;
+    height:80px;
+    border-radius: 50px;
+}
+
+.review_button {
+    width: 80%;
+    margin: auto;
+    margin-bottom: 10px;
+}

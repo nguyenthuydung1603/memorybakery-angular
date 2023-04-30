@@ -17,7 +17,7 @@ postCart(aProduct:any):Observable<any>
   responseType:"text"
   }
   return this._http.post<any>("/cart",JSON.stringify(aProduct),requestOptions).pipe(
-  map(res=>JSON.parse(res) as Array<Product>),
+  map(res=>JSON.parse(res)),
   retry(3),
   catchError(this.handleError))
   }
@@ -32,7 +32,7 @@ postCart(aProduct:any):Observable<any>
   responseType:"text"
   }
   return this._http.get<any>("/cart",requestOptions).pipe(
-  map(res=>JSON.parse(res) as Array<Product>),
+  map(res=>JSON.parse(res)),
   retry(3),
   catchError(this.handleError))
   }

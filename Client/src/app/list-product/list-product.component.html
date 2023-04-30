@@ -36,9 +36,9 @@
                 <div class=" products" *ngFor="let product of products">
                   <div class=" product">
                     <div class="img-product">
-                      <a href="#"><img style="height: 200px " src="{{product.Img[0]}}"></a>
+                      <a href="./detail/{{product._id}}"><img style="height: 200px " src="{{product.Img[0]}}"></a>
                       <div class="cart-love">
-                        <a href="" (click)="postCart()"> <i class="fa-solid fa-cart-shopping"></i></a> <a href="#"> <i class="fa-solid fa-heart"></i></a>
+                        <a (click)="postCart()"> <i class="fa-solid fa-cart-shopping"></i></a> <a href="#"> <i class="fa-solid fa-heart"></i></a>
                      </div>
                     </div>
                     <p class="name">{{product.Name}}</p>

@@ -26,6 +26,20 @@
           "secure": true,
           "changeOrigin":true,
           "logLevel":"debug"
+          },
+          {
+            "context": ["/myList"],
+            "target": "http://localhost:6868",
+            "secure": true,
+            "changeOrigin":true,
+            "logLevel":"debug"
+          },
+          {
+            "context": ["/order-status"],
+            "target": "http://localhost:6868",
+            "secure": true,
+            "changeOrigin":true,
+            "logLevel":"debug"
           }
 ]
 

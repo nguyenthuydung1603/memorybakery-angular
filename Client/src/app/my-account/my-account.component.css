@@ -1,26 +1,53 @@
+
 *{
   margin: 0;
   padding: 0;
 }
-.body{
-  display: flex;
-  margin-top: 20px;
+.container {
+  display: flex; /* Set display property to flex */
+  flex-direction: row; /* Set direction of the flex to row */
+  height: 100%; /* Set height to 100% to fill the whole screen */
+  margin: 20px 0 0 10px;
+  max-width: 100%;
 }
 
+.left-side {
+  flex-basis: 30%; /* Set the initial size of the left side to 30% */
+}
 
-.account_nav{
+.right-side {
+  flex: 1; /* Set the right side to take up the remaining space */
+  background-color: #fff; /* Set background color of right side */
+}
+.link-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+.link-btn:hover {
+  color: #81C6E8
+}
+.link-btn.active {
+  color: #E75C6B;
+}
+
+#nav-profile5.color >button {
+  color: red;
+}
+.left-side{
   border: 2px solid #E75C6B;
   border-radius: 50px;
   height: fit-content;
   width: 570px;
 }
-.account_nav .nav{
+.left-side .nav{
   font-size: 22px;
 }
-.account_nav .nav #sub_nav{
-  display: none;
+.body{
+  display: flex;
+  margin-top: 20px;
 }
-
 .profile{
   display: flex;
   padding: 20px;
@@ -37,41 +64,18 @@
 i{
   color: #E75C6B;
 }
+ol, ul {
+  padding-left: 2rem;
+}
 
-.right{
+.nav {
+  font-size: 22px;
+}
+
+.right-side{
   width: 100%;
   padding: 0 20px;
   height: 150vh;
-}
-
-.account_nav .nav #sub_nav.activate{
-  display: block
-}
-
-#nav-profile1.color a{
-  color: var(--primary_color);
-}
-#nav-profile2.color a{
-  color: var(--primary_color);
-}
-#nav-profile3.color a{
-  color: var(--primary_color);
-}
-#nav-profile4.color a{
-  color: var(--primary_color);
-}
-#nav-profile5.color >a{
-  color: var(--primary_color);
-}
-
-#sub-nav_profile1.color a{
-  color: var(--hover_color);
-}
-#sub-nav_profile2.color a{
-  color: var(--hover_color);
-}
-#sub-nav_profile3.color a{
-  color: var(--hover_color);
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
@@ -352,3 +356,4 @@ ul{
 .nav>li:hover>a{
   color: var(--hover_color);
 }
+

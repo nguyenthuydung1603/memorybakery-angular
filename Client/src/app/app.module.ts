@@ -16,7 +16,6 @@ import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { PaymentPolicyComponent } from './payment-policy/payment-policy.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
-import { AccountComponent } from './account/account.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
@@ -24,6 +23,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { BlogDetailComponent } from './blog-detail/blog-detail.component';
+import { MyAccountComponent } from './my-account/my-account.component';
+import { MyProfileComponent } from './my-account/my-profile/my-profile.component';
+import { MyPassWordComponent } from './my-account/my-pass-word/my-pass-word.component';
+import { MyAddressComponent } from './my-account/my-address/my-address.component';
+import { MyOrderComponent } from './my-account/my-order/my-order.component';
+import { MyEditProfileComponent } from './my-account/my-edit-profile/my-edit-profile.component';
+import { MyVoucherComponent } from './my-account/my-voucher/my-voucher.component';
+import { MyProductComponent } from './my-account/my-product/my-product.component';
+import { MyReviewComponent } from './my-account/my-review/my-review.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,11 +47,19 @@ import { BlogDetailComponent } from './blog-detail/blog-detail.component';
     CheckoutComponent,
     PaymentPolicyComponent,
     PrivacyPolicyComponent,
-    AccountComponent,
     LoginComponent,
     RegisterComponent,
     ProductDetailComponent,
     BlogDetailComponent,
+    MyAccountComponent,
+    MyProfileComponent,
+    MyPassWordComponent,
+    MyAddressComponent,
+    MyOrderComponent,
+    MyEditProfileComponent,
+    MyVoucherComponent,
+    MyProductComponent,
+    MyReviewComponent,
   ],
   imports: [
     BrowserModule,

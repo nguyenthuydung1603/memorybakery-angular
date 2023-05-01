@@ -1,0 +1,239 @@
+<div class="title">Đơn hàng của tôi</div>
+<div class="container text-center main">
+  <div class="row" >
+    <div class="col">
+      <button (click)="filterOrders('Tất cả')" [ngClass]="{'btn-primary red': selectedStatus === 'Tất cả'}">Tất cả</button>
+    </div>
+    <div class="col" *ngFor="let option of statusOptions">
+      <button (click)="filterOrders(option)" [ngClass]="{'btn-primary red': selectedStatus === option}" >
+        {{ option }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="shadow-sm p-3 mb-5 bg-body rounded">
+  <!-- Tất cả đơn hàng -->
+  <div *ngIf="selectedStatus === 'Tất cả'">
+    <div class="main1">
+      <div class="content" *ngFor="let order of orders">
+        <div class="title_info">
+          <div class="title">{{ formatOrderId(order._id) }}</div>
+          <div class="status">
+            <ng-container *ngIf="order.OrderStatus === 'Chờ xác nhận'">
+              <img src="/assets/img_account/waiting.png" alt="">
+            </ng-container>
+            <ng-container *ngIf="order.OrderStatus === 'Đang giao'">
+              <img src="/assets/img_account/delivering.png" alt="">
+            </ng-container>
+            <ng-container *ngIf="order.OrderStatus === 'Đã giao'">
+              <img src="/assets/img_account/shipped.png" alt="">
+            </ng-container>
+            <ng-container *ngIf="order.OrderStatus === 'Đã huỷ'">
+              <img src="/assets/img_account/delivery-cancelled.png" alt="">
+            </ng-container>
+            {{order.OrderStatus}}
+          </div>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col-1">STT</th>
+              <th scope="col-4">Sản phẩm</th>
+              <th scope="col-3" style="text-align: center;">Đơn giá</th>
+              <th scope="col-2">Số lượng</th>
+              <th scope="col-1">Thành tiền</th>
+            </tr>
+          </thead>
+
+          <tbody >
+            <tr *ngFor="let detail of order.Details; let i = index">
+              <th scope="row">{{ i+1 }}</th>
+                  <td>{{ detail.ProductName }}</td>
+                  <td style="text-align: center">{{ detail.Quantity }}</td>
+                  <td>{{ detail.UnitPrice | currency:'VND' }}</td>
+                  <td>{{ detail.LineTotal| currency:'VND' }}</td>
+            </tr>
+            <tr>
+              <td colspan="1">
+                <div class="button">
+                  <button [disabled]="order.OrderStatus === 'Đã huỷ'" class="btn btn-primary" >
+                      {{ getButtonLabel(order) }}
+                  </button>
+                </div>
+              </td>
+              <td colspan="3" class="info right">Tổng số tiền: </td>
+              <td colspan="1" class="info">{{order.SubTotal | currency:'VND'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- Chờ xác nhận -->
+  <div *ngIf="selectedStatus === 'Chờ xác nhận'">
+    <div class="main1">
+      <div class="content" *ngFor="let order of filteredOrders">
+        <div class="title_info">
+          <div class="title">{{ formatOrderId(order._id) }}</div>
+          <div class="status"> <img src="/assets/img_account/waiting.png" alt=""> {{order.OrderStatus}}</div>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col-1">STT</th>
+              <th scope="col-4">Sản phẩm</th>
+              <th scope="col-3" style="text-align: center;">Đơn giá</th>
+              <th scope="col-2">Số lượng</th>
+              <th scope="col-1">Thành tiền</th>
+            </tr>
+          </thead>
+
+          <tbody >
+            <tr *ngFor="let detail of order.Details; let i = index">
+              <th scope="row">{{ i+1 }}</th>
+                  <td>{{ detail.ProductName }}</td>
+                  <td style="text-align: center">{{ detail.Quantity }}</td>
+                  <td>{{ detail.UnitPrice | currency:'VND' }}</td>
+                  <td>{{ detail.LineTotal| currency:'VND' }}</td>
+            </tr>
+            <tr>
+              <div class="button">
+                    <button [disabled]="order.OrderStatus === 'Đã huỷ'" class="btn btn-primary" >
+                      {{ getButtonLabel(order) }}
+                    </button>
+                  </div>
+              <td colspan="3" class="info right">Tổng số tiền: </td>
+              <td colspan="1" class="info price">{{order.SubTotal | currency:'VND'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- Đang giao hàng -->
+   <div *ngIf="selectedStatus === 'Đang giao'">
+    <div class="main1">
+      <div class="content" *ngFor="let order of filteredOrders">
+        <div class="title_info">
+          <div class="title">{{ formatOrderId(order._id) }}</div>
+          <div class="status"><img src="/assets/img_account/delivering.png" alt=""> {{order.OrderStatus}}</div>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col-1">STT</th>
+              <th scope="col-4">Sản phẩm</th>
+              <th scope="col-3" style="text-align: center;">Đơn giá</th>
+              <th scope="col-2">Số lượng</th>
+              <th scope="col-1">Thành tiền</th>
+            </tr>
+          </thead>
+
+          <tbody >
+            <tr *ngFor="let detail of order.Details; let i = index">
+              <th scope="row">{{ i+1 }}</th>
+                  <td>{{ detail.ProductName }}</td>
+                  <td style="text-align: center">{{ detail.Quantity }}</td>
+                  <td>{{ detail.UnitPrice | currency:'VND' }}</td>
+                  <td>{{ detail.LineTotal| currency:'VND' }}</td>
+            </tr>
+            <tr>
+              <div class="button">
+                    <button [disabled]="order.OrderStatus === 'Đã huỷ'" class="btn btn-primary" >
+                      {{ getButtonLabel(order) }}
+                    </button>
+                  </div>
+              <td colspan="3" class="info right">Tổng số tiền: </td>
+              <td colspan="1" class="info">{{order.SubTotal | currency:'VND'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+ <!-- Đã giao-->
+  <div *ngIf="selectedStatus === 'Đã giao'">
+  <div class="main1">
+    <div class="content" *ngFor="let order of filteredOrders">
+      <div class="title_info">
+        <div class="title">{{ formatOrderId(order._id) }}</div>
+        <div class="status"><img src="/assets/img_account/shipped.png" alt=""> {{order.OrderStatus}}</div>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col-1">STT</th>
+            <th scope="col-4">Sản phẩm</th>
+            <th scope="col-3" style="text-align: center;">Đơn giá</th>
+            <th scope="col-2">Số lượng</th>
+            <th scope="col-1">Thành tiền</th>
+          </tr>
+        </thead>
+
+        <tbody >
+          <tr *ngFor="let detail of order.Details; let i = index">
+            <th scope="row">{{ i+1 }}</th>
+                <td>{{ detail.ProductName }}</td>
+                <td style="text-align: center">{{ detail.Quantity }}</td>
+                <td>{{ detail.UnitPrice | currency:'VND' }}</td>
+                <td>{{ detail.LineTotal| currency:'VND' }}</td>
+          </tr>
+          <tr>
+            <div class="button">
+                  <button [disabled]="order.OrderStatus === 'Đã huỷ'" class="btn btn-primary" >
+                    {{ getButtonLabel(order) }}
+                  </button>
+                </div>
+            <td colspan="3" class="info right">Tổng số tiền: </td>
+            <td colspan="1" class="info">{{order.SubTotal | currency:'VND'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  </div>
+  <!-- Đã huỷ-->
+  <div *ngIf="selectedStatus === 'Đã huỷ'">
+    <div class="main1">
+      <div class="content" *ngFor="let order of filteredOrders">
+        <div class="title_info">
+          <div class="title">{{ formatOrderId(order._id) }}</div>
+          <div class="status"><img src="/assets/img_account/delivery-cancelled.png" alt=""> {{order.OrderStatus}}</div>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col-1">STT</th>
+              <th scope="col-4">Sản phẩm</th>
+              <th scope="col-3" style="text-align: center;">Đơn giá</th>
+              <th scope="col-2">Số lượng</th>
+              <th scope="col-1">Thành tiền</th>
+            </tr>
+          </thead>
+
+          <tbody >
+            <tr *ngFor="let detail of order.Details; let i = index">
+              <th scope="row">{{ i+1 }}</th>
+                  <td>{{ detail.ProductName }}</td>
+                  <td style="text-align: center">{{ detail.Quantity }}</td>
+                  <td>{{ detail.UnitPrice | currency:'VND' }}</td>
+                  <td>{{ detail.LineTotal| currency:'VND' }}</td>
+            </tr>
+            <tr>
+              <div class="button">
+                    <button [disabled]="order.OrderStatus === 'Đã huỷ'" class="btn btn-primary" >
+                      {{ getButtonLabel(order) }}
+                    </button>
+                  </div>
+              <td colspan="3" class="info right">Tổng số tiền: </td>
+              <td colspan="1" class="info">{{order.SubTotal | currency:'VND'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+</div>

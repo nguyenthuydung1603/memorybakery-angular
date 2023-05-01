@@ -10,12 +10,12 @@ import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { PaymentPolicyComponent } from './payment-policy/payment-policy.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
-import { AccountComponent } from './account/account.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { BlogDetailComponent } from './blog-detail/blog-detail.component';
+import { MyAccountComponent } from './my-account/my-account.component';
 const routes: Routes = [
   {path:"",component:MainComponent},
   {path:"aboutUs",component:AboutUsComponent},
@@ -28,7 +28,7 @@ const routes: Routes = [
   {path:"checkout",component:CheckoutComponent},
   {path:"paymentPolicy",component:PaymentPolicyComponent  },
   {path:"privacyPolicy",component:PrivacyPolicyComponent},
-  {path:"myAccount",component:AccountComponent,canActivate : [AuthGuard]},
+  {path:"myAccount",component:MyAccountComponent,canActivate : [AuthGuard]},
   {path:"login",component:LoginComponent},
   {path:"register",component:RegisterComponent},
   {path:"blog/:id",component:BlogDetailComponent},

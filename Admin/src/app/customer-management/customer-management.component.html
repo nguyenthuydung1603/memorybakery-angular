@@ -1,17 +1,7 @@
-<p>customer-management works!</p>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Header -->
-<div>
-  <!--Phần Header ở đây  -->
-</div>
-
 <div class="container">
-  <div class="left">
-    <!-- Phần góc trái như My Account ở đây -->
-  </div>
-
   <!-- Phần giao diện của Quản lý khách hàng -->
   <div>
     <!-- Phần title -->
@@ -22,12 +12,12 @@
     <!-- Phần 2 button Sắp xếp và tìm kiếm -->
     <div class="function d-flex justify-content-between">
         <div class="sort_function">
-            <select class="form-select">
-              <option selected>Sắp xếp theo:</option>
-              <option value="sort_name">Tăng dần theo tên</option>
-              <option value="sort_date_decrease">Ngày tạo giảm dần</option>
-              <option value="sort_date_increase">Ngày tạo tăng dần</option>
-            </select>
+          <select class="form-select" (change)="onSortChange($event)">
+            <option selected disabled>Sắp xếp theo:</option>
+            <option value="totalOrders">Số đơn hàng giảm dần</option>
+            <option value="totalOrderValue">Tổng giá trị đơn hàng giảm dần</option>
+          </select>
+
         </div>
 
         <div class="search-box">
@@ -36,34 +26,64 @@
         </div>
     </div>
 
+    <div class="filter-search-container">
+      <div class="filter-container" [ngClass]="{'filter-container-expand': showFilterOptions}">
+        <button class="filter-button" (click)="toggleFilterOptions()" >Thêm điều kiện lọc</button>
+        <span class="search-icon"><i class="fa-solid fa-filter"></i></span>
+        <div class="filter-options-container shadow p-3 mb-5 bg-body rounded" *ngIf="showFilterOptions">
+          <p>Hiển thị tất cả khách hàng theo:</p>
+          <select class="filter-options" [(ngModel)]="selectedFilterOption" (ngModelChange)="onFilterOptionChange()">
+            <option value="">Chọn một điều kiện lọc</option>
+            <option value="totalOrders">Số đơn hàng</option>
+            <option value="totalOrderValue">Tổng giá trị đơn hàng</option>
+            <!-- <option value="option3">Điều kiện lọc 3</option> -->
+          </select>
+
+          <div *ngIf="selectedFilterOption === 'totalOrders' || selectedFilterOption === 'totalOrderValue'">
+            <p>Bằng</p>
+            <select class="filter-options" [(ngModel)]="selectedSortOrder" (ngModelChange)="onSortOrderChange()">
+              <option value="asc">Tăng dần</option>
+              <option value="desc">Giảm dần</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="search-container" [ngClass]="{'search-container-shrink': showFilterOptions}">
+        <input type="text" class="search-input" placeholder="Tìm kiếm">
+        <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+      </div>
+    </div>
+
+
+
     <!-- Phân hiển thị danh sách -->
     <div class="displayList">
       <table>
         <thead>
           <tr>
-            <th><input type="checkbox" id="selectAll"></th>
             <th>Khách hàng</th>
             <th>Số điện thoại</th>
-            <th>Địa chỉ</th>
+            <th>Địa chỉ cụ thể</th>
+            <th>Tỉnh/Thành phố</th>
             <th>Tổng đơn hàng</th>
             <th>Tổng giá trị</th>
             <th>Thao tác</th>
           </tr>
         </thead>
-        <!-- <tbody *ngFor="let c of customers| paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalCustomers }" >
+        <tbody *ngFor="let c of customers| paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalCustomers }" >
           <tr>
-            <td><input type="checkbox"></td>
-            <td>{{c.FullName}}</td>
-            <td>{{c.Phone}}</td>
-            <td>{{c.Address[0]?.DetailAddress}}</td>
-            <td>Tổng đơn hàng A</td>
-            <td>Tổng giá trị A</td>
+            <td>{{c.User.FullName}}</td>
+            <td>{{c.User.Phone}}</td>
+            <td>{{c.User.Address[0]?.DetailAddress}},{{c.User.Address[0]?.Ward}},{{c.User.Address[0]?.Town}} </td>
+            <td>{{c.User.Address[0]?.City}}</td>
+            <td>{{ c.Order.length}}</td>
+            <td>{{c.orderValue | currency:'VND'}}</td>
             <td>
-              <button><i class="fa fa-detail"></i></button>
-              <button><i class="fa fa-delete"></i></button>
+              <button (click)="showCustomerDetail(c)"><i class="fa fa-detail"></i></button>
+              <button (click)="deleteUser(c._id)"><i class="fa fa-delete" ></i></button>
             </td>
           </tr>
-        </tbody> -->
+        </tbody>
       </table>
 
     <!-- Phân trang -->
@@ -73,3 +93,113 @@
     </div>
   </div>
 </div>
+<div *ngIf="showDetail" class="modal">
+  <div class="customer-detail">
+    <div class="title">Chi tiết khách hàng {{selectedCustomer.User.FullName}}</div>
+    <div class="information">
+      <div class="sub_title">Thông tin chung</div>
+      <hr>
+      <div class="row">
+        <div class="col-md-8">
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Họ và tên:</label>
+            <div class="col-sm-9">
+              <input type="text" readonly="" class="form-control-plaintext" value="{{selectedCustomer.User.FullName}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Số điện thoại:</label>
+            <div class="col-sm-9">
+              <input type="text" readonly="" class="form-control-plaintext" value="{{selectedCustomer.User.Phone}}">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Giới tính:</label>
+            <div class="col-sm-9">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" checked name="inlineRadioOptions" id="inlineRadio1" type="radio" [checked]="selectedCustomer.User.Gender === 'Nam'">
+                <label class="form-check-label" for="inlineRadio1">Nam</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" [checked]="selectedCustomer.User.Gender === 'Nữ'">
+                <label class="form-check-label" for="inlineRadio2">Nữ</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" [checked]="selectedCustomer.User.Gender === 'Khác'">
+                <label class="form-check-label" for="inlineRadio3">Khác</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Ngày sinh:</label>
+            <div class="col-sm-9">
+              <input type="date" class="form-control-plaintext" id="inputDOB" [value]="getUserDateOfBirth()">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="text-center">
+            <img src="{{selectedCustomer.User.Image ? selectedCustomer.User.Image : './assets/img/No_image.png'}}" class="rounded" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="address">
+      <div class="sub_title">Thông tin địa chỉ</div>
+      <hr>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col-4">Địa chỉ</th>
+            <th scope="col-2">Phường/Xã</th>
+            <th scope="col-2">Quận/Huyện</th>
+            <th scope="col-2">Tỉnh/Thành phố</th>
+            <th scope="col-2">Số điện thoại</th>
+          </tr>
+        </thead>
+
+        <tbody >
+          <tr *ngFor="let address of selectedCustomer.User.Address; let i = index">
+                <td>{{ address.DetailAddress }}</td>
+                <td>{{ address.Ward}}</td>
+                <td>{{ address.Town}}</td>
+                <td>{{ address.City }}</td>
+
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+    <div class="order">
+      <div class="sub_title">Danh sách đơn hàng</div>
+      <hr>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col-4">Mã đặt hàng</th>
+            <th scope="col-2">Ngày đặt</th>
+            <th scope="col-2">Trạng thái</th>
+            <th scope="col-2">Tổng tiền</th>
+          </tr>
+        </thead>
+
+        <tbody >
+          <tr *ngFor="let order of selectedCustomer.Order">
+                <td>{{ formatOrderId(order._id)}}</td>
+                <td>{{ order.OrderDate }}</td>
+                <td ><span class="status">{{ order.OrderStatus}}</span></td>
+                <td>{{ order.SubTotal| currency:'VND' }}</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+    <!-- Hiển thị các thông tin khác của người dùng -->
+    <button class ="close-btn" (click)="closeCustomerDetail()">Quay lại</button>
+  </div>
+</div>
+
+

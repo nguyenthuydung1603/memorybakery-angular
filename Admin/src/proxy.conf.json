@@ -1,0 +1,16 @@
+[
+  {
+    "context": ["/myList"],
+    "target": "http://localhost:6868",
+    "secure": true,
+    "changeOrigin":true,
+    "logLevel":"debug"
+  },
+  {
+    "context": ["/myList/users/"],
+    "target": "http://localhost:6868",
+    "secure": true,
+    "changeOrigin":true,
+    "logLevel":"debug"
+  }
+]

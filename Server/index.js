@@ -409,3 +409,21 @@ app.get("/order-status", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+//API lấy ID của người dùng
+app.get("/myList/users/:id",cors(),async (req,res)=>{
+   var o_id = new ObjectId(req.params["id"]);
+   const result = await myDataCollection.find({_id:o_id}).toArray();
+   res.send(result[0])
+})
+//API xóa một User dựa vào id
+app.delete("/myList/:id",cors(),async(req,res)=>{
+  //find detail Fashion with id
+  var o_id = new ObjectId(req.params["id"]);
+  const result = await myDataCollection.find({_id:o_id}).toArray();
+  //update json Fashion into database
+      await myDataCollection.deleteOne(
+          {_id:o_id}
+      )
+  //send Fahsion after remove
+      res.send(result[0])
+})

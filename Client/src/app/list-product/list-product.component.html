@@ -38,7 +38,7 @@
                     <div class="img-product">
                       <a href="./detail/{{product._id}}"><img style="height: 200px " src="{{product.Img[0]}}"></a>
                       <div class="cart-love">
-                        <a (click)="postCart()"> <i class="fa-solid fa-cart-shopping"></i></a> <a href="#"> <i class="fa-solid fa-heart"></i></a>
+                        <a (click)="addToCart(product)"> <i class="fa-solid fa-cart-shopping"></i></a> <a href="#"> <i class="fa-solid fa-heart"></i></a>
                      </div>
                     </div>
                     <p class="name">{{product.Name}}</p>

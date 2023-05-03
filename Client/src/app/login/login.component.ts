@@ -3,48 +3,53 @@ import { Router } from '@angular/router';
 import { Login } from 'src/app/interfaces/login';
 import { AuthService } from '../services/auth.service' ;
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ClientService } from '../services/client.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  model: Login = { userid: "duong", password: "111111" }
+  error: string="";
   loginForm!: FormGroup;
   message: string='';
   returnUrl: string ='';
   errors:string=''
+  dataUser: any
   constructor(
      private formBuilder: FormBuilder,
      private router: Router,
-     private authService: AuthService
+     private authService: AuthService,
+    private loginService: ClientService
   ) { }
   ngOnInit() {
      this.loginForm = this.formBuilder.group({
         userid: ['', Validators.required],
         password: ['', [Validators.required, Validators.minLength(6)]]
      });
-  this.returnUrl = '/';
-  this.authService.logout();
   }
 // convenience getter for easy access to form fields
 get f() { return this.loginForm.controls; }
+
 login() {
-  // stop here if form is invalid
   if (this.loginForm.invalid) {
-     return;
+    return;
+ }
+ else{
+  this.loginService.postLogin(this.f['userid'].value,this.f['password'].value).subscribe({
+      next:(data)=>{
+        this.dataUser = data
+        if (this.dataUser.UserName){
+        localStorage.setItem('isLoggedIn', "true");
+        localStorage.setItem('token', this.f['userid'].value);
+        this.router.navigate([''])
+      }else {
+        alert(`${this.dataUser.message}`)
+      }
+    },
+      error:(err)=>{this.error=err}
+    })
   }
-  else {
-     if (this.f['userid'].value == this.model.userid && this.f['password'].value == this.model.password) {
-     //this.authService.authLogin(this.model);
-     localStorage.setItem('isLoggedIn', "true");
-     localStorage.setItem('token', this.f['userid'].value);
-     this.router.navigate([this.returnUrl]);
-     }
-  else {
-     this.message = "Tên tài khoản của bạn hoặc Mật khẩu không đúng, vui lòng thử lại!";
-     }
-    }
 
  }
 }

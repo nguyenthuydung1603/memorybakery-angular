@@ -18,7 +18,6 @@ import { PaymentPolicyComponent } from './payment-policy/payment-policy.componen
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
@@ -32,6 +31,7 @@ import { MyEditProfileComponent } from './my-account/my-edit-profile/my-edit-pro
 import { MyVoucherComponent } from './my-account/my-voucher/my-voucher.component';
 import { MyProductComponent } from './my-account/my-product/my-product.component';
 import { MyReviewComponent } from './my-account/my-review/my-review.component';
+import { MatchPasswordDirective } from './match-password.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,6 +60,7 @@ import { MyReviewComponent } from './my-account/my-review/my-review.component';
     MyVoucherComponent,
     MyProductComponent,
     MyReviewComponent,
+    MatchPasswordDirective,
   ],
   imports: [
     BrowserModule,

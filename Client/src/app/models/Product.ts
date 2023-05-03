@@ -17,7 +17,7 @@ export interface IProductVariant {
 export class Product{
   constructor(
    public Name: string="",
-   public Variant: IProductVariant[],
+   public Variant: ProductVariant[],
    public Img: string[],
    public Category: string="",
   ){}

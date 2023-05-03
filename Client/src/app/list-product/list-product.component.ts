@@ -10,7 +10,7 @@ import { CartService } from '../cart.service';
 export class ListProductComponent {
   product:IProduct[] =[] ;
   products: any;
-  cart= new Product('',[],[],'');
+  cart=[]
   Category:any;
   errMessage:string=''
   constructor(public _service: ProductAPIService,public _cart: CartService){
@@ -31,12 +31,9 @@ export class ListProductComponent {
     error:(err)=>{this.errMessage=err}
     })
   }
-  postCart()
+  addToCart(p:any)
   {
-  this._cart.postCart(this.products).subscribe({
-  next:(data)=>{this.product=data},
-  error:(err)=>{this.errMessage=err}
-  })
+    this._cart.addToCart(p)
   alert("Bạn đã thêm sản phẩm thành công");
 }
 }

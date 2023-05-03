@@ -34,27 +34,26 @@ app.post("/users", cors(), async(req, res) => {
     salt = crypto.randomBytes(16).toString('hex');
     userCollection = database.collection("User");
     user=req.body;
-    hash = crypto.pbkdf2Sync(user.password, salt,1000, 64, `sha512`).toString(`hex`);
-    user.password=hash;
+    hash = crypto.pbkdf2Sync(user.Password, salt,1000, 64, `sha512`).toString(`hex`);
+    user.Password=hash;
     user.salt=salt
     await userCollection.insertOne(user)
     res.send(req.body)
 })
 app.post("/login", cors(), async(req, res) => {
-    username=req.body.username;
-    password=req.body.password
+    UserName=req.body.UserName;
+    Password=req.body.Password
     var crypto = require('crypto');
     userCollection = database.collection("User")
-    user=await userCollection.findOne({username:username})
+    user=await userCollection.findOne({UserName:UserName})
     if(user==null) 
-        res.send({"username":username, "message":"không tồn tại nha fen"})
-    
+        res.send({"username":UserName, "message":"Tài khoản không tồn tại!"})
     else {
-        hash = crypto.pbkdf2Sync(password, user.salt, 1000, 64, `sha512`).toString(`hex`)
-        if(user.password==hash)
+        hash = crypto.pbkdf2Sync(Password, user.salt, 1000, 64, `sha512`).toString(`hex`)
+        if(user.Password==hash)
         res.send(user)
         else {
-            res.send({"username": username, "password":password, "message": "Sai mật khẩu rồi fen"})
+            res.send({"username": UserName, "password":Password, "message": "Sai mật khẩu!"})
         }
     }
 })
@@ -96,6 +95,7 @@ app.put("cart/:id",cors(),(req,res)=>{
       req.send(req.session.carts)
   }
 })
+
 app.get("/products",cors(),async (req,res)=>{ 
   const result = await productCollection.find({}).toArray();
   res.send(result)

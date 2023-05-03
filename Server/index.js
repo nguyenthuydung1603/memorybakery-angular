@@ -6,6 +6,8 @@ app.use(morgan("combined"))
 const bodyParser=require("body-parser")
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.json({ limit: '210mb' }));
+app.use(express.urlencoded({ limit: '210mb' }));
 const cors=require("cors");
 app.use(cors())
 app.listen(port,()=>{
@@ -18,16 +20,15 @@ const { MongoClient, ObjectId } = require('mongodb');
 client = new MongoClient("mongodb://127.0.0.1:27017");
 client.connect();
 database = client.db("Memory_Bakery"); 
-productCollection = database.collection("Product");
-userCollection = database.collection("User");
-orderCollection = database.collection("Order");
+const productCollection = database.collection("Product");
+const userCollection = database.collection("User");
+const orderCollection = database.collection("Order");
 const blogCollection = database.collection("Blog")
-myOrderCollection = database.collection("myOrder");
-productCollection = database.collection("Product");
-myProductCollection = database.collection("myProduct");
-voucherCollection = database.collection("Voucher");
-myVoucherCollection = database.collection("myVoucher");
-myDataCollection = database.collection("myData");
+const myOrderCollection = database.collection("myOrder");
+const myProductCollection = database.collection("myProduct");
+const voucherCollection = database.collection("Voucher");
+const myVoucherCollection = database.collection("myVoucher");
+const myDataCollection = database.collection("myData");
 
 app.post("/users", cors(), async(req, res) => {
     var crypto = require('crypto');
@@ -462,3 +463,100 @@ app.delete('/promotion/:id',cors(),async(req,res)=>{
   )
   res.send(result[0])
   })
+  app.get('/products-admin', cors(), async (req, res) => {
+    let query = null
+    let searchQuery = {}
+    let data
+    let perPage = Number(req.query.perPage) || 10
+    let page = req.query.page || 1
+    let totalItem = await productCollection.count()
+
+    //để sort thì pass by param. ví dụ: /products?sortBy=&orderBy= là không truyền params thì nó sẽ ko sort
+    //khi sort thì pass params như sau: /products?sortBy=name?orderBy=asc . . . còn lại thì tương tự
+    const sortBy = req.query.sortBy
+    const orderBy = req.query.orderBy
+
+    //params để search, có thể vừa kết hợp với sort ( đem lại trải nghiệm tốt hơn nếu cố định được sort và search tự do )
+    const search = req.query.search
+    if (search) searchQuery = { Name: { "$regex": `${search}.*`, "$options": "i" } }
+
+    if (sortBy == 'name' && orderBy == 'asc') query = { Name: 1 }
+    else if (sortBy == 'name' && orderBy == 'desc') query = { Name: -1 }
+
+    if (sortBy == 'category' && orderBy == 'asc') query = { Category: 1 }
+    else if (sortBy == 'category' && orderBy == 'desc') query = { Category: -1 }
+
+    if (query) data = await productCollection
+        .find(searchQuery)
+        .sort(query)
+        .skip((perPage * page) - perPage)
+        .limit(perPage)
+        .toArray()
+    else data = await productCollection
+        .find(searchQuery)
+        .skip((perPage * page) - perPage)
+        .limit(perPage)
+        .toArray()
+
+    const finalData = {
+        totalItem: totalItem,
+        data: data
+    }
+
+    res.send(finalData)
+})
+app.get('/product-admin/:id', cors(), async (req, res) => {
+  const id = new ObjectId(req.params['id'])
+  res.send(await productCollection.findOne({ _id: id }))
+})
+
+
+app.post('/products-admin', cors(), async (req, res) => {
+  try {
+      productCollection.insertOne({
+          ProductID: null,
+          Name: req.body.Name,
+          Variant: req.body.Variant,
+          Description: req.body.Description,
+          Img: req.body.Img,
+          Category: req.body.Category,
+          CreatedAt: new Date().toISOString(),
+          UpdatedAt: new Date().toISOString(),
+      })
+      res.send(responseSuccess('Create', 'product'))
+  } catch (e) {
+      res.send(responseError())
+  }
+})
+
+app.put('/products-admin/:id', cors(), (req, res) => {
+  const id = new ObjectId(req.params['id'])
+  const filter = { _id: id }
+  let currentDate = new Date().toLocaleString()
+
+  productCollection.updateOne(filter,
+      {
+          $set: {
+              ProductID: null,
+              Name: req.body.Name,
+              Variant: req.body.Variant,
+              Description: req.body.Description,
+              Img: req.body.Img,
+              Category: req.body.Category,
+              UpdatedAt: new Date(currentDate).toISOString(),
+          }
+      }, function (err) {
+          if (err) throw err
+      })
+  res.send(responseSuccess('Update', 'product'))
+})
+
+app.delete('/products-admin/:id', cors(), async (req, res) => {
+  const id = new ObjectId(req.params['id'])
+  const result = await productCollection.deleteOne({ _id: id })
+  if (result.deletedCount === 1) {
+      res.send(responseSuccess('Delete', 'product'))
+  } else {
+      res.send(responseError())
+  }
+})

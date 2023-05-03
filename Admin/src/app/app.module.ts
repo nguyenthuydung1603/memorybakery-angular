@@ -16,6 +16,7 @@ import { ProductManagementComponent } from './product-management/product-managem
 import { PromotionManagementComponent } from './promotion-management/promotion-management.component';
 import { BlogManagementComponent } from './blog-management/blog-management.component';
 import { PromotionDetailComponent } from './promotion-detail/promotion-detail.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { PromotionDetailComponent } from './promotion-detail/promotion-detail.co
     NgxPaginationModule,
     FormsModule,
     HttpClientModule,
-    AngularEditorModule
+    AngularEditorModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { ProductManagementComponent } from './product-management/product-management.component';
 import { PromotionManagementComponent } from './promotion-management/promotion-management.component';
 import { BlogManagementComponent } from './blog-management/blog-management.component';
+import { PromotionDetailComponent } from './promotion-detail/promotion-detail.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { BlogManagementComponent } from './blog-management/blog-management.compo
     CustomerManagementComponent,
     ProductManagementComponent,
     PromotionManagementComponent,
-    BlogManagementComponent
+    BlogManagementComponent,
+    PromotionDetailComponent
   ],
   imports: [
     BrowserModule,

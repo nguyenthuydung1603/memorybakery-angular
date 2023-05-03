@@ -1,27 +1,24 @@
-
-<div class="container">
+<div>
     <div>
-      <div class="row">
-        <!-- <h3 class="col">Danh sách khách hàng</h3>
-        <div class="col d-flex justify-content-end">
-          <a class="btn btn-secondary" href="./promotion-create/">Tạo khuyến mãi</a>
-        </div> -->
-        <div class="header-box">
-          <h1>Danh sách khuyến mãi</h1>
-          <button (click)="actionAdd()"><fa-icon [icon]="faPlus" size="lg"></fa-icon> Thêm khuyến mãi</button>
-      </div>
-      </div>
-      <hr>
-      <div class="d-flex justify-content-between">
-        <div class="sort-function">
-          <select class="form-select">
-            <option selected>Sắp xếp theo:</option>
-            <option value="sort_name">Tăng dần theo mức giảm</option>
-            <option value="sort_date_decrease">Ngày bắt đầu tăng dần</option>
-            <option value="sort_date_increase">Ngày bắt đầu giảm dần</option>
-          </select>
+        <div class="row">
+            <div class="header-box">
+                <h1>Danh sách khuyến mãi</h1>
+                <button (click)="actionAdd()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                  </svg> Thêm khuyến mãi</button>
+            </div>
         </div>
-  
+        <hr>
+        <div class="d-flex justify-content-between">
+            <div class="sort-function">
+                <select class="form-select">
+                    <option selected>Sắp xếp theo:</option>
+                    <option value="sort_name">Tăng dần theo mức giảm</option>
+                    <option value="sort_date_decrease">Ngày bắt đầu tăng dần</option>
+                    <option value="sort_date_increase">Ngày bắt đầu giảm dần</option>
+                </select>
+            </div>
         <div class="search-box">
           <form class="d-flex">
             <input class="form-control me-2" style="width: 400px;" type="search" placeholder="Tìm kiếm..." aria-label="Search">
@@ -29,32 +26,37 @@
           </form>
         </div>
       </div>
-  
       <div class="display-list mt-3">
         <table class="table text-center table-hover">
           <thead>
             <tr>
-              <th>Mã khuyến mãi</th>
-              <th>Mức giảm</th>
-              <th>Điều kiện</th>
-              <th>Ngày bắt đầu</th>
-              <th>Ngày kết thúc</th>
-              <th>Chức năng</th>
+                <th>Mã khuyến mãi</th>
+                <th>Mức giảm</th>
+                <th>Số lượng</th>
+                <th>Điều kiện</th>
+                <th>Ngày bắt đầu</th>
+                <th>Ngày hết hạn</th>
+                <th>Chức năng</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let p of promotions">
-              <td>{{p.PromotionName}}</td>
-              <td>{{p.Reduction}}</td>
-              <td>{{p.Condition}}</td>
-              <td>{{p.Start}}</td>
-              <td>{{p.End}}</td>
+                <td>{{p.Code}}</td>
+                <td>{{p.Discount}}</td>
+                <td>{{p.Quantity}}</td>
+                <td>{{p.Condition}}</td>
+                <td>{{p.StartDate}}</td>
+                <td>{{p.ExpireDate}}</td>  
               <td class="d-flex justify-content-end" >
-                <div class="table-action">
-                  <fa-icon (click)="actionUpdate(1)" [icon]="faEdit" class="edit-icon"
-                      [style]="{cursor: 'pointer'}" size="lg"></fa-icon>
-                  <fa-icon [icon]="faDelete" class="delete-icon" [style]="{cursor: 'pointer'}"
-                      size="lg"></fa-icon>
+                <div>
+                    <a class="delete" (click)="deletePromotion(p._id)"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+                      </svg></a>
+                    <a class="detail" href="./promotion_detail/{{p._id}}"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                        <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                        <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                      </svg></a>
               </div>
               </td>
             </tr>
@@ -62,132 +64,75 @@
         </table>
       </div>
     </div>
-  </div>
-  
-
-  <div class="fog" *ngIf="isShow">
-    <div class="form">
-      <h1 class="text-center mt-5 mb-4">TẠO MÃ KHUYẾN MÃI MỚI</h1>
-      <form>
-          <div class="row mb-3">
-              <label for="PromotionId" class="col-sm-3 col-form-label">Mã khuyến mãi</label>
-              <div class="col-sm-9">
-                  <input type="text" class="form-control" name="PromotionId" id="PromotionId" placeholder="Nhập mã khuyến mãi">
-              </div>
+</div>
+<div class="fog" *ngIf="isShow">
+  <div class="form">
+    <h1 class="text-center mt-5 mb-4">TẠO MÃ KHUYẾN MÃI MỚI</h1>
+    <form>
+      <div class="row mb-3">
+        <label for="PromotionId" class="col-sm-3 col-form-label">ID</label>
+        <div class="col-sm-9">
+            <input class="form-control" name="PromotionId" id="PromotionId">
+        </div>
+      </div>
+        <div class="row mb-3">
+            <label for="Code" class="col-sm-3 col-form-label">Mã khuyến mãi</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="Code" id="Code" placeholder="Nhập mã khuyến mãi">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="Name" class="col-sm-3 col-form-label">Mô tả</label>
+            <div class="col-sm-9" >
+                <angular-editor name="Name" id="Name" placeholder="Mô tả về mã khuyến mãi" [config]="config" ></angular-editor>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="Discount" class="col-sm-3 col-form-label ">Mức giảm giá</label>
+            <div class="col-sm-9 d-flex">
+                <input type="text" class="form-control" id="Discount" name="Discount" placeholder="Nhập mức giảm giá">
+                <span>
+                    <select class="form-select form-control flex-fill mx-md-1" id="DiscountType" name="DiscountType">
+                        <option value="%">%</option>
+                        <option value="VND">VND</option>
+                    </select>
+                </span>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="Condition" class="col-sm-3 col-form-label">Điều kiện áp dụng giảm giá</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="Condition" id="Condition" placeholder="Nhập điều kiện để đơn hàng áp dụng khuyến mãi">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="Quantity" class="col-sm-3 col-form-label">Số lượng</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="Quantity" name="Quantity" placeholder="Nhập số lượng mã khuyến mãi">
+            </div>
+        </div>
+        <div class="row mb-3">
+          <label for="CreatedDate" class="col-sm-3 col-form-label">Thời gian khởi tạo</label>
+          <div class="col-sm-9">
+              <input type="text" class="form-control" id="CreatedDate" name="CreatedDate"placeholder="Thời gian khởi tạo">
           </div>
-          <div class="row mb-3">
-              <label for="PromotionDescription" class="col-sm-3 col-form-label">Mô tả</label>
-              <div class="col-sm-9" >
-                  <angular-editor name="PromotionDescription" id="PromotionDescription" placeholder="Mô tả về mã khuyến mãi" [config]="config" ></angular-editor>
-              </div>
-          </div>
-          <div class="row mb-3">
-              <label for="PromotionPrice" class="col-sm-3 col-form-label ">Mức giá</label>
-              <div class="col-sm-9 d-flex">
-                  <input type="text" class="form-control" id="PromotionPrice" name="PromotionPrice" placeholder="Nhập mức giá">
-                  <span>
-                      <select class="form-select form-control flex-fill mx-md-1" id="DiscountType" name="DiscountType">
-                          <option value="%">%</option>
-                          <option value="VND">VND</option>
-                      </select>
-                  </span>
-              </div>
-          </div>
-          <div class="row mb-3">
-              <label for="MinPrice" class="col-sm-3 col-form-label">Giá mua tối thiểu</label>
-              <div class="col-sm-9">
-                  <input type="text" class="form-control" name="MinPrice" id="MinPrice" placeholder="Nhập giá trị tối thiểu của đơn hàng áp dụng khuyến mãi">
-              </div>
-          </div>
-          <div class="row mb-3">
-              <label for="PromotionQuantity" class="col-sm-3 col-form-label">Số lượng</label>
-              <div class="col-sm-9">
-                  <input type="text" class="form-control" id="PromotionQuantity" name="PromotionQuantity" placeholder="Nhập số lượng mã khuyến mãi">
-              </div>
-          </div>
-          <div class="row mb-3">
-              <label for="PromotionStartDate" class="col-sm-3 col-form-label">Thời gian bắt đầu</label>
-              <div class="col-sm-9">
-                  <input type="date" class="form-control" id="PromotionStartDate" name="PromotionStartDate"placeholder="Chọn thời gian bắt đầu">
-              </div>
-          </div>
-          <div class="row mb-3">
-              <label for="PromotionEndDate" class="col-sm-3 col-form-label">Thời gian kết thúc</label>
-              <div class="col-sm-9">
-                  <input type="date" class="form-control" id="PromotionEndDate" name="PromotionEndDate"placeholder="Chọn thời gian kết thúc">
-              </div>
-          </div>
-          <div class="d-flex justify-content-end" >
-              <button *ngIf="isCreate" type="submit" class="btn me-2">Tạo khuyến mãi</button>
-              <button (click)="actionCancel()" type="cancel" class="btn">Hủy bỏ</button>
-          </div>
-      </form>
-  </div>
-  </div>
-  
-
-
-
-  
-  <div class="fog" *ngIf="isShow">
-    <div class="form">
-      <h1 class="text-center mt-5 mb-4">CHỈNH SỬA THÔNG TIN KHUYẾN MÃI</h1>
-      <form>
-          <div class="row mb-3">
-              <label for="PromotionId" class="col-sm-3 col-form-label">Mã khuyến mãi</label>
-              <div class="col-sm-9">
-                  <input type="text" class="form-control" name="PromotionId" id="PromotionId" placeholder="Nhập mã khuyến mãi">
-              </div>
-          </div>
-          <div class="row mb-3">
-              <label for="PromotionDescription" class="col-sm-3 col-form-label">Mô tả</label>
-              <div class="col-sm-9" >
-                  <angular-editor name="PromotionDescription" id="PromotionDescription" placeholder="Mô tả về mã khuyến mãi" [config]="config" ></angular-editor>
-              </div>
-          </div>
-          <div class="row mb-3">
-              <label for="PromotionPrice" class="col-sm-3 col-form-label ">Mức giá</label>
-              <div class="col-sm-9 d-flex">
-                  <input type="text" class="form-control" id="PromotionPrice" name="PromotionPrice" placeholder="Nhập mức giá">
-                  <span>
-                      <select class="form-select form-control flex-fill mx-md-1" id="DiscountType" name="DiscountType">
-                          <option value="%">%</option>
-                          <option value="VND">VND</option>
-                      </select>
-                  </span>
-              </div>
-          </div>
-          <div class="row mb-3">
-              <label for="MinPrice" class="col-sm-3 col-form-label">Giá mua tối thiểu</label>
-              <div class="col-sm-9">
-                  <input type="text" class="form-control" name="MinPrice" id="MinPrice" placeholder="Nhập giá trị tối thiểu của đơn hàng áp dụng khuyến mãi">
-              </div>
-          </div>
-          <div class="row mb-3">
-              <label for="PromotionQuantity" class="col-sm-3 col-form-label">Số lượng</label>
-              <div class="col-sm-9">
-                  <input type="text" class="form-control" id="PromotionQuantity" name="PromotionQuantity" placeholder="Nhập số lượng mã khuyến mãi">
-              </div>
-          </div>
-          <div class="row mb-3">
-              <label for="PromotionStartDate" class="col-sm-3 col-form-label">Thời gian bắt đầu</label>
-              <div class="col-sm-9">
-                  <input type="date" class="form-control" id="PromotionStartDate" name="PromotionStartDate"placeholder="Chọn thời gian bắt đầu">
-              </div>
-          </div>
-          <div class="row mb-3">
-              <label for="PromotionEndDate" class="col-sm-3 col-form-label">Thời gian kết thúc</label>
-              <div class="col-sm-9">
-                  <input type="date" class="form-control" id="PromotionEndDate" name="PromotionEndDate"placeholder="Chọn thời gian kết thúc">
-              </div>
-          </div>
-          <div class="d-flex justify-content-end" >
-              <button type="submit" class="btn me-2">Lưu chỉnh sửa</button>
-              <button (click)="actionCancel()" type="cancel" class="btn">Hủy bỏ</button>
-          </div>
-      </form>
-  </div>
-  </div>
-  
-  
-  
+      </div>
+        <div class="row mb-3">
+            <label for="StartDate" class="col-sm-3 col-form-label">Thời gian bắt đầu</label>
+            <div class="col-sm-9">
+                <input type="date" class="form-control" id="StartDate" name="StartDate"placeholder="Chọn thời gian bắt đầu">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="ExpireDate" class="col-sm-3 col-form-label">Thời gian kết thúc</label>
+            <div class="col-sm-9">
+                <input type="date" class="form-control" id="ExpireDate" name="ExpireDate"placeholder="Chọn thời gian kết thúc">
+            </div>
+        </div>
+        <div class="d-flex justify-content-end" >
+          <button (click)="postPromotion()" type="cancel" class="btn">Tạo mới</button>
+            <button (click)="actionCancel()" type="cancel" class="btn">Hủy bỏ</button>
+        </div>
+    </form>
+</div>
+</div>

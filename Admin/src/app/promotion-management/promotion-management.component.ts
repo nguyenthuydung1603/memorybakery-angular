@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { faPlus, faFilter, faSearchPlus, faEdit, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 import { AngularEditorConfig } from '@kolkov/angular-editor/public-api';
-
+import { PromotionService } from '../services/promotion.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Promotion } from './promotion';
 
 @Component({
   selector: 'app-promotion-management',
@@ -9,6 +12,30 @@ import { AngularEditorConfig } from '@kolkov/angular-editor/public-api';
   styleUrls: ['./promotion-management.component.css']
 })
 export class PromotionManagementComponent {
+    promotions:any;
+    searchTerm: string = '';
+    promotion = new Promotion();
+    errMessage:string=''
+    constructor(private _service: PromotionService, private http: HttpClient,private router:Router,private activateRoute:ActivatedRoute,private _fs:PromotionService){
+    this._service.getPromotions().subscribe({
+      next:(data)=>{this.promotions=data},
+      error:(err)=>{this.errMessage=err}
+    })
+  }
+  
+    deletePromotion(_id:string){
+    if (confirm("Bạn có chắc chắn xóa?")==true)
+    {
+    this._service.deletePromotion(_id).subscribe({
+      next:(data)=>{this.promotion=data},
+      error:(err)=>{this.errMessage=err}
+    })
+    window.location.reload()
+    }
+    
+  }
+  
+  
     config: AngularEditorConfig = {
         editable: true,
         spellcheck: true,
@@ -66,15 +93,8 @@ export class PromotionManagementComponent {
 
   }
 
-  public submitVarian() { }
-
-  public isShowVarian(id: any) {
-    this.isVarian = true
-  }
-
   public actionAdd() {
     this.isShow = true
-    this.isCreate = true
   }
 
   public actionUpdate(id: any) {
@@ -88,60 +108,13 @@ export class PromotionManagementComponent {
     this.isVarian = false
     this.isUpdate = false
   }
-  promotions=[{
-    "PromotionId":"1",
-    "PromotionName": "FREESHIP10",
-    "Reduction":"10%",
-    "Condition": "Đơn hàng trên 100k",
-    "Start": "20-4-2023",
-    "End": "1-5-20234"
-},
-{   
-    "PromotionId":"2",
-    "PromotionName": "FREESHIP10",
-    "Reduction":"10%",
-    "Condition": "Đơn hàng trên 100k",
-    "Start": "20-4-2023",
-    "End": "1-5-20234"
-},
-{   
-    "PromotionId":"3",
-    "PromotionName": "FREESHIP10",
-    "Reduction":"10%",
-    "Condition": "Đơn hàng trên 100k",
-    "Start": "20-4-2023",
-    "End": "1-5-20234"
-},
-{   
-    "PromotionId":"4",
-    "PromotionName": "FREESHIP10",
-    "Reduction":"10%",
-    "Condition": "Đơn hàng trên 100k",
-    "Start": "20-4-2023",
-    "End": "1-5-20234"
-},
-{
-    "PromotionId":"5",
-    "PromotionName": "FREESHIP10",
-    "Reduction":"10%",
-    "Condition": "Đơn hàng trên 100k",
-    "Start": "20-4-2023",
-    "End": "1-5-20234"
-},
-{
-    "PromotionId":"6",
-    "PromotionName": "FREESHIP10",
-    "Reduction":"10%",
-    "Condition": "Đơn hàng trên 100k",
-    "Start": "20-4-2023",
-    "End": "1-5-20234"
-},
-{
-    "PromotionId":"7",
-    "PromotionName": "FREESHIP10",
-    "Reduction":"10%",
-    "Condition": "Đơn hàng trên 100k",
-    "Start": "20-4-2023",
-    "End": "1-5-20234"
-}]
+  postPromotion()
+  {
+    this._service.postPromotion(this.promotion).subscribe({
+    next:(data)=>{this.promotion=data},
+    error:(err)=>{this.errMessage=err}
+  })
+
+    alert("Bạn đã thêm sản phẩm thành công");
+  }
 }

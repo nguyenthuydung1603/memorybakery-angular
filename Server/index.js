@@ -427,3 +427,38 @@ app.delete("/myList/:id",cors(),async(req,res)=>{
   //send Fahsion after remove
       res.send(result[0])
 })
+app.get("/promotion",cors(),async (req,res)=>{
+  const result = await voucherCollection.find({}).toArray();
+  res.send(result)
+})
+app.get("/promotion/:id",cors(),async (req,res)=>{
+  var o_id = new ObjectId(req.params["id"]);
+  const result = await voucherCollection.find({_id:o_id}).toArray();
+  res.send(result[0])
+  }
+  )
+app.post('/promotion', cors(), (req, res) => {
+  try {
+      voucherCollection.insertOne({
+          Code: req.body.Code,
+          Name: req.body.Name,
+          Discount: req.body. Discount,
+          Quantity: req.body.Quantity,
+          Condition: req.body.Condition,
+          CreatedAt: new Date().toISOString(),
+          StartDate: req.body.StartDate,
+          ExpireDate: req.body.ExpireDate
+      })
+      res.send(responseSuccess('Create', 'promotion'))
+  } catch (e) {
+      res.send(responseError())
+  }
+})
+app.delete('/promotion/:id',cors(),async(req,res)=>{ 
+  var o_id = new ObjectId(req.params["id"]);
+  const result = await voucherCollection.find({_id:o_id}).toArray(); 
+  await voucherCollection.deleteOne(
+  {_id:o_id}
+  )
+  res.send(result[0])
+  })

@@ -17,6 +17,7 @@ import { PromotionManagementComponent } from './promotion-management/promotion-m
 import { BlogManagementComponent } from './blog-management/blog-management.component';
 import { PromotionDetailComponent } from './promotion-detail/promotion-detail.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     ProductManagementComponent,
     PromotionManagementComponent,
     BlogManagementComponent,
-    PromotionDetailComponent
+    PromotionDetailComponent,
+    BlogDetailComponent
   ],
   imports: [
     BrowserModule,

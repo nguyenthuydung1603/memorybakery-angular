@@ -6,6 +6,7 @@ import { PromotionManagementComponent } from './promotion-management/promotion-m
 import { BlogManagementComponent } from './blog-management/blog-management.component';
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
 import { PromotionDetailComponent } from './promotion-detail/promotion-detail.component';
+import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 
 const routes: Routes = [
   {path:"dashboard",component:DashboardComponent},
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: 'blog', component:BlogManagementComponent},
   {path: 'customer', component:CustomerManagementComponent},
   {path:"promotion_detail/:id",component: PromotionDetailComponent},
+  {path: "blog/:id", component:BlogDetailComponent},
 ];
 
 @NgModule({

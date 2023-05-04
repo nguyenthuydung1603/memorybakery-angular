@@ -12,12 +12,8 @@
     <div class="d-flex justify-content-between">
       <div class="sort-function">
         <select class="form-select">
-          <option selected>Sắp xếp theo:</option>
-          <option value="sort_name">Đã giao</option>
-          <option value="sort_date_decrease">Chưa giao</option>
-          <option value="sort_date_increase">Chưa xác nhận</option>
-          <option value="sort_date_increase">Đang giao</option>
-          <option value="sort_date_increase">Đã hủy</option>
+          <option value="" selected disabled>---  Sắp xếp theo  ---</option>
+          <option *ngFor="let orderstatus of orderstatuss">  {{ orderstatus}}</option>
 
         </select>
       </div>

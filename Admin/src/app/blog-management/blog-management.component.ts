@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { faPlus, faFilter, faSearchPlus, faEdit, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 import { AngularEditorConfig } from '@kolkov/angular-editor/public-api';
+import { Blog } from '../models/Blog';
+import { BlogService } from '../services/blog.service';
 
 @Component({
   selector: 'app-blog-management',
@@ -87,6 +89,86 @@ this.isShow = false
 this.isVarian = false
 this.isUpdate = false
 }
+
+//paginate
+page = 1
+perPage: number = 5
+totalItem: any = 0
+totalPage: any = []
+
+// orther
+blog=new Blog();
+blogsList: any
+outstandingList: any
+errMess: string = ''
+constructor(private service: BlogService) {
+  this.getBlogsList()
+  this.getOutstandingList()
+
+}
+
+getBlogsList(page: any = 1) {
+  this.page = page
+  this.service.getBlogsList(this.page).subscribe({
+    next: (data) => {
+      this.blogsList = data.data
+      this.totalItem = data.totalItem
+
+      let pageTmp = Math.ceil(this.totalItem / this.perPage)
+      this.totalPage = Array(pageTmp)
+    },
+    error: (err) => { this.errMess = err }
+  })
+}
+
+getOutstandingList() {
+  this.service.getBlogsOutstanding().subscribe({
+    next: (data) => {
+      this.outstandingList = data
+    },
+    error: (err) => { this.errMess = err }
+  })
+}
+
+getABlog(_id: any) {
+  this.service.getABlog(_id).subscribe({
+    next: (data) => {
+      this.blogsList = data
+    },
+    error: (err) => { this.errMess = err }
+  })
+}
+
+postABlog() {
+  this.service.postABlog(this.blog).subscribe({
+    next: (data) => {
+      this.blogsList = data
+    },
+    error: (err) => { this.errMess = err }
+  })
+}
+putABlog() {
+  this.service.putABlog(this.blog).subscribe({
+    next: (data) => {
+      this.blogsList = data
+    },
+    error: (err) => { this.errMess = err }
+  })
+}
+deleteBlog(_id: any) {
+  this.service.deleteBlog(_id).subscribe({
+    next: (data) => {
+      this.blogsList = data
+    },
+    error: (err) => { this.errMess = err }
+  })
+}
+
+convertDate(date: any) {
+  let fDate = new Date(date)
+  return fDate.toLocaleString()
+}
+
 blogs=[{
   "BlogId":"1",
   "BlogName": "Cách làm bánh Matcha Latte",
@@ -104,5 +186,8 @@ blogs=[{
   "View": 40
 }
 ]
+
+
+
 }
 

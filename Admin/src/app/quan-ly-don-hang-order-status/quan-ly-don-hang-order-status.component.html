@@ -1,0 +1,68 @@
+<h1>Quản lý đơn hàng</h1>
+<h4>Tất cả đơn hàng</h4>
+<hr>
+<div class="container">
+  <div>
+    <div class="row">
+      <div class="header-box">
+        <h1>Danh Sách Đơn Hàng</h1>
+    </div>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between">
+      <div class="sort-function">
+        <select class="form-select">
+          <option selected>Sắp xếp theo:</option>
+          <option value="sort_name">Đã giao</option>
+          <option value="sort_date_decrease">Chưa giao</option>
+          <option value="sort_date_increase">Chưa xác nhận</option>
+          <option value="sort_date_increase">Đang giao</option>
+          <option value="sort_date_increase">Đã hủy</option>
+
+        </select>
+      </div>
+
+      <div class="search-box">
+        <form class="d-flex">
+          <button class="btn btn-outline-success" stype="submit"><i class="fa fa-search"></i></button>
+        </form>
+      </div>
+    </div>
+
+    <footer><div class="display-list mt-3">
+      <table class="table text-center table-hover">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Mã đơn hàng</th>
+            <th>Ngày đặt</th>
+            <th>Ngày Giao</th>
+            <th>Trạng thái</th>
+            <th>Tổng tiền</th>
+            <th>Tùy chỉnh</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of orders">
+            <td><input type="checkbox" name="all" id="all" checked></td>
+              <td>{{p._id}}</td>
+              <td>{{p.OrderDate}}</td>
+              <td>{{p.DeliveryTime}}</td>
+              <td>{{p.OrderStatus}}</td>
+              <td>{{p.SubTotal}}</td>
+            <td class="d-flex justify-content-end" >
+              <div class="table-action">
+                <a href="./quanlydonhangchitiet"><fa-icon  [icon]="faEdit" class="edit-icon"
+                  [style]="{cursor: 'pointer'}" size="lg"></fa-icon></a>
+                <fa-icon [icon]="faDelete" class="delete-icon" [style]="{cursor: 'pointer'}"
+                    size="lg"></fa-icon>
+            </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div></footer>
+  </div>
+</div>
+<div><button class="xacnhan" (click)="submitForm()">Xác nhận đơn hàng</button></div>
+

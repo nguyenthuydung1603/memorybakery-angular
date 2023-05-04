@@ -1,124 +1,124 @@
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  </head>
-  <div class="container">
-    <div>
-      <div class="row">
-        <div class="header-box">
-          <h1>Danh sách bài viết</h1>
-          <div class="buttonadd col">
-            <button (click)="actionAdd()"><fa-icon [icon]="faPlus" size="lg"></fa-icon>Thêm bài viết</button>
-        </div>
-      </div>
-      </div>
-      <hr>
-      <div class="d-flex justify-content-between">
-        <div class="sort-function">
-          <select class="form-select">
-            <option selected>Sắp xếp theo:</option>
-            <option value="sort_name">Tăng dần theo thời gian</option>
-            <option value="sort_date_decrease">Ngày bắt đầu tăng dần</option>
-            <option value="sort_date_increase">Ngày bắt đầu giảm dần</option>
-          </select>
-        </div>
-  
-        <div class="search-box">
-          <form class="d-flex">
-            <input class="form-control me-2" style="width: 400px;" type="search" placeholder="Tìm kiếm..." aria-label="Search">
-            <button class="btn btn-outline-success" style="width: 40px;" type="submit"><i class="fa fa-search"></i></button>
-          </form>
-        </div>
-      </div>
-  
-      <div class="display-list mt-3">
-        <table class="table text-center table-hover">
-          <thead>
-            <tr>
-              <th>Tiêu đề</th>
-              <th>Ngày tạo</th>
-              <th>Người viết</th>
-              <th>Lượt xem</th>
-              <th>Chức năng</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let p of blogs">
-              <td>{{p.Title}}</td>
-              <td>{{p.Start}}</td>
-              <td>{{p.Author}}</td>
-              <td>{{p.View}}</td>
-              <td class="d-flex justify-content-end" >
-                <div class="table-action">
-                  <fa-icon (click)="actionUpdate(1)" [icon]="faEdit" class="edit-icon"
-                      [style]="{cursor: 'pointer'}" size="lg"></fa-icon>
-                  <fa-icon [icon]="faDelete" class="delete-icon" [style]="{cursor: 'pointer'}"
-                      size="lg"></fa-icon>
-              </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<div class="container">
+  <div>
+    <div class="row">
+      <div class="header-box">
+        <h1>Danh sách bài viết</h1>
+        <div class="buttonadd col">
+          <button (click)="actionAdd()"><fa-icon [icon]="faPlus" size="lg"></fa-icon>Thêm bài viết</button>
       </div>
     </div>
-  </div>
-  
-<div class="fog" *ngIf="isShow">
-    <div class="form">
-      <h1 class="text-center mt-5 mb-4">TẠO BÀI VIẾT MỚI</h1>
-      <form>
-          <div class="row mb-3">
-              <label for="Title" class="col-sm-3 col-form-label">Tiêu đề</label>
-              <div class="col-sm-9">
-                  <input type="text" class="form-control" name="Title" id="Title" placeholder="Nhập tiêu đề">
-              </div>
-          </div>
-          <div class="row mb-3">
-              <label for="Content" class="col-sm-3 col-form-label">Nội dung</label>
-              <div class="col-sm-9" >
-                  <angular-editor name="Content" id="Content" placeholder="Nhập nội dung bài viết" [config]="config" ></angular-editor>
-              </div>
-          </div>
-          <div class="row mb-3">
-              <label for="author" class="col-sm-3 col-form-label ">Người viết</label>
-              <div class="col-sm-9 d-flex">
-                  <input type="text" class="form-control" id="author" name="author" placeholder="Tác giả">
-              </div>
-          </div>
-          <div class="d-flex justify-content-end" >
-              <button *ngIf="isCreate" type="submit" class="btn me-2">Tạo bài viết</button>
-              <button (click)="actionCancel()" type="cancel" class="btn">Hủy bỏ</button>
-          </div>
-      </form>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-between">
+      <div class="sort-function">
+        <select class="form-select">
+          <option selected>Lọc bài viết:</option>
+          <option value="sort_title">Lọc theo chủ đề</option>
+          <option value="">Chưa biết lọc theo gì</option>
+          <option value="">Chưa biết lọc theo gì</option>
+        </select>
+      </div>
+
+      <div class="search-box">
+        <form class="d-flex">
+          <input class="form-control me-2" style="width: 400px;" type="search" placeholder="Tìm kiếm..." aria-label="Search">
+          <button class="btn btn-outline-success" style="width: 40px;" type="submit"><i class="fa fa-search"></i></button>
+        </form>
+      </div>
+    </div>
+
+    <div class="display-list mt-3">
+      <table class="table text-center table-hover">
+        <thead>
+          <tr>
+            <th>Tiêu đề</th>
+            <th>Ngày tạo</th>
+            <th>Người viết</th>
+            <th>Lượt xem</th>
+            <th>Chức năng</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let blog of blogsList">
+            <td>{{blog.Title}}</td>
+            <td>{{blog.CreateDate}}</td>
+            <td>{{blog.Writer}}</td>
+            <td>{{blog.View}}</td>
+            <td class="d-flex justify-content-end" >
+              <div class="table-action">
+                <fa-icon (click)="actionUpdate(1)" [icon]="faEdit" class="edit-icon"
+                    [style]="{cursor: 'pointer'}" size="lg"></fa-icon>
+                <fa-icon (click)="deleteBlog(_id.value) [icon]="faDelete" class="delete-icon" [style]="{cursor: 'pointer'}"
+                    size="lg"></fa-icon>
+            </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
+<div class="fog" *ngIf="isShow">
+  <div class="form">
+    <h1 class="text-center mt-5 mb-4">TẠO BÀI VIẾT MỚI</h1>
+    <form>
+        <div class="row mb-3">
+            <label for="Title" class="col-sm-3 col-form-label">Tiêu đề</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="Title" id="Title" placeholder="Nhập tiêu đề" [(ngModel)]="blog.Title">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="Content" class="col-sm-3 col-form-label">Nội dung</label>
+            <div class="col-sm-9" >
+                <angular-editor name="Content" id="Content" placeholder="Nhập nội dung bài viết" [(ngModel)]="blog.Content" [config]="config"></angular-editor>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="author" class="col-sm-3 col-form-label ">Người viết</label>
+            <div class="col-sm-9 d-flex">
+                <input type="text" class="form-control" id="author" name="author" placeholder="Tác giả" [(ngModel)]="blog.Writer">
+            </div>
+        </div>
+        <div class="d-flex justify-content-end" >
+            <button (click)="postABlog()" *ngIf="isCreate" type="submit" class="btn me-2">Tạo bài viết</button>
+            <button (click)="actionCancel()" type="cancel" class="btn">Hủy bỏ</button>
+        </div>
+    </form>
+</div>
+</div>
 
-  <div class="fog" *ngIf="isShow">
-    <div class="form">
-      <h1 class="text-center mt-5 mb-4">CHỈNH SỬA BÀI VIẾT</h1>
-      <form>
-          <div class="row mb-3">
-              <label for="Title" class="col-sm-3 col-form-label">Tiêu đề</label>
-              <div class="col-sm-9">
-                  <input type="text" class="form-control" name="Title" id="Title" placeholder="Nhập tiêu đề">
-              </div>
-          </div>
-          <div class="row mb-3">
-              <label for="Content" class="col-sm-3 col-form-label">Nội dung</label>
-              <div class="col-sm-9" >
-                  <angular-editor name="Content" id="Content" placeholder="Nhập nội dung khuyến mãi" [config]="config" ></angular-editor>
-              </div>
-          </div>
-          <div class="row mb-3">
-              <label for="author" class="col-sm-3 col-form-label ">Người viết</label>
-              <div class="col-sm-9 d-flex">
-                  <input type="text" class="form-control" id="author" name="author" placeholder="Tác giả">
-              </div>
-          </div>
-          <div class="d-flex justify-content-end" >
-              <button *ngIf="isUpdate" type="submit" class="btn me-2">Lưu bài viết</button>
-              <button (click)="actionCancel()" type="cancel" class="btn">Hủy bỏ</button>
-          </div>
-      </form>
-  </div>
-  </div>
+
+<div class="fog" *ngIf="isShow">
+  <div class="form">
+    <h1 class="text-center mt-5 mb-4">CHỈNH SỬA BÀI VIẾT</h1>
+    <form>
+        <div class="row mb-3">
+            <label for="Title" class="col-sm-3 col-form-label">Tiêu đề</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="Title" id="Title" placeholder="Nhập tiêu đề" [(ngModel)]="blog.Title>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="Content" class="col-sm-3 col-form-label">Nội dung</label>
+            <div class="col-sm-9" >
+                <angular-editor name="Content" id="Content" placeholder="Nhập nội dung khuyến mãi" [(ngModel)]="blog.Content" [config]="config"  ></angular-editor>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="author" class="col-sm-3 col-form-label ">Người viết</label>
+            <div class="col-sm-9 d-flex">
+                <input type="text" class="form-control" id="author" name="author" placeholder="Tác giả" [(ngModel)]="blog.Writer">
+            </div>
+        </div>
+        <div class="d-flex justify-content-end" >
+            <button (click)="putABlog()" *ngIf="isUpdate" type="submit" class="btn me-2">Lưu bài viết</button>
+            <button (click)="actionCancel()" type="cancel" class="btn">Hủy bỏ</button>
+        </div>
+    </form>
+</div>
+</div>

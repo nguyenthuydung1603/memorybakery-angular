@@ -149,51 +149,53 @@ app.get('/blog/:id', cors(), async (req, res) => {
 })
 
 app.post('/blogs', cors(), (req, res) => {
-    try {
-        blogCollection.insertOne({
-            BlogID: null,
-            Title: req.body.title,
-            CreateDate: new Date().toISOString(),
-            Writer: req.body.writer,
-            Content: req.body.content,
-            Image: [],
-            Outstanding: req.body.outstanding
-        })
-        res.send(responseSuccess('Create', 'blog'))
-    } catch (e) {
-        res.send(responseError())
-    }
+  try {
+      blogCollection.insertOne({
+          BlogID: null,
+          Title: req.body.title,
+          CreateDate: new Date().toISOString(),
+          Writer: req.body.writer,
+          Content: req.body.content,
+          Image: [],
+          Outstanding: req.body.outstanding
+      })
+      res.send(responseSuccess('Create', 'blog'))
+  } catch (e) {
+      res.send(responseError())
+  }
 })
 
 app.put('/blogs/:id', cors(), (req, res) => {
-    const id = new ObjectId(req.params['id'])
-    const filter = { _id: id }
+  const id = new ObjectId(req.params['id'])
+  const filter = { _id: id }
 
-    blogCollection.updateOne(filter,
-        {
-            $set: {
-                BlogID: null,
-                Title: req.body.title,
-                Writer: req.body.writer,
-                Content: req.body.content,
-                Image: [],
-                Outstanding: req.body.outstanding
-            }
-        }, function (err) {
-            if (err) throw err
-        })
-    res.send(responseSuccess('Update', 'blog'))
+  blogCollection.updateOne(filter,
+      {
+          $set: {
+              BlogID: null,
+              Title: req.body.title,
+              Writer: req.body.writer,
+              Content: req.body.content,
+              Image: [],
+              Outstanding: req.body.outstanding
+          }
+      }, function (err) {
+          if (err) throw err
+      })
+  res.send(responseSuccess('Update', 'blog'))
 })
 
 app.delete('/blogs/:id', cors(), async (req, res) => {
-    const id = new ObjectId(req.params['id'])
-    const result = await blogCollection.deleteOne({ _id: id })
-    if (result.deletedCount === 1) {
-        res.send(responseSuccess('Delete', 'blog'))
-    } else {
-        res.send(responseError())
-    }
+  const id = new ObjectId(req.params['id'])
+  const result = await blogCollection.deleteOne({ _id: id })
+  if (result.deletedCount === 1) {
+      res.send(responseSuccess('Delete', 'blog'))
+  } else {
+      res.send(responseError())
+  }
 })
+
+
 
 function responseSuccess(action = 'your action', type = '') {
     return {

@@ -562,3 +562,14 @@ app.delete('/products-admin/:id', cors(), async (req, res) => {
       res.send(responseError())
   }
 })
+//API get order lên 
+app.get("/orders",cors(),async (req,res)=>{
+  const result = await orderCollection.find({}).toArray();
+  res.send(result)
+  }
+  )
+  app.get("/order/:orderstatus", cors(), async (req, res) => {
+    const orderstatus = req.params.orderstatus;
+    const result = await orderCollection.find({ OrderStatus: orderstatus }).sort({ cDate: -1 }).toArray();
+    res.send(result);
+  });

@@ -2,38 +2,83 @@ import { Component } from '@angular/core';
 import { IProduct, Product } from '../models/Product';
 import { ProductAPIService } from '../product-api.service';
 import { CartService } from '../cart.service';
+import { functionCustom } from '../custom-function/functionCustom';
 @Component({
   selector: 'app-list-product',
   templateUrl: './list-product.component.html',
   styleUrls: ['./list-product.component.css']
 })
 export class ListProductComponent {
-  product:IProduct[] =[] ;
+
+  //paginate
+  currentPage: any = 1
+  totalPage: any
+  perPage: number = 9
+  listProductPerPage: any = []
+
+
+  product: IProduct[] = [];
   products: any;
-  cart=[]
-  Category:any;
-  errMessage:string=''
-  constructor(public _service: ProductAPIService,public _cart: CartService){
-  this._service.getProducts().subscribe({
-  next:(data: IProduct[])=>{this.products=data},
-  error:(err)=>{this.errMessage=err}
-  })
+  cart = []
+  Category: any;
+  errMessage: string = ''
+  constructor(public _service: ProductAPIService, public _cart: CartService) {
+    this.getList()
   }
-  getListProductByCategory(Category:any){
+  getList(fpage: any = 1) {
+    this._service.getProducts().subscribe({
+      next: (data: IProduct[]) => {
+        this.listProductPerPage = []
+        this.currentPage = fpage
+        let pageTmp = Math.ceil(data.length / this.perPage)
+        this.totalPage = Array(pageTmp)
+
+        for (let i = (fpage - 1) * this.perPage; i < (fpage * this.perPage); i++) {
+          if (data[i]) this.listProductPerPage.push(data[i])
+        }
+      },
+      error: (err) => { this.errMessage = err }
+    })
+  }
+  getListProductByCategory(Category: any) {
     this._service.getListProductByCategory(Category).subscribe({
-    next:(data)=>{this.products=data},
-    error:(err)=>{this.errMessage=err}
+      next: (data) => { this.products = data },
+      error: (err) => { this.errMessage = err }
     })
   }
-  getListProductByPrice(minprice: string,maxprice:string){
-    this._service.getListProductByPrice(minprice,maxprice).subscribe({
-    next:(data)=>{this.products=data},
-    error:(err)=>{this.errMessage=err}
+  getListProductByPrice(minprice: string, maxprice: string) {
+    this._service.getListProductByPrice(minprice, maxprice).subscribe({
+      next: (data) => { this.products = data },
+      error: (err) => { this.errMessage = err }
     })
   }
-  addToCart(p:any)
-  {
+  addToCart(p: any) {
     this._cart.addToCart(p)
-  alert("Bạn đã thêm sản phẩm thành công");
-}
+    alert("Bạn đã thêm sản phẩm thành công");
+  }
+
+  convertVND(price: any) {
+    return functionCustom.convertVND(price)
+  }
+
+  changePage(page: any) {
+    this.getList(page)
+  }
+
+  preAndNextHandler(type: any) {
+    switch (type) {
+      case 'pre': {
+        this.currentPage -= 1
+        if (this.currentPage == 0) this.getList(1)
+        else this.getList(this.currentPage)
+        break
+      }
+      case 'next': {
+        this.currentPage += 1
+        if (this.currentPage > this.totalPage.length) this.getList(1)
+        else this.getList(this.currentPage)
+        break
+      }
+    }
+  }
 }

@@ -451,3 +451,17 @@ p {
 .hidden {
   display: none;
 }
+
+thead {
+  background-color: #E75C6B;
+  height: 50px;
+  color: #fff;
+}
+
+tbody > tr:hover {
+  background-color: rgb(249, 247, 247);
+}
+
+tbody > tr:nth-child(odd) {
+  background-color: #f9f5f6;
+}

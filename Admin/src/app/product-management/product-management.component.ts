@@ -33,6 +33,7 @@ export class ProductManagementComponent {
   isUpdate = false
   isVarian = false
   isLoading = false
+  updateMore = false
 
   // binding sort
   isSelectedSort: string = ''
@@ -96,7 +97,9 @@ export class ProductManagementComponent {
   }
 
   public isShowVarian(size: any) {
-    this.orVariant = this.product.Variant.find((v: any) => v.Size == size)
+    this.updateMore = false
+    let variantTmp = this.product.Variant.find((v: any) => v.Size == size)
+    this.orVariant = functionCustom.cloneObject(variantTmp)
     this.isVarian = true
   }
 
@@ -138,8 +141,32 @@ export class ProductManagementComponent {
     this.isUpdate = false
     this.haveSize = 'n'
     this.listCreateImageTmp = []
-    this.product = new Product()
-    this.variant = new Variant()
+    this.resetProductObject()
+    this.resetVariantObject()
+    // this.product = new Product()
+    // this.variant = new Variant()
+  }
+
+  resetProductObject() {
+    this.product.Name = ''
+    this.product.Category = ''
+    this.product.Description = ''
+    this.product.Img = []
+    this.product.Variant = []
+  }
+
+  resetVariantObject() {
+    this.variant.PromotionPrice = ''
+    this.variant.Quantity = 1
+    this.variant.Size = ''
+    this.variant.UnitPrice = ''
+  }
+
+  resetOrVariantObject() {
+    this.orVariant.PromotionPrice = ''
+    this.orVariant.Quantity = 1
+    this.orVariant.Size = ''
+    this.orVariant.UnitPrice = ''
   }
 
   @HostListener('document:click', ['$event'])
@@ -217,9 +244,19 @@ export class ProductManagementComponent {
 
   updateProduct(product: any) {
     if (this.product.Name == ''
-    || this.product.Category == ''
-    || this.product.Description == '') return swal.error('Phải nhập tất cả các thông tin để chỉnh sửa sản phẩm!', 3000)
+      || this.product.Category == ''
+      || this.product.Description == '') return swal.error('Phải nhập tất cả các thông tin để chỉnh sửa sản phẩm!', 3000)
     if (this.listCreateImageTmp.length == 0) return swal.success('Phải có ít nhất 1 ảnh!', 3000)
+    this.product.Variant.map((v: any) => {
+      if (v.Size == this.variant.Size) {
+        v.PromotionPrice = this.variant.PromotionPrice
+        v.Quantity = this.variant.Quantity
+        v.UnitPrice = this.variant.UnitPrice
+        v.Size = this.variant.Size
+        return
+      }
+    })
+
     this.service.putAProduct(product).subscribe({
       next: (data) => {
         this.actionCancel()
@@ -235,6 +272,8 @@ export class ProductManagementComponent {
   resetForm() {
     this.product = new Product()
     this.variant = new Variant()
+    // this.resetProductObject()
+    // this.resetVariantObject()
   }
 
   deleteProduct(id: any) {
@@ -287,23 +326,40 @@ export class ProductManagementComponent {
   }
 
   storeVariant() {
+    if (this.orVariant.Size == ''
+      || this.orVariant.Quantity == 0
+      || this.orVariant.UnitPrice == ''
+      || this.orVariant.PromotionPrice == '') return swal.error('Phải nhập đầy đủ thông tin để tạo 1 kích thước mới cho bánh', 3500)
     this.product.Variant.push(this.orVariant)
     this.isVarian = false
     this.orVariant = new Variant()
-    swal.success('Tạo mới biến thể thành công', 2000)
+    swal.success('Tạo mới thành công', 2000)
+  }
+
+  deleteVariantTmp(product: any, variant: any) {
+    this.actionCancelVariant()
+    functionCustom.removeElementByValue(product.Variant, variant)
   }
 
   updateVariant(product: any, orVariant: any) {
+    if (this.orVariant.Size == ''
+      || this.orVariant.Quantity == 0
+      || this.orVariant.UnitPrice == ''
+      || this.orVariant.PromotionPrice == '') return swal.error('Phải nhập đầy đủ thông tin để chỉnh sửa kích thước của bánh', 3500)
     product.Variant.map((v: any) => {
       if (v.Size == orVariant.Size) {
-        return v = orVariant
+        v.PromotionPrice = orVariant.PromotionPrice
+        v.Quantity = orVariant.Quantity
+        v.UnitPrice = orVariant.UnitPrice
+        v.Size = orVariant.Size
+        return
       }
     })
     this.service.putAProduct(product).subscribe({
       next: (data) => {
         this.isVarian = false
         this.getList()
-        swal.success('Đã chỉnh sửa biến thể thành công')
+        swal.success('Đã chỉnh sửa thành công')
       },
       error: (err) => {
         swal.error(err, 3000)
@@ -316,7 +372,8 @@ export class ProductManagementComponent {
     this.service.putAProduct(product).subscribe({
       next: (data) => {
         this.getList()
-        swal.success('Đã xoá biến thể thành công')
+        this.actionCancelVariant()
+        swal.success('Đã xoá thành công')
       },
       error: (err) => {
         swal.error(err, 3000)
@@ -342,5 +399,23 @@ export class ProductManagementComponent {
     // if(this.listCreateImageTmp.length == 1) return swal.error('Phải có ít nhất 1 ảnh, hãy thêm ảnh mới trước khi xoá!', 3000)
     functionCustom.removeElementByValue(this.listCreateImageTmp, image)
     functionCustom.removeElementByValue(this.product.Img, image)
+  }
+
+  createSize() {
+    if (this.isCreate) {
+      this.isVarian = true
+    }
+
+    if (this.isUpdate) {
+      this.isVarian = true
+      this.updateMore = true
+      // this.orVariant = new Variant()
+      this.resetOrVariantObject()
+    }
+  }
+
+  actionCancelVariant() {
+    this.isVarian = false
+    this.updateMore = false
   }
 }

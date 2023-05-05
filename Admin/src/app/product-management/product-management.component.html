@@ -103,7 +103,7 @@
       </div>
       <div class="form-input">
           <label for="">Tên sản phẩm</label>
-          <input  [(ngModel)]="product.Name" #name="ngModel" type="text">
+          <input [(ngModel)]="product.Name" #name="ngModel" type="text">
       </div>
       <div class="form-input">
           <label for="">Danh mục</label>
@@ -160,7 +160,7 @@
           </div>
       </div>
       <div class="form-button-box">
-          <button *ngIf="isCreate && haveSize== 'y'" (click)="isVarian = true">Tạo biến thể</button>
+          <button *ngIf="haveSize== 'y'" (click)="createSize()">Tạo thêm size bánh</button>
           <button *ngIf="isCreate" (click)="storeProduct()">Lưu</button>
           <button *ngIf="isUpdate" (click)="updateProduct(product)">Chỉnh sửa</button>
           <button (click)="actionCancel()">Huỷ bỏ</button>
@@ -168,20 +168,27 @@
       <div class="varian-list" *ngIf="product.Variant.length > 0 && isCreate">
           <h4>Các kích thước khác của bánh</h4>
           <div *ngFor="let oVa of product.Variant"
-              style="display: flex; justify-content: space-between; align-items: center; width: 80%; border: 1px solid #000; padding: 10px;">
+              style="display: flex; justify-content: space-between; align-items: center; width: 80%; border: 1px solid #000; padding: 10px; position: relative;">
               <div style="display: flex; flex-direction: column; justify-content: flex-start;">
                   <span>Size: </span>
                   <span>Giá Gốc: </span>
                   <span>Giá Khuyến Mãi</span>
+                  <span></span>
               </div>
               <div style="display: flex; flex-direction: column; justify-content: flex-end; text-align: right;">
                   <span>{{oVa.Size}}</span>
                   <span>{{convertVND(oVa.UnitPrice)}}</span>
                   <span>{{convertVND(oVa.PromotionPrice)}}</span>
+                  <span
+                      [swal]="{ title: 'Bạn có chắc chắn muốn xoá bánh có kích thước là ' + oVa.Size,  showCancelButton: true }"
+                      (confirm)="deleteVariantTmp(product, oVa)" (dismiss)="handleDismiss($event)" class="delete-icon"
+                      [style]="{cursor: 'pointer'}" [style]="{cursor: 'pointer'}" style="cursor: pointer;">
+                      Xoá
+                  </span>
               </div>
           </div>
       </div>
-      <div *ngIf="isUpdate && haveSize == 'y'" class="varian-list">
+      <div *ngIf="isUpdate && haveSize == 'y' && product?.Variant?.length != 0" class="varian-list">
           <h4>Các kích thước khác của bánh</h4>
           <div *ngFor="let vari of product.Variant; let iVar = index" [class.hidden]="iVar == 0" class="varian-item">
               <div class="varian-info">
@@ -189,14 +196,14 @@
                   <div class="varian-info-text">
                       <span>{{product.Name}}</span>
                       <span>Size {{vari.Size}}</span>
-                      <span>{{convertVND(vari.UnitPrice)}}</span>
+                      <span>{{convertVND(+vari.UnitPrice)}}</span>
                   </div>
               </div>
               <div class="varian-action">
                   <fa-icon (click)="isShowVarian(vari.Size)" [icon]="faEdit" class="edit-icon"
                       [style]="{cursor: 'pointer'}" size="lg"></fa-icon>
                   <fa-icon
-                      [swal]="{ title: 'Bạn có chắc chắn muốn xoá biến thể có size ' + vari.Size,  showCancelButton: true }"
+                      [swal]="{ title: 'Bạn có chắc chắn muốn xoá bánh có kích thước là ' + vari.Size,  showCancelButton: true }"
                       (confirm)="deleteVariant(product, vari)" (dismiss)="handleDismiss($event)" [icon]="faDelete"
                       class="delete-icon" [style]="{cursor: 'pointer'}" [icon]="faDelete" class="delete-icon"
                       [style]="{cursor: 'pointer'}" size="lg"></fa-icon>
@@ -205,14 +212,14 @@
       </div>
   </div>
 
-  <!-- form biến thể -->
+  <!-- form kích thước -->
   <div *ngIf="isVarian" action="" class="variant-form">
       <div class="form-title">
-          Điền thông tin biến thể
+          Điền thông tin kích thước
       </div>
       <div class="form-input">
           <label for="">Kích thước</label>
-          <input [class.select-none]="isCreate ? false : true" [disabled]="isCreate ? false : true"
+          <input [class.select-none]="!isCreate && !updateMore" [disabled]="!isCreate && !updateMore"
               [(ngModel)]="orVariant.Size" type="text">
       </div>
       <div class="form-input">
@@ -227,8 +234,9 @@
       </div>
       <div class="form-button-box">
           <button (click)="storeVariant()" *ngIf="isCreate">Lưu</button>
-          <button *ngIf="isUpdate" (click)="updateVariant(product, orVariant)">Chỉnh sửa</button>
-          <button (click)="isVarian = false">Huỷ bỏ</button>
+          <button *ngIf="isUpdate && !updateMore" (click)="updateVariant(product, orVariant)">Chỉnh sửa</button>
+          <button *ngIf="isUpdate && updateMore" (click)="storeVariant()">Thêm</button>
+          <button (click)="actionCancelVariant()">Huỷ bỏ</button>
       </div>
   </div>
 

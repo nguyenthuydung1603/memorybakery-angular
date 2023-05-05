@@ -19,4 +19,8 @@ export class functionCustom {
   static cloneArray(data: any) {
       return [...data]
   }
+  
+  static cloneObject(data: any) {
+    return { ...data }
+  }
 }

@@ -4,8 +4,6 @@ const port = 6868;
 const morgan=require("morgan")
 app.use(morgan("combined"))
 const bodyParser=require("body-parser")
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json({ limit: '210mb' }));
 app.use(express.urlencoded({ limit: '210mb' }));
 const cors=require("cors");
@@ -516,7 +514,6 @@ app.get('/product-admin/:id', cors(), async (req, res) => {
 app.post('/products-admin', cors(), async (req, res) => {
   try {
       productCollection.insertOne({
-          ProductID: null,
           Name: req.body.Name,
           Variant: req.body.Variant,
           Description: req.body.Description,
@@ -539,7 +536,6 @@ app.put('/products-admin/:id', cors(), (req, res) => {
   productCollection.updateOne(filter,
       {
           $set: {
-              ProductID: null,
               Name: req.body.Name,
               Variant: req.body.Variant,
               Description: req.body.Description,

@@ -8,10 +8,13 @@ import { MyAccountService } from '../services/my-account.service';
 })
 export class MyAccountComponent {
   user: any;
-  errMessage: any;
-  constructor(private accountService: MyAccountService) { }
+  errMessage:string='';
+  constructor(private accountService: MyAccountService) {
+    this.getUser();
+  }
 
-  ngOnInit(): void {
+  // Hàm Get thông tin User
+  getUser(){
     this.accountService.getUser().subscribe({
       next: (data) => {
         this.user = data;
@@ -21,8 +24,11 @@ export class MyAccountComponent {
       }
     });
   }
-  selectedSubComponent = 'details';
-  showSubList = false;
+// Thực hiện cho việc bấm vào cái nào thì hiện component cái đó
+  // Khai báo
+    selectedSubComponent = 'details';
+    showSubList = false;
+  // Viết hàm bấm vào đâu thì nhận ra giá của component div đó
   onSelectSubComponent(subComponent: string) {
     this.selectedSubComponent = subComponent;
   }

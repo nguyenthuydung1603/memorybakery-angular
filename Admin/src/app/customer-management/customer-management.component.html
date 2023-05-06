@@ -10,21 +10,6 @@
     </div>
 
     <!-- Phần 2 button Sắp xếp và tìm kiếm -->
-    <div class="function d-flex justify-content-between">
-        <div class="sort_function">
-          <select class="form-select" (change)="onSortChange($event)">
-            <option selected disabled>Sắp xếp theo:</option>
-            <option value="totalOrders">Số đơn hàng giảm dần</option>
-            <option value="totalOrderValue">Tổng giá trị đơn hàng giảm dần</option>
-          </select>
-
-        </div>
-
-        <div class="search-box">
-            <input type="text" placeholder="Tìm kiếm...">
-            <button type="submit"><i class="fa fa-search"></i></button>
-        </div>
-    </div>
 
     <div class="filter-search-container">
       <div class="filter-container" [ngClass]="{'filter-container-expand': showFilterOptions}">
@@ -72,10 +57,10 @@
         </thead>
         <tbody *ngFor="let c of customers| paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalCustomers }" >
           <tr>
-            <td>{{c.User.FullName}}</td>
-            <td>{{c.User.Phone}}</td>
-            <td>{{c.User.Address[0]?.DetailAddress}},{{c.User.Address[0]?.Ward}},{{c.User.Address[0]?.Town}} </td>
-            <td>{{c.User.Address[0]?.City}}</td>
+            <td>{{c.FullName}}</td>
+            <td>{{c.Phone}}</td>
+            <td>{{c.Address[0]?.DetailAddress}},{{c.Address[0]?.Ward}},{{c.Address[0]?.Town}} </td>
+            <td>{{c.Address[0]?.City}}</td>
             <td>{{ c.Order.length}}</td>
             <td>{{c.orderValue | currency:'VND'}}</td>
             <td>
@@ -95,7 +80,7 @@
 </div>
 <div *ngIf="showDetail" class="modal">
   <div class="customer-detail">
-    <div class="title">Chi tiết khách hàng {{selectedCustomer.User.FullName}}</div>
+    <div class="title">Chi tiết khách hàng {{selectedCustomer.FullName}}</div>
     <div class="information">
       <div class="sub_title">Thông tin chung</div>
       <hr>
@@ -104,28 +89,28 @@
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">Họ và tên:</label>
             <div class="col-sm-9">
-              <input type="text" readonly="" class="form-control-plaintext" value="{{selectedCustomer.User.FullName}}">
+              <input type="text" readonly="" class="form-control-plaintext" value="{{selectedCustomer.FullName}}">
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">Số điện thoại:</label>
             <div class="col-sm-9">
-              <input type="text" readonly="" class="form-control-plaintext" value="{{selectedCustomer.User.Phone}}">
+              <input type="text" readonly="" class="form-control-plaintext" value="{{selectedCustomer.Phone}}">
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">Giới tính:</label>
             <div class="col-sm-9">
               <div class="form-check form-check-inline">
-                <input class="form-check-input" checked name="inlineRadioOptions" id="inlineRadio1" type="radio" [checked]="selectedCustomer.User.Gender === 'Nam'">
+                <input class="form-check-input" checked name="inlineRadioOptions" id="inlineRadio1" type="radio" [checked]="selectedCustomer.Gender === 'Nam'">
                 <label class="form-check-label" for="inlineRadio1">Nam</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" [checked]="selectedCustomer.User.Gender === 'Nữ'">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" [checked]="selectedCustomer.Gender === 'Nữ'">
                 <label class="form-check-label" for="inlineRadio2">Nữ</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" [checked]="selectedCustomer.User.Gender === 'Khác'">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" [checked]="selectedCustomer.Gender === 'Khác'">
                 <label class="form-check-label" for="inlineRadio3">Khác</label>
               </div>
             </div>
@@ -139,7 +124,7 @@
         </div>
         <div class="col-md-4">
           <div class="text-center">
-            <img src="{{selectedCustomer.User.Image ? selectedCustomer.User.Image : './assets/img/No_image.png'}}" class="rounded" alt="">
+            <img src="{{selectedCustomer.Image ? selectedCustomer.Image : './assets/img/No_image.png'}}" class="rounded" alt="">
           </div>
         </div>
       </div>
@@ -161,12 +146,12 @@
         </thead>
 
         <tbody >
-          <tr *ngFor="let address of selectedCustomer.User.Address; let i = index">
+          <tr *ngFor="let address of selectedCustomer.Address; let i = index">
                 <td>{{ address.DetailAddress }}</td>
                 <td>{{ address.Ward}}</td>
                 <td>{{ address.Town}}</td>
                 <td>{{ address.City }}</td>
-
+                <td>{{ address.AddressPhone }}</td>
           </tr>
 
         </tbody>

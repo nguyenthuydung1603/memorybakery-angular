@@ -1,9 +1,6 @@
 <div class="title">Đơn hàng của tôi</div>
 <div class="container text-center main">
   <div class="row" >
-    <div class="col">
-      <button (click)="filterOrders('Tất cả')" [ngClass]="{'btn-primary red': selectedStatus === 'Tất cả'}">Tất cả</button>
-    </div>
     <div class="col" *ngFor="let option of statusOptions">
       <button (click)="filterOrders(option)" [ngClass]="{'btn-primary red': selectedStatus === option}" >
         {{ option }}
@@ -232,8 +229,6 @@
           </tbody>
         </table>
       </div>
-
     </div>
   </div>
-
 </div>

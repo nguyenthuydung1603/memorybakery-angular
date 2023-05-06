@@ -35,4 +35,5 @@ export class MyPassWordComponent {
       this.showReNewPassword = !this.showReNewPassword;
     }
   }
+
 }

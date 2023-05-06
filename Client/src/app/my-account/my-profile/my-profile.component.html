@@ -9,30 +9,30 @@
           <div class="mb-3 row">
             <label class="col-sm-5 col-form-label">Tên đăng nhập:</label>
             <div class="col-sm-7">
-              <input type="text" readonly="" class="form-control-plaintext" value="{{user.User.UserName}}">
+              <input type="text" readonly="" class="form-control-plaintext" value="{{user.UserName}}">
             </div>
           </div>
           <!-- Dòng 2 -->
           <div class="mb-3 row">
             <label class="col-sm-5 col-form-label">Họ và tên:</label>
             <div class="col-sm-7">
-              <input type="text" readonly="" class="form-control-plaintext" value="{{user.User.FullName}}">
+              <input type="text" readonly="" class="form-control-plaintext" value="{{user.FullName}}">
             </div>
           </div>
           <!-- Dòng 3 -->
           <div class="mb-3 row">
             <label class="col-sm-5 col-form-label">Số điện thoại:</label>
             <div class="col-sm-7">
-              <input type="text" readonly="" class="form-control-plaintext" value="{{user.User.Phone}}">
+              <input type="text" readonly="" class="form-control-plaintext" value="{{user.Phone}}">
             </div>
           </div>
           <!-- Dòng 4 -->
           <div class="mb-3 row">
             <label class="col-sm-5 col-form-label">Giới tính:</label>
             <div class="col-sm-7">
-              <label class="form-check form-check-inline"><input class="form-check-input" checked name="inlineRadioOptions" id="inlineRadio1" type="radio" [checked]="user.User.Gender === 'Nam'">Nam</label>
-              <label class="form-check form-check-inline"><input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" [checked]="user.User.Gender === 'Nữ'">Nữ</label>
-              <label class="form-check form-check-inline"><input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" [checked]="user.User.Gender === 'Khác'">Khác</label>
+              <label class="form-check form-check-inline"><input class="form-check-input" checked name="inlineRadioOptions" id="inlineRadio1" type="radio" [checked]="user.Gender === 'Nam'">Nam</label>
+              <label class="form-check form-check-inline"><input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" [checked]="user.Gender === 'Nữ'">Nữ</label>
+              <label class="form-check form-check-inline"><input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" [checked]="user.Gender === 'Khác'">Khác</label>
             </div>
           </div>
           <!-- Dòng 5 -->
@@ -52,10 +52,8 @@
         <!-- Phần bên phải -->
         <div class="col-4" style="margin: auto;">
           <div class="text-center">
-            <img src="{{user.User.Image}}" class="rounded" alt="...">
+            <img src="{{user.Image}}" class="rounded" alt="...">
           </div>
-          <p class="text-center">Dung lượng file tối đa 3 MB</p>
-          <p class="text-center">Định dạng: .JPEG, .PNG</p>
         </div>
       </div>
     </div>
@@ -65,4 +63,3 @@
 <div *ngIf="showEdit">
   <app-my-edit-profile></app-my-edit-profile>
 </div>
-

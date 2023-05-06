@@ -9,10 +9,13 @@ import { MyAccountService } from 'src/app/services/my-account.service';
 export class MyProfileComponent {
   user: any;
   errMessage: any;
-  editMode:boolean=false
-  constructor(private accountService: MyAccountService) { }
 
-  ngOnInit(): void {
+  constructor(private accountService: MyAccountService) {
+    this.getUser();
+  }
+
+  // Hàm Get thông tin User
+  getUser(){
     this.accountService.getUser().subscribe({
       next: (data) => {
         this.user = data;
@@ -23,16 +26,15 @@ export class MyProfileComponent {
     });
   }
   getUserDateOfBirth() {
-    const dateOfBirth = new Date(this.user.User.DateOfBirth);
+    const dateOfBirth = new Date(this.user.DateOfBirth);
     const year = dateOfBirth.getFullYear();
     const month = (dateOfBirth.getMonth() + 1).toString().padStart(2, '0');
     const day = dateOfBirth.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
+  //Nếu người dùng bấm Chỉnh sửa thì hiện component Edit
   showEdit: boolean = false;
-
   showEditProfile() {
     this.showEdit = true;
   }
-
 }

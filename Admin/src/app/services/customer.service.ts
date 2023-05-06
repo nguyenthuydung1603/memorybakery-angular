@@ -7,34 +7,18 @@ import { Observable, map, retry, catchError, throwError } from 'rxjs';
 })
 export class CustomerService {
   constructor(private _http: HttpClient) { }
-  getCustomers(): Observable<any> {
+  // Hàm get tất cả Fashions,sắp xếp theo ngày tạo giảm dần
+ getCustomers(): Observable<any> {
     const headers = new HttpHeaders().set("Content-Type", "text/plain;charset=utf-8");
     const requestOptions: Object = {
       headers: headers,
       responseType: "text"
     }
-    return this._http.get<any>("/myList", requestOptions).pipe(
-      map(res => {
-        const customers = JSON.parse(res);
-        let totalOrders = 0;
-        let totalOrderValue = 0;
-        for (const customer of customers) {
-          totalOrders += customer.Order.length;
-          for (const order of customer.Order) {
-            totalOrderValue += parseInt(order.SubTotal, 10);
-          }
-        }
-        return { customers, totalOrders, totalOrderValue };
-      }),
+    return this._http.get<any>("http://localhost:3003/myList/customers", requestOptions).pipe(
+      map(res=>JSON.parse(res)),
       retry(3),
       catchError(this.handleError)
-    ).pipe(
-      // Return the observable with the additional values
-      map(result => {
-        const { customers, totalOrders, totalOrderValue } = result;
-        return { customers, totalOrders, totalOrderValue, totalCustomers: customers.length };
-      })
-    );
+    )
   }
   // Hàm get Id
   getCustomer(_id:string):Observable<any>
@@ -44,7 +28,7 @@ export class CustomerService {
       headers:headers,
       responseType:"text"
     }
-    return this._http.get<any>("/myList/users/"+_id,requestOptions).pipe(
+    return this._http.get<any>("/myList/customers/"+_id,requestOptions).pipe(
       map(res=>JSON.parse(res)),
       retry(3),
       catchError(this.handleError)
@@ -58,7 +42,7 @@ export class CustomerService {
       headers:headers,
       responseType:"text"
   }
-  return this._http.delete<any>("/myList/"+_id,requestOptions).pipe(
+  return this._http.delete<any>("/myList/customers/"+_id,requestOptions).pipe(
       map(res=>JSON.parse(res)),
       retry(3),
       catchError(this.handleError))

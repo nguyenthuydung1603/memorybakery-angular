@@ -89,8 +89,9 @@
     </style>
 </head>
 <body>
-  <div class="title">Cập nhật hồ sơ</div>
-  <div class="main">
+  <div *ngIf="!showDetail">
+    <div class="title">Cập nhật hồ sơ</div>
+    <div class="main">
     <div class="shadow-sm p-3 mb-5 bg-body rounded">
       <div class="row" *ngIf="user">
         <!-- Phần bên trái -->
@@ -99,59 +100,68 @@
           <div class="mb-3 row">
             <label class="col-sm-5 col-form-label">Tên đăng nhập:</label>
             <div class="col-sm-7">
-              <input type="text" readonly="" class="form-control-plaintext" value="{{user.User.UserName}}">
+              <input type="text" readonly="" class="form-control-plaintext" value="{{user.UserName}}">
             </div>
           </div>
           <!-- Dòng 2 -->
           <div class="mb-3 row">
             <label class="col-sm-5 col-form-label">Họ và tên:</label>
             <div class="col-sm-7">
-              <input type="text" class="form-control-plaintext" value="{{user.User.FullName}}" [(ngModel)]="user.User.FullName">
+              <input type="text" class="form-control" id="exampleFormControlInput1" value="{{user.FullName}}" [(ngModel)]="Edituser.FullName">
             </div>
           </div>
           <!-- Dòng 3 -->
           <div class="mb-3 row">
             <label class="col-sm-5 col-form-label">Số điện thoại:</label>
             <div class="col-sm-7">
-              <input type="text" class="form-control-plaintext" value="{{user.User.Phone}}"[(ngModel)]="user.User.Phone">
+              <input type="text" class="form-control" id="exampleFormControlInput2" value="{{user.Phone}}"[(ngModel)]="Edituser.Phone">
             </div>
           </div>
           <!-- Dòng 4 -->
           <div class="mb-3 row">
             <label class="col-sm-5 col-form-label">Giới tính:</label>
             <div class="col-sm-7">
-              <label class="form-check form-check-inline"><input class="form-check-input" checked name="inlineRadioOptions" id="inlineRadio1" type="radio" [checked]="user.User.Gender === 'Nam'">Nam</label>
-              <label class="form-check form-check-inline"><input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" [checked]="user.User.Gender === 'Nữ'">Nữ</label>
-              <label class="form-check form-check-inline"><input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" [checked]="user.User.Gender === 'Khác'">Khác</label>
-
+              <label class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" [value]="'Nam'" [checked]="Edituser.Gender === 'Nam'" [(ngModel)]="Edituser.Gender">Nam
+              </label>
+              <label class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" [value]="'Nữ'" [checked]="Edituser.Gender === 'Nữ'" [(ngModel)]="Edituser.Gender">Nữ
+              </label>
+              <label class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" [value]="'Khác'" [checked]="Edituser.Gender === 'Khác'" [(ngModel)]="Edituser.Gender">Khác
+              </label>
             </div>
+
           </div>
           <!-- Dòng 5 -->
           <div class="mb-3 row">
             <label class="col-sm-5 col-form-label">Ngày sinh:</label>
             <div class="col-sm-7">
-              <input type="date" class="form-control input1" id="inputDOB" [value]="getUserDateOfBirth()">
+              <input type="date" class="form-control input1" id="inputDOB" [value]="getUserDateOfBirth()" [(ngModel)]="Edituser.DateOfBirth">
             </div>
           </div>
 
         </div>
         <!-- Phần bên phải -->
         <div class="col-3" style="margin-top: auto;">
-          <div class="text-center">
-            <img src="{{user.User.Image}}" class="rounded" alt="...">
+          <div class="center">
+            <img src="{{Edituser.Image}}" class="rounded" alt="...">
+            <input type="file" class="file-input" #name="ngModel" name="image" id="image" [(ngModel)]="Edituser.Image" (change)="onFileSelected($event)">
           </div>
-          <p class="text-center">Dung lượng file tối đa 3 MB</p>
+          <br>
           <p class="text-center">Định dạng: .JPEG, .PNG</p>
         </div>
       </div>
       <!-- Phần button -->
       <div class="button">
-        <button type="button" class="btn btn-primary input" (click)="OnClick()">
+        <button type="button" class="btn btn-primary input" (click)="onClick()">
           Chỉnh sửa
         </button>
       </div>
     </div>
+    </div>
+  </div>
+  <div *ngIf="showDetail">
+    <app-my-profile></app-my-profile>
   </div>
 </body>
-
-

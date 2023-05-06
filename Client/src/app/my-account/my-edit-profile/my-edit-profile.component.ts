@@ -9,26 +9,17 @@ import { MyAccountService } from 'src/app/services/my-account.service';
 })
 export class MyEditProfileComponent {
   user: any;
-  Edituser :any
   errMessage: any;
-
+  Edituser: any;
   constructor(private accountService: MyAccountService) {
+    this.getUser();
+  }
+  // Hàm Get thông tin User
+  getUser(){
     this.accountService.getUser().subscribe({
       next: (data) => {
         this.user = data;
-        this.Edituser = { ...data }; // make a copy of the user object
-        console.log(this.Edituser);
-      },
-      error: (err) => {
-        this.errMessage = err;
-      }
-    });
-  }
-
-  putUser() {
-    this.accountService.putUser(this.Edituser).subscribe({
-      next: (data) => {
-        this.user = this.Edituser;
+        this.Edituser = this.user;
         console.log(this.user);
       },
       error: (err) => {
@@ -36,17 +27,26 @@ export class MyEditProfileComponent {
       }
     });
   }
-
-  OnClick() {
-    this.putUser()
+  // Hàm chỉnh sửa Put thông tin User
+  putUser() {
+    this.accountService.putUser(this.Edituser).subscribe({
+      next: (data) => {
+        this.getUser();
+      },
+      error: (err) => {
+        this.errMessage = err;
+      }
+    });
   }
+  //Chuyển đổi thành DD/MM/YYYY
   getUserDateOfBirth() {
     const dateOfBirth = new Date(this.user.DateOfBirth);
-    const year = dateOfBirth.getFullYear();
     const month = (dateOfBirth.getMonth() + 1).toString().padStart(2, '0');
     const day = dateOfBirth.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}`;
+    const year = dateOfBirth.getFullYear();
+    return `${year}/${month}/${day}`;
   }
+  // Ghi nhận hình ảnh và chuyển sang dạng Base64
   @Input()
   requiredFileType:any;
   fileName = '';
@@ -59,12 +59,13 @@ export class MyEditProfileComponent {
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        this.user.Image = reader.result!.toString();
+        this.Edituser.Image = reader.result!.toString();
       };
       reader.onerror = (error) => {
         console.log('Error: ', error);
       };
     }
+    this.Edituser.Image=this.fileName
     this.user.Image=this.fileName
   }
   cancelUpload() {
@@ -74,5 +75,14 @@ export class MyEditProfileComponent {
   reset() {
   this.uploadProgress = 0;
   this.uploadSub = new Subscription();
+  }
+  // Hiển thị lại Detail
+  showDetail: boolean = false;
+  showDetailProfile() {
+    this.showDetail = true;
+  }
+  onClick() {
+    this.putUser();
+    this.showDetailProfile();
   }
 }

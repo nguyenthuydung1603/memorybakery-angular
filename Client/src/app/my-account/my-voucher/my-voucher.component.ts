@@ -11,10 +11,9 @@ export class MyVoucherComponent {
   vouchers: any[] = [];
   errMessage:any
   constructor(private accountService: MyAccountService) {
-    this.accountService.getUser().subscribe({
+    this.accountService.getListVoucher().subscribe({
       next: (data) => {
-        this.user = data;
-        this.vouchers = data.Voucher;
+        this.vouchers = data
         console.log(this.vouchers)
       },
       error: (err) => {

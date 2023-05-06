@@ -38,7 +38,8 @@ export class CustomerManagementComponent {
   getUsers() {
     this.accountService.getCustomers().subscribe({
       next: (data) => {
-        this.customers = data.customers;
+        this.customers = data;
+        console.log( data)
         this.totalOrders = data.totalOrders;
         this.totalOrderValue = data.totalOrderValue;
         this.totalCustomers = data.totalCustomers;
@@ -157,7 +158,7 @@ closeFilterOptions() {
     this.showDetail = false;
   }
   getUserDateOfBirth() {
-    const dateOfBirth = new Date(this.selectedCustomer.User.DateOfBirth);
+    const dateOfBirth = new Date(this.selectedCustomer.DateOfBirth);
     const year = dateOfBirth.getFullYear();
     const month = (dateOfBirth.getMonth() + 1).toString().padStart(2, '0');
     const day = dateOfBirth.getDate().toString().padStart(2, '0');

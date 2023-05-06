@@ -1,9 +1,9 @@
 <div class="container" >
   <div class="left-side">
     <div class="profile" *ngIf="user">
-      <img src="{{user.User.Image}}" alt="">
+      <img src="{{user.Image}}" alt="">
       <div class="profile-right" >
-          <h3>{{user.User.FullName}}</h3>
+          <h3>{{user.FullName}}</h3>
           <button class="link-btn" (click)="onSelectSubComponent('editProfile')" [class.active]="selectedSubComponent === 'editProfile'"><i class="fa-solid fa-pen"></i> Sửa hồ sơ</button>
       </div>
     </div>
@@ -58,7 +58,6 @@
       <app-my-edit-profile *ngSwitchCase="'editProfile'"></app-my-edit-profile>
       <app-my-voucher *ngSwitchCase="'voucher'"></app-my-voucher>
       <app-my-product *ngSwitchCase="'love'"></app-my-product>
-      <app-my-review *ngSwitchCase="'review'"></app-my-review>
     </ng-container>
   </div>
 </div>

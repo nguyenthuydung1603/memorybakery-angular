@@ -14,7 +14,7 @@ export class CustomerService {
       headers: headers,
       responseType: "text"
     }
-    return this._http.get<any>("http://localhost:3003/myList/customers", requestOptions).pipe(
+    return this._http.get<any>("http://localhost:6868/customer-admin", requestOptions).pipe(
       map(res=>JSON.parse(res)),
       retry(3),
       catchError(this.handleError)
@@ -28,7 +28,7 @@ export class CustomerService {
       headers:headers,
       responseType:"text"
     }
-    return this._http.get<any>("/myList/customers/"+_id,requestOptions).pipe(
+    return this._http.get<any>("/customer-admin/"+_id,requestOptions).pipe(
       map(res=>JSON.parse(res)),
       retry(3),
       catchError(this.handleError)
@@ -42,7 +42,7 @@ export class CustomerService {
       headers:headers,
       responseType:"text"
   }
-  return this._http.delete<any>("/myList/customers/"+_id,requestOptions).pipe(
+  return this._http.delete<any>("/customer-admin/"+_id,requestOptions).pipe(
       map(res=>JSON.parse(res)),
       retry(3),
       catchError(this.handleError))

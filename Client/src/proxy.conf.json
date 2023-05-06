@@ -50,49 +50,49 @@
   },
   {
     "context": ["/customer"],
-    "target": "http://localhost:3003",
+    "target": "http://localhost:6868",
     "secure": true,
     "changeOrigin":true,
     "logLevel":"debug"
   },
   {
     "context": ["/address/list"],
-    "target": "http://localhost:3003",
+    "target": "http://localhost:6868",
     "secure": true,
     "changeOrigin":true,
     "logLevel":"debug"
   },
   {
     "context": ["/address"],
-    "target": "http://localhost:3003",
+    "target": "http://localhost:6868",
     "secure": true,
     "changeOrigin":true,
     "logLevel":"debug"
   },
   {
     "context": ["/order/list/"],
-    "target": "http://localhost:3003",
+    "target": "http://localhost:6868",
     "secure": true,
     "changeOrigin":true,
     "logLevel":"debug"
   },
   {
     "context": ["/voucher/list/"],
-    "target": "http://localhost:3003",
+    "target": "http://localhost:6868",
     "secure": true,
     "changeOrigin":true,
     "logLevel":"debug"
   },
   {
     "context": ["/product/list/"],
-    "target": "http://localhost:3003",
+    "target": "http://localhost:6868",
     "secure": true,
     "changeOrigin":true,
     "logLevel":"debug"
   },
   {
     "context": ["/address/setDefault/"],
-    "target": "http://localhost:3003",
+    "target": "http://localhost:6868",
     "secure": true,
     "changeOrigin":true,
     "logLevel":"debug"

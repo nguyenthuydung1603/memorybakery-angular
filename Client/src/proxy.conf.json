@@ -14,6 +14,13 @@
     "logLevel":"debug"
   },
   {
+    "context": ["/products/rate"],
+    "target": "http://localhost:6868",
+    "secure": true,
+    "changeOrigin":true,
+    "logLevel":"debug"
+  },
+  {
    "context": ["/products/price"],
     "target": "http://localhost:6868",
     "secure": true,

@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
      }
      // navigate to login page as user is not authenticated
   alert('Vui lòng đăng nhập')
-  this.router.navigate(['/login']);
+  this.router.navigate(['/getlogin']);
 return false;
 }
 public isLoggedIn(): boolean {

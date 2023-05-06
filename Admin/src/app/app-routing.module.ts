@@ -6,7 +6,6 @@ import { PromotionManagementComponent } from './promotion-management/promotion-m
 import { BlogManagementComponent } from './blog-management/blog-management.component';
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
 import { PromotionDetailComponent } from './promotion-detail/promotion-detail.component';
-import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 import { QuanLyDonHangComponent } from './quan-ly-don-hang/quan-ly-don-hang.component';
 import { ChiTietDonHangComponent } from './chi-tiet-don-hang/chi-tiet-don-hang.component';
 
@@ -17,7 +16,6 @@ const routes: Routes = [
   {path: 'blog', component:BlogManagementComponent},
   {path: 'customer', component:CustomerManagementComponent},
   {path:"promotion_detail/:id",component: PromotionDetailComponent},
-  {path: "blog/:id", component:BlogDetailComponent},
   {path: 'quanlydonhang', component:QuanLyDonHangComponent},
   {path: 'quanlydonhangchitiet', component:ChiTietDonHangComponent},
 ];

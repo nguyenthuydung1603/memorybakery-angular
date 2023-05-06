@@ -870,8 +870,10 @@ h5 {
   }
 }
 .intro{
-  background-color: aqua;
-  font-weight:500;
+  background-color: var(--button_color);
+  font-size: 24px;
   height: 40px;
   margin: 0;
+  text-shadow: 1px 1px #fff;
+  white-space: nowrap;
 }

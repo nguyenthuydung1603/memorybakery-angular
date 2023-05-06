@@ -40,18 +40,51 @@ export class ListProductComponent {
       error: (err) => { this.errMessage = err }
     })
   }
-  getListProductByCategory(Category: any) {
+  getListProductByCategory(Category: any,fpage: any = 1) {
     this._service.getListProductByCategory(Category).subscribe({
-      next: (data) => { this.products = data },
+      next: (data: IProduct[]) => {
+        this.listProductPerPage = []
+        this.currentPage = fpage
+        let pageTmp = Math.ceil(data.length / this.perPage)
+        this.totalPage = Array(pageTmp)
+
+        for (let i = (fpage - 1) * this.perPage; i < (fpage * this.perPage); i++) {
+          if (data[i]) this.listProductPerPage.push(data[i])
+        }
+      },
       error: (err) => { this.errMessage = err }
     })
-  }
-  getListProductByPrice(minprice: string, maxprice: string) {
+    }
+  getListProductByPrice(minprice: string, maxprice: string,fpage: any = 1) {
     this._service.getListProductByPrice(minprice, maxprice).subscribe({
-      next: (data) => { this.products = data },
+      next: (data: IProduct[]) => {
+        this.listProductPerPage = []
+        this.currentPage = fpage
+        let pageTmp = Math.ceil(data.length / this.perPage)
+        this.totalPage = Array(pageTmp)
+
+        for (let i = (fpage - 1) * this.perPage; i < (fpage * this.perPage); i++) {
+          if (data[i]) this.listProductPerPage.push(data[i])
+        }
+      },
       error: (err) => { this.errMessage = err }
     })
   }
+  getListProductByRate(rate:any,fpage: any = 1){
+    this._service.getListProductByCategory(rate).subscribe({
+      next: (data: IProduct[]) => {
+        this.listProductPerPage = []
+        this.currentPage = fpage
+        let pageTmp = Math.ceil(data.length / this.perPage)
+        this.totalPage = Array(pageTmp)
+
+        for (let i = (fpage - 1) * this.perPage; i < (fpage * this.perPage); i++) {
+          if (data[i]) this.listProductPerPage.push(data[i])
+        }
+      },
+      error: (err) => { this.errMessage = err }})
+  }
+
   addToCart(p: any) {
     this._cart.addToCart(p)
     alert("Bạn đã thêm sản phẩm thành công");

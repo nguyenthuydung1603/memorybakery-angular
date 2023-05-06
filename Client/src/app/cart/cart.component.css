@@ -96,7 +96,7 @@ h4 {
 
 .price-info {
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
+
 }
 
 .price, .product_total {

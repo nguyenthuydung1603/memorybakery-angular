@@ -7,7 +7,7 @@
       <div class="list-product">
         <p class="title">Danh mục sản phẩm</p>
         <hr>
-        <ul>
+        <ul style="cursor: pointer;">
           <span class="now"> <a href="./listProduct">
               <li>Tất cả</li>
             </a></span>
@@ -36,23 +36,23 @@
         <button (click)="getListProductByPrice(minprice.value,maxprice.value)" class="search-price">Tìm kiếm</button>
         <p class="title">Đánh giá</p>
         <hr>
-        <a class="star-product" href="#">
+        <a style="cursor: pointer;" class="star-product"  (click)="getListProductByRate('5')" >
           <div><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
               class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
         </a>
-        <a class="star-product" href="#">
+        <a style="cursor: pointer;" class="star-product"  (click)="getListProductByRate('4')" >
           <div><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
               class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i> <span>trở lên</span></div>
         </a>
-        <a class="star-product" href="#">
+        <a style="cursor: pointer;" class="star-product"  (click)="getListProductByRate('3')" >
           <div><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
               class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i> <span>trở lên</span></div>
         </a>
-        <a class="star-product" href="#">
+        <a style="cursor: pointer;" class="star-product"  (click)="getListProductByRate('2')" >
           <div><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i
               class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i> <span>trở lên</span></div>
         </a>
-        <a class="star-product" href="#">
+        <a style="cursor: pointer;" class="star-product"  (click)="getListProductByRate('1')" >
           <div><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i><i
               class="fa-regular fa-star"></i><i class="fa-regular fa-star"></i> <span>trở lên</span></div>
         </a>
@@ -76,7 +76,7 @@
                 </p>
                 <div><span class="star"> <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
                       class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                  </span><span>530</span></div>
+                  </span><span>{{product.TotalRateing}}</span></div>
               </div>
             </div>
           </div>

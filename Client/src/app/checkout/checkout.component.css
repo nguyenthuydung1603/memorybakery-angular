@@ -490,10 +490,7 @@ input[type=radio] {
     /* display: none; */
 
 }
-.modal__inner{
-    margin: 20px;
 
-}
 .activate{
     display: block;
 }
@@ -553,9 +550,21 @@ input[type=radio] {
     left: 0;
     animation: linear 0.1s;
     display: none;
-
 }
 .modal3.open{
+    display: flex;
+}
+.modal4{
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    animation: linear 0.1s;
+    display: none;
+}
+.modal4.open{
     display: flex;
 }
 /*Lớp phủ đen đen */
@@ -1089,4 +1098,12 @@ input[type=radio] {
     font-family: 'Inter', sans-serif;
     margin-left: 20px;
     height: 150px;
+}
+
+#title-checkout{
+  color: white;
+  background-color: #E75C6B;
+  font-size: 25px;
+  font-weight: bold;
+  padding: 20px 10px;
 }

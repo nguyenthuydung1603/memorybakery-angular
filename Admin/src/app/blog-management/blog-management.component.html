@@ -6,7 +6,7 @@
     <div class="row">
       <div class="header-box">
         <h1>Danh sách bài viết</h1>
-        <div class="buttonadd col">
+        <div class="buttonadd col" style="text-align: right;">
           <button (click)="actionAdd()"><fa-icon [icon]="faPlus" size="lg"></fa-icon>Thêm bài viết</button>
       </div>
     </div>
@@ -37,21 +37,21 @@
             <th>Tiêu đề</th>
             <th>Ngày tạo</th>
             <th>Người viết</th>
-            <th>Lượt xem</th>
+            <th>Chế độ Nổi bật</th>
             <th>Chức năng</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let blog of blogsList">
+          <tr *ngFor="let blog of blogs">
             <td>{{blog.Title}}</td>
             <td>{{blog.CreateDate}}</td>
             <td>{{blog.Writer}}</td>
-            <td>{{blog.View}}</td>
+            <td>{{blog.Oustanding}}</td>
             <td class="d-flex justify-content-end" >
               <div class="table-action">
                 <fa-icon (click)="actionUpdate(1)" [icon]="faEdit" class="edit-icon"
                     [style]="{cursor: 'pointer'}" size="lg"></fa-icon>
-                <fa-icon (click)="deleteBlog(blog._id.value)" [icon]="faDelete" class="delete-icon" [style]="{cursor: 'pointer'}"
+                <fa-icon (click)="deleteBlog(blog._id)" [icon]="faDelete" class="delete-icon" [style]="{cursor: 'pointer'}"
                     size="lg"></fa-icon>
             </div>
             </td>
@@ -62,7 +62,7 @@
   </div>
 </div>
 
-<div class="fog" *ngIf="isShow">
+<div class="fog" *ngIf="isCreate">
   <div class="form">
     <h1 class="text-center mt-5 mb-4">TẠO BÀI VIẾT MỚI</h1>
     <form>

@@ -74,7 +74,6 @@ this.isVarian = true
 }
 
 public actionAdd() {
-this.isShow = true
 this.isCreate = true
 }
 
@@ -98,13 +97,15 @@ totalPage: any = []
 
 // orther
 blog=new Blog();
+blogs:any
 blogsList: any
 outstandingList: any
 errMess: string = ''
 constructor(private service: BlogService) {
-  this.getBlogsList()
-  this.getOutstandingList()
-
+  this.service.getBlogs().subscribe({
+    next:(data)=>{this.blogs=data},
+    error:(err)=>{this.errMess=err}
+  })
 }
 
 getBlogsList(page: any = 1) {
@@ -156,12 +157,16 @@ putABlog() {
   })
 }
 deleteBlog(_id: any) {
+  if (confirm("Bạn có chắc chắn xóa?")==true){
   this.service.deleteBlog(_id).subscribe({
     next: (data) => {
       this.blogsList = data
     },
     error: (err) => { this.errMess = err }
+
   })
+  window.location.reload()
+}
 }
 
 convertDate(date: any) {
@@ -169,23 +174,6 @@ convertDate(date: any) {
   return fDate.toLocaleString()
 }
 
-blogs=[{
-  "BlogId":"1",
-  "BlogName": "Cách làm bánh Matcha Latte",
-  "Title":"Cách làm bánh Matcha Latte",
-  "Start": "20-4-2023",
-  "Author": "Đinh Trần Xuân Nguyên",
-  "View": 40
-},
-{   
-  "BlogId":"2",
-  "BlogName": "Sự hấp dẫn của Cupcakes",
-  "Title":"Sự hấp dẫn của Cupcakes",
-  "Start": "20-4-2023",
-  "Author": "Trần Thị Thuận",
-  "View": 40
-}
-]
 
 
 

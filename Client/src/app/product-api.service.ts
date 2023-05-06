@@ -38,6 +38,17 @@ export class ProductAPIService {
       retry(3),
       catchError(this.handleError))
   }
+  getListProductByRate(rate: string): Observable<any> {
+    const headers = new HttpHeaders().set("Content-Type", "text/plain;charset=utf-8")
+    const requestOptions: Object = {
+      headers: headers,
+      responseType: "text"
+    }
+    return this._http.get<any>("/products/rate/" + rate, requestOptions).pipe(
+      map(res => JSON.parse(res) as Array<IProduct>),
+      retry(3),
+      catchError(this.handleError))
+  }
   getListProductByPrice(minprice: string,maxprice:string): Observable<any> {
     const headers = new HttpHeaders().set("Content-Type", "text/plain;charset=utf-8")
     const requestOptions: Object = {

@@ -24,27 +24,27 @@
               </div>
 
               <div class="line"></div>
-              <h1 *ngIf="!data || data.length == 0" class="text-center text-[30px]">Không có sản
-                phẩm nào trong giỏ hàng</h1>
+              <div *ngIf="!data || data.length == 0" class="text-center text-[30px]">
+                <i style="font-size: 150px;" class="fa-solid fa-cart-arrow-down"></i>
+                <h2 >Không có sản phẩm nào trong giỏ hàng</h2>
+              </div>
+
               <div class="cart-product-container" *ngFor="let item of data">
                   <div class="cart-product">
                       <!-- chekbox -->
                       <div><input type="checkbox" name="pr1" id="pr1" checked></div>
                       <!-- Tên sản phẩm -->
-                      <div class="cart-info">
+                      <div style="cursor: pointer;" class="cart-info" [routerLink]="['/detail',item._id]" >
                           <div>
                               <img [src]="item.Img[0]" style="border-radius: 50%" width="100%">
                           </div>
                           <div class="product-description">
-                              <b>{{item.Name}}</b>
+                              <b>{{item.Name}} ({{item.size.Size}}) </b>
                           </div>
                       </div>
                       <!-- Giá sản phẩm -->
                       <div class="price-info">
-                          <div class="price">{{item.Variant[0].PromotionPrice}}</div>
-                          <div class="currency">
-                              VNĐ
-                          </div>
+                          {{convertVND(item.size.PromotionPrice)}}
                       </div>
                       <!-- Số lượng -->
                       <div class="quantity-box">
@@ -54,10 +54,7 @@
 
                       <!-- Thành tiền -->
                       <div class="price-info">
-                          <div class="lineTotal">{{item.Variant[0].PromotionPrice * item.qty}}</div>
-                          <div class="currency">
-                              VNĐ
-                          </div>
+                          <div class="lineTotal">{{convertVND(item.size.PromotionPrice * item.qty)}}</div>
                       </div>
 
                       <!-- Button xoá -->
@@ -99,7 +96,7 @@
                         <div class="col-7 left-title">Tổng số tiền (tạm tính)</div>
                         <div class="col-5 right-title">
                           <div class="row">
-                            <div class="col-12" style="font-weight:bold;">{{ calculateTotalPrice() }} VNĐ</div>
+                            <div class="col-12" style="font-weight:bold;">{{ convertVND(calculateTotalPrice()) }}</div>
                             <!-- <div class="col-4 left-title">VNĐ</div> -->
                           </div>
                         </div>
@@ -109,7 +106,7 @@
                           <div class="col-7 left-title">Giảm giá</div>
                           <div class="col-5 right-title">
                             <div class="row">
-                              <div class="col-12" style="font-weight:bold"> VNĐ</div>
+                              <div class="col-12" style="font-weight:bold"></div>
                               <!-- <div class="col-4 left-title">VNĐ</div> -->
                               </div>
                           </div>
@@ -119,7 +116,7 @@
                           <div class="col-7 left-title">Thành tiền</div>
                           <div class="col-5 right-title">
                             <div class="row">
-                              <div class="col-12 total1" >{{ calculateTotalPrice() }} VNĐ</div>
+                              <div class="col-12 total1" >{{ convertVND(calculateTotalPrice()) }}</div>
                               <!-- <div class="col-4">VNĐ</div> -->
                             </div>
                         </div>
@@ -140,11 +137,11 @@
                   </button>
               </a>
 
-              <a href="./noCart.html">
-                  <button type="button" class="btn btn-primary input">
+
+                  <button type="button" (click)="deleteAll()" class="btn btn-primary input">
                       Xoá hết
                    </button>
-              </a>
+
 
           </div>
 

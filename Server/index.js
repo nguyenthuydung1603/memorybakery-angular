@@ -31,7 +31,6 @@ const myDataCollection = database.collection("myData");
 app.post("/users", cors(), async(req, res) => {
     var crypto = require('crypto');
     salt = crypto.randomBytes(16).toString('hex');
-    userCollection = database.collection("User");
     user=req.body;
     hash = crypto.pbkdf2Sync(user.Password, salt,1000, 64, `sha512`).toString(`hex`);
     user.Password=hash;
@@ -43,7 +42,6 @@ app.post("/login", cors(), async(req, res) => {
     UserName=req.body.UserName;
     Password=req.body.Password
     var crypto = require('crypto');
-    userCollection = database.collection("User")
     user=await userCollection.findOne({UserName:UserName})
     if(user==null) 
         res.send({"username":UserName, "message":"Tài khoản không tồn tại!"})
@@ -118,6 +116,17 @@ app.get("/products/price/:minprice/:maxprice", async (req, res) => {
   res.send(products);
   });
 // blog
+app.get("/products/rate/:rate", async (req, res) => {
+  const rate = parseFloat(req.params.rate);
+  const result = await productCollection.find({ Rating: rate }).toArray();
+  res.send(result);
+});
+
+app.get("/getblog",cors(),async (req,res)=>{ 
+  const result = await blogCollection.find({}).toArray();
+  res.send(result)
+})
+
 app.get('/blogs-sorted', cors(), async (req, res) => {
     let perPage = 5
     let page = req.query.page || 1

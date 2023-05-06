@@ -17,7 +17,6 @@ import { PromotionManagementComponent } from './promotion-management/promotion-m
 import { BlogManagementComponent } from './blog-management/blog-management.component';
 import { PromotionDetailComponent } from './promotion-detail/promotion-detail.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 import { QuanLyDonHangOrderStatusComponent } from './quan-ly-don-hang-order-status/quan-ly-don-hang-order-status.component';
 
 @NgModule({
@@ -32,7 +31,6 @@ import { QuanLyDonHangOrderStatusComponent } from './quan-ly-don-hang-order-stat
     PromotionManagementComponent,
     BlogManagementComponent,
     PromotionDetailComponent,
-    BlogDetailComponent,
     QuanLyDonHangOrderStatusComponent
   ],
   imports: [

@@ -19,5 +19,12 @@
     "secure": true,
     "changeOrigin":true,
     "logLevel":"debug"
-    }
+    },
+    {
+      "context": ["/getblog"],
+      "target": "http://localhost:6868",
+      "secure": true,
+      "changeOrigin":true,
+      "logLevel":"debug"
+      }
 ]

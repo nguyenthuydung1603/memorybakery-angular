@@ -7,7 +7,7 @@
       <hr>
       <div *ngFor="let o of outstandingList" class="baiviet-item">
           <div class="baiviet-img">
-              <img src="../assets/img/blog1.jpg" alt="">
+              <img [src]='o.Image' alt="">
           </div>
           <div class="baiviet-mota">
               <div class="baiviet-tieude">
@@ -26,7 +26,7 @@
       <h1>Tin tức</h1>
       <div *ngFor="let blog of blogsList" class="tintuc-item">
           <div class="tintuc-img">
-              <img src="/assets/img/blog5.jpg" alt="">
+              <img [src]="blog.Image"  alt="">
           </div>
           <div class="tintuc-mota">
               <div class="tintuc-tieude">

@@ -45,6 +45,7 @@ export class CartService {
     let isIncrease = false
     if (!cart) {
       p.qty = 1
+      p.size= p.Variant[0]
       listProduct.push(p)
       localStorage.setItem('cart', JSON.stringify(listProduct))
     } else {
@@ -58,22 +59,11 @@ export class CartService {
       })
       if (isIncrease == false) {
         p.qty = 1
+        p.size= p.Variant[0]
         listProduct.push(p)
       }
     }
     localStorage.setItem('cart', JSON.stringify(listProduct))
-  }
-  showCart() {
-    let cart: any = localStorage.getItem('cart')
-    this.listInCart = JSON.parse(cart)
-
-    let listItem
-    if (this.listInCart) listItem = [...this.listInCart]
-    this.subTotal = 0
-    listItem?.map((p: any) => {
-      let totalTmp = p.price * p.qty
-      this.subTotal += totalTmp
-    })
   }
   }
 

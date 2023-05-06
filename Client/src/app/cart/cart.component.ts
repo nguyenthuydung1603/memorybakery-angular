@@ -21,21 +21,12 @@ export class CartComponent {
   onChange(value: number) {
     this.value = isNaN(value) ? 1 : value;
   }
-  increaseValue() {
-    let value = parseInt(this.quantityInput.nativeElement.value, 10);
-    value = isNaN(value) ? 0 : value;
-    value++;
-    this.value = value < 1 ? 0 : value;
+  convertVND(price: any) {
+    return price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
   }
 
-  decreaseValue() {
-    let value = parseInt(this.quantityInput.nativeElement.value, 10);
-    value = isNaN(value) ? 0 : value;
-    value--;
-    this.value = value < 2 ? 2 : value;
-  }
   updateQty(item: any) {
-    if(item.qty < 1 || item.qty > 99) return alert('Phải nhập số lượng lớn hơn 0 và bé hơn 100')
+    if(item.qty < 1 || item.qty > 99) return alert('Phải nhập số lượng lớn hơn 0')
     this.data.map((i: any) => {
       if (i._id == item._id) i.qty = item.qty
       return
@@ -65,9 +56,12 @@ export class CartComponent {
   calculateTotalPrice(): number {
     let totalPrice = 0;
     for (const item of this.data) {
-      totalPrice += item.Variant[0].PromotionPrice * item.qty;
+      totalPrice += item.size.PromotionPrice * item.qty;
     }
     return totalPrice;
   }
-
+  deleteAll(){
+    localStorage.removeItem('cart')
+    window.location.reload()
+  }
 }

@@ -12,15 +12,15 @@ import { NG_VALIDATORS, Validator, AbstractControl } from '@angular/forms'
 })
 export class RegisterComponent implements Validator {
   model: any = {};
-  repassword: string=''
-  userType = new UserType()
-  user = new User('', '', '', '', '', '', [], '', '', '',this.userType);
+  rePassword: any
+  userType = new UserType('',[])
+  user = new User('', '', '', '', '', '', '', '', '',this.userType,[],[],[],[],[]);
   password:any;
-  rememberMe: boolean = false;
   error: boolean = false;
   loggedIn: boolean = false;
   loginData: string = '';
   errMessage: any;
+  AgreeToTerms: boolean=false
   returnUrl: string ='/';
   @Input('matchPassword') passwordControl!: AbstractControl;
   validate(control: AbstractControl): { [key: string]: any } | null {
@@ -35,9 +35,34 @@ export class RegisterComponent implements Validator {
   constructor(private router:Router,private _service: ClientService){}
   postUser()
   {
+    if (!this.user.UserName) {
+      alert('Vui lòng điền tên đăng nhập');
+      return;
+    }
     if (!/^\d{10}$/.test(this.user.Phone)) {
-      alert('SĐT k hợp lệ')
-    }else{
+      alert('SĐT không hợp lệ')
+      return
+    }
+    if (!this.user.Password) {
+      alert('Vui lòng nhập mật khẩu');
+      return;
+    }
+    else if (this.user.Password.length < 6) {
+      alert('Mật khẩu phải có ít nhất 6 kí tự');
+      return;
+    }
+    if (!this.rePassword) {
+      alert('Vui lòng xác minh mật khẩu');
+      return;
+    }
+    else if (this.user.Password !== this.rePassword) {
+      alert('Mật khẩu nhập lại không khớp');
+      return;
+    }
+    if (!!!this.AgreeToTerms) {
+      alert('Vui lòng đồng ý với các điều khoản của chúng tôi');
+      return;
+    }
   this.userType.TypeName = "Customer"
   this._service.postUser(this.user).subscribe({
   next:(data)=>{this.user=data},
@@ -47,5 +72,5 @@ export class RegisterComponent implements Validator {
   localStorage.setItem('isLoggedIn', "true");
   localStorage.setItem('token', this.user.UserName);
   this.router.navigate([this.returnUrl]);
-  }}
-}
+}}
+

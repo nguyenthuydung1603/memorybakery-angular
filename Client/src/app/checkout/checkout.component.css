@@ -1107,3 +1107,11 @@ input[type=radio] {
   font-weight: bold;
   padding: 20px 10px;
 }
+
+.qr-code {
+  display: block;
+}
+
+#DOB-checkout:checked ~ .qr-code {
+  display: none;
+}

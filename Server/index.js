@@ -66,6 +66,11 @@ const category = req.params["category"];
 const result = await productCollection.find({ Category: category }).toArray();
 res.send(result);
 });
+app.get("/voucherCode/:code", async (req, res) => {
+const code = req.params["code"];
+const result = await voucherCollection.find({ Code: code }).toArray();
+res.send(result);
+});
 app.get("/products/price/:minprice/:maxprice", async (req, res) => {
 const minPrice = parseFloat(req.params.minprice);
 const maxPrice = parseFloat(req.params.maxprice);
@@ -403,14 +408,15 @@ app.get("/address/list/:username", cors(), async (req, res) => {
 app.post("/address/:username", cors(), async (req, res) => {
 const username = req.params.username;
 const address = req.body;
-
 const insertedAddress = await addressCollection.insertOne(address);
 const insertedAddressId = insertedAddress.insertedId;
-
 // Thêm _id của Address vào mảng Address[] trong User
 const result = await userCollection.findOne({UserName:username});
-
 if (result) {
+  if (result.Address.length === 0) {
+      // Set AddressType là "Default" cho địa chỉ đầu tiên của khách hàng
+      address.AddressType = "Default";
+    }
   result.Address.push(insertedAddressId);
   await userCollection.updateOne(
     { UserName: username },

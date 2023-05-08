@@ -4,19 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "start": "nodemon index.js",
-  "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Do Van Duong",
   "license": "ISC",
   "dependencies": {
-  "body-parser": "^1.20.2",
-  "cors": "^2.8.5",
-  "express": "^4.18.2",
-  "express-fileupload": "^1.4.0",
-  "mongodb": "^5.1.0"
-  },"devDependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.0",
+    "mongodb": "^5.1.0",
+    "mongoose": "^7.1.0"
+  },
+  "devDependencies": {
     "morgan": "^1.10.0",
     "nodemon": "^2.0.21"
-    }
-    }
+  }
+}

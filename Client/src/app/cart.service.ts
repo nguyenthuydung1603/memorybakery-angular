@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable, Input } from '@angular/core';
 import { Product } from './models/Product';
-import { Observable, catchError, map, retry, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, retry, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,11 @@ export class CartService {
   subTotal: any = 0
   @Input() data: any;
   constructor(private _http: HttpClient) { }
+  private messageSource = new BehaviorSubject<string>("");
+  currentMessage = this.messageSource.asObservable();
+  changeMessage(message: string) {
+    this.messageSource.next(message);
+  }
   postCart(aProduct:any):Observable<any>
   {
   const headers=new HttpHeaders().set("Content-Type","application/json;charset=utf-8")
@@ -38,7 +43,19 @@ export class CartService {
   retry(3),
   catchError(this.handleError))
   }
-
+  putCart(aUser:any):Observable<any>
+  {
+    const token = localStorage.getItem('token');
+  const headers=new HttpHeaders().set("Content-Type","application/json;charset=utf-8")
+  const requestOptions:Object={
+  headers:headers,
+  responseType:"text"
+  }
+  return this._http.put<any>("/cart/"+token,JSON.stringify(aUser),requestOptions).pipe(
+  map(res=>JSON.parse(res) as Array<Product>),
+  retry(3),
+  catchError(this.handleError))
+  }
   addToCart(p: any) {
     let cart = localStorage.getItem('cart')
     let listProduct = []

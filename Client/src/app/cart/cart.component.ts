@@ -1,5 +1,8 @@
 import { Component, ViewChild, ElementRef, Input } from '@angular/core';
 import { Product } from '../models/Product';
+import { Observable, catchError, finalize, map, retry, throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -7,16 +10,26 @@ import { Product } from '../models/Product';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent {
-
+  errMessage: any;
+  discountMessage: any='0';
+  voucherCode: any='';
+  isApplying = false;
+  constructor(private _http: HttpClient,private cartService:CartService) {
+  }
   @ViewChild('quantityInput') quantityInput!: ElementRef;
   value=1
   price:any
+  code:string='SALE20'
+  voucher:any
+  promotion:any
   data:any=[]
   listInCart: any = []
   subTotal!: number;
   ngOnInit() {
     this.listInCart = localStorage.getItem('cart')
     this.data = JSON.parse(this.listInCart)
+
+
   }
   onChange(value: number) {
     this.value = isNaN(value) ? 1 : value;
@@ -63,5 +76,41 @@ export class CartComponent {
   deleteAll(){
     localStorage.removeItem('cart')
     window.location.reload()
+  }
+  getPromotion(code: string, orderValue: number): void {
+    this.isApplying = true;
+    this.getVoucher(code).subscribe({
+      next:(data)=>{
+        this.voucher=data
+        const now = new Date();
+        const expireDate = new Date(this.voucher[0].ExpireDate);
+        if (now > expireDate) {
+          alert("Voucher đã hết hạn");
+          return
+        }
+        if (orderValue < this.voucher[0].Condition*1000) {
+          alert("Giá trị đơn hàng chưa đủ áp dụng Voucher");
+          return
+        }
+        this.discountMessage = this.voucher[0].Discount; // truy cập thuộc tính Discount trong phạm vi của phương thức next
+        this.cartService.changeMessage(this.discountMessage);
+      },
+      error:(err)=>{this.errMessage=err}}
+      )
+  }
+
+  getVoucher(Code: string): Observable<any> {
+    const headers = new HttpHeaders().set("Content-Type", "text/plain;charset=utf-8")
+    const requestOptions: Object = {
+      headers: headers,
+      responseType: "text"
+    }
+    return this._http.get<any>("/voucherCode/" + Code, requestOptions).pipe(
+      map(res => JSON.parse(res)),
+      retry(3),
+      catchError(this.handleError))
+    }
+      handleError(error:HttpErrorResponse){
+        return throwError(()=>new Error(error.message))
   }
 }

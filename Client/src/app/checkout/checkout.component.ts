@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
+import { MyAccountService } from '../services/my-account.service';
+import { LocationService } from '../services/location.service';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { IAddress } from '../models/Users';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-checkout',
@@ -11,10 +16,93 @@ export class CheckoutComponent implements OnInit
  modal2: any
  modal3: any
  modal4: any
+ addressDefault:any=''
  shippingFeeValue:any
  data:any=[]
  listInCart: any = []
-  constructor() {}
+  addresses: any;
+  errMessage: any;
+  cities: any[] = [];
+  discountMessage:any=''
+  selectedAddress:any;
+  selectedAddresss:any
+ constructor(private cartService:CartService ,private accountService: MyAccountService,cdRef: ChangeDetectorRef, private locationService: LocationService,private activateRoute:ActivatedRoute) {
+  this.getListAddress();
+  this.getAddressDefault()
+  console.log(this.addressDefault);
+  this.cartService.currentMessage.subscribe(message => this.discountMessage = message);
+
+  this.cities=[]
+  this.locationService.getCities().subscribe( {
+    next:(data)=>{
+      this.cities=data
+    },
+    error:(err)=>(this.errMessage=err)
+  });
+
+  // Lấy _id của địa chỉ
+  activateRoute.paramMap.subscribe((param: ParamMap) => {
+    let id = param.get("id");
+    if (id != null) {
+      this.accountService.getOneAddress(id).subscribe({
+        next: (data) => {
+          this.selectedAddress = data;
+        },
+        error: (err) => {
+          this.errMessage = err;
+          console.log(this.errMessage);
+        }
+      })
+    }
+  })
+}
+  getListAddress() {
+    this.accountService.getListAddress().subscribe({
+      next: (data) => {
+        this.addresses = data;
+      },
+      error: (err) => {
+        this.errMessage = err;
+      }
+    })
+  }
+
+  getAddressDefault() {
+    this.accountService.getListAddress().subscribe({
+      next: (data) => {
+        this.addresses = data;
+        // Find the default address
+      const defaultAddress = this.addresses.find( (address: { AddressType: string; }) => address.AddressType === "Default");
+
+      // Set the default address as the selected address
+      if (defaultAddress) {
+        this.selectedAddresss = defaultAddress;
+      }
+      },
+      error: (err) => {
+        this.errMessage = err;
+      }
+    })
+  }
+  deleteAddress(id: string) {
+    if (confirm("Bạn có muốn xoá?")==true)
+    {
+      this.accountService.deleteAddress(id).subscribe({
+          next: (data) => {
+            this.getListAddress();
+            location.reload();
+          },
+          error: (err) => {
+            this.errMessage = err;
+          }
+      })
+    }
+  }
+  isDefaultAddress: boolean = false;
+
+  CheckDefaultAddress(address: IAddress) {
+    this.selectedAddresss = address;
+  }
   convertVND(price: any) {
     return price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
   }
@@ -27,7 +115,8 @@ export class CheckoutComponent implements OnInit
     this.data = JSON.parse(this.listInCart)
     const shippingFeeElement = document.getElementById("shipping-fee")!;
     const checkoutElement = document.getElementById("title-checkout")!;
-    const dobMethodElement = document.getElementById("DOB-method")! as HTMLInputElement;;
+    const dobMethodElement = document.getElementById("DOB-method")! as HTMLInputElement;
+    const dobCheckoutElement = document.getElementById("DOB-checkout")! as HTMLInputElement;
     const storeMethodElement = document.getElementById("store-method")! as HTMLInputElement;
     const visaMethodElement = document.getElementById("visa-method")! as HTMLInputElement;
     const momoMethodElement = document.getElementById("momo-method")! as HTMLInputElement;
@@ -41,9 +130,12 @@ export class CheckoutComponent implements OnInit
     }
     const updateCheckout = () : void=>{
     if (visaMethodElement.checked) {
-      this.convertVND(checkoutElement.innerText = "Thanh toán bằng VISA");
+      this.convertVND(checkoutElement.innerText = "Thanh toán bằng VNPAY");
     } else if (momoMethodElement.checked) {
       this.convertVND(checkoutElement.innerText = "Thanh toán bằng MOMO");
+    }
+     else if (dobCheckoutElement.checked) {
+      this.convertVND(checkoutElement.innerText = "Thanh toán khi nhận hàng (COD)");
     }
   }
 // Thêm sự kiện change vào các phần tử radio button
@@ -51,11 +143,57 @@ export class CheckoutComponent implements OnInit
     storeMethodElement.addEventListener("change", updateShippingFee);
     visaMethodElement.addEventListener("change", updateCheckout);
     momoMethodElement.addEventListener("change", updateCheckout);
-
-
-
+    dobCheckoutElement.addEventListener("change", updateCheckout);
 
   }
+
+  address=new IAddress()
+  postAddress() {
+    this.accountService.postAddress(this.address).subscribe({
+      next: (data) => {
+        this.getListAddress();
+        this.showAddAddress = false;
+      },
+      error: (err) => {
+        this.errMessage = err;
+      }
+    });
+  }
+  districts: any[] = [];
+  selectedDistrictName: string = '';
+  Wards: any[] = [];
+  selectedWardName: string = '';
+  onCityChange(): void {
+    console.log(this.address.City);
+
+    this.districts = [];
+    this.selectedDistrictName = '';
+    this.Wards=[];
+    this.selectedWardName='';
+
+    const selectedCity = this.cities.find(city => city.Name === this.address.City);
+
+    if (selectedCity) {
+      this.districts = selectedCity.Districts;
+    }
+  }
+  onDistrictChange():void{
+    this.Wards=[];
+    this.selectedWardName='';
+
+    const selectedDistrict = this.districts.find(district=>district.Name === this.address.Town);
+
+    if(selectedDistrict){
+      this.Wards=selectedDistrict.Wards;
+    }
+  }
+// Đóng Modal khi click ra ngoài phạm vi của Modal
+@HostListener('document:click', ['$event'])
+public onClick(event: any): void {
+  if (event.target.classList.contains('modal')) {
+    this.closeAddressNew();
+  }
+}
 
   calculateTotalPrice(): number {
     let totalPrice = 0;
@@ -100,5 +238,14 @@ export class CheckoutComponent implements OnInit
   }
   hideModal4() {
     this.modal4.classList.remove("open");
+  }
+  showAddAddress: boolean = false;
+  showEditAddress: boolean = false;
+  showAddressNew() {
+    this.showAddAddress = true;
+    this.showEditAddress = false;
+  }
+  closeAddressNew() {
+    this.showAddAddress = false
   }
 }

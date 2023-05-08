@@ -12,11 +12,11 @@
         <div class="discount">
             <h5>{{v.Code}}</h5>
             <span>{{v.Name}}</span><br>
-            <span style="font-size:15px">{{v.Condition}}</span>
+            <span style="font-size:15px">Đơn hàng có giá trị từ {{v.Condition}}k</span>
             <hr>
             <span>HSD: {{v.ExpireDate | date:'dd/MM/yyyy'}}</span><br>
             <div class="btn-input">
-              <input type="button" value="Sao chép" (click)="copyVoucherCode(v.Name)">
+              <input type="button" value="Sao chép" (click)="copyVoucherCode(v.Code)">
             </div>
         </div>
     </div>

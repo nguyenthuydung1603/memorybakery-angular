@@ -18,7 +18,7 @@ const routes: Routes = [
   {path: 'customer', component:CustomerManagementComponent},
   {path:"promotion_detail/:id",component: PromotionDetailComponent},
   {path: 'quanlydonhang', component:QuanLyDonHangComponent},
-  {path: 'quanlydonhangchitiet', component:ChiTietDonHangComponent},
+  {path: 'quanlydonhangchitiet/:id', component:ChiTietDonHangComponent},
   { path: 'setting', component: SettingComponent }
 ];
 

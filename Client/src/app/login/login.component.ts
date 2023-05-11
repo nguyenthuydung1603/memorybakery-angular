@@ -40,17 +40,12 @@ login() {
  else{
   this.loginService.postLogin(this.f['userid'].value,this.f['password'].value).subscribe({
     next: (userData) => {
+
       console.log(userData.Cart);
       this.dataUser = userData;
       let listProducts = []
       listProducts.push(this.dataUser.Cart)
-      if (this.dataUser.UserName){
-        localStorage.setItem('isLoggedIn', "true");
-        localStorage.setItem('token', this.f['userid'].value);
-        this.router.navigate(['']);
-      } else {
-        alert(`${this.dataUser.message}`)
-      }
+
       if (localStorage.getItem('cart') && localStorage.getItem('cart')!.length > 0) {
         this.cart.postCart().subscribe({
           next: (cartData) => {
@@ -67,6 +62,15 @@ login() {
       } else {
         localStorage.setItem('cart',JSON.stringify(listProducts).slice(1,-1))
       }
+
+      if (this.dataUser.UserName){
+        localStorage.setItem('isLoggedIn', "true");
+        localStorage.setItem('token', this.f['userid'].value);
+        this.router.navigate(['']);
+      } else {
+        alert(`${this.dataUser.message}`)
+      }
+
     },
     error: (err) => {
       this.error = err;

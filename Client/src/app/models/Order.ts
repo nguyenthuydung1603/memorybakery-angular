@@ -3,7 +3,7 @@ export class IOrders {
   DeliveryTime: string='';
   CancelTime: string='';
   OrderStatus: string='';
-  CostShip: string='';
+  CostShip: number=0;
   Details: OrderDetail[]=[];
   SubTotal: number=0;
   Note: string=''

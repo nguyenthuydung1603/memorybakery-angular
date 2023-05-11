@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MyAccountService } from '../services/my-account.service';
 import { LocationService } from '../services/location.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
@@ -11,6 +11,7 @@ import { IOrders, OrderDetail } from '../models/Order';
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css']
 })
+
 export class CheckoutComponent implements OnInit
  {
  modal: any
@@ -25,15 +26,19 @@ export class CheckoutComponent implements OnInit
   addresses: any;
   errMessage: any;
   cities: any[] = [];
-  discountMessage:any=''
+  discountMessage: any='1'
   selectedAddress:any;
   selectedAddresss:any
  constructor(private cartService:CartService ,private accountService: MyAccountService,cdRef: ChangeDetectorRef,private router: Router, private locationService: LocationService,private activateRoute:ActivatedRoute) {
   this.getListAddress();
   this.getAddressDefault()
   console.log(this.addressDefault);
-  this.cartService.currentMessage.subscribe(message => this.discountMessage = message);
 
+  this.cartService.currentMessage.subscribe(message => {
+    this.discountMessage = message;
+  });
+
+  console.log(this.discountMessage);
   this.cities=[]
   this.locationService.getCities().subscribe( {
     next:(data)=>{
@@ -250,11 +255,13 @@ public onClick(event: any): void {
   closeAddressNew() {
     this.showAddAddress = false
   }
+
   postOrder(){
+
     this.order.OrderDate=new Date(Date.now())
     this.order.OrderStatus="Chờ xác nhận"
     this.order.Details = [];
-
+    this.order.CostShip=this.shippingFeeValue
   // Lặp qua mảng các sản phẩm và thêm các chi tiết đơn hàng vào đối tượng Order
   for (const item of this.data) {
     const detail = new OrderDetail({
@@ -269,7 +276,7 @@ public onClick(event: any): void {
     this.order.Details.push(detail);
     let Subtotal=0
     Subtotal+=item.size.PromotionPrice * item.qty
-    this.order.SubTotal=Subtotal
+    this.order.SubTotal=Subtotal+this.order.CostShip
   }
 
     this.cartService.postOrder(this.order).subscribe({

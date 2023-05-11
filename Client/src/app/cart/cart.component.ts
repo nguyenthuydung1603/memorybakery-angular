@@ -91,8 +91,9 @@ export class CartComponent {
           alert("Giá trị đơn hàng chưa đủ áp dụng Voucher");
           return
         }
-        this.discountMessage = this.voucher[0].Discount; // truy cập thuộc tính Discount trong phạm vi của phương thức next
+        this.discountMessage = this.voucher[0].Discount;
         this.cartService.changeMessage(this.discountMessage);
+
       },
       error:(err)=>{this.errMessage=err}}
       )

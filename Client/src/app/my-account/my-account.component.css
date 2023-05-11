@@ -75,8 +75,7 @@ ol, ul {
 .right-side{
   width: 100%;
   padding: 0 20px;
-  height: 150vh;
-}
+  }
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 .main {

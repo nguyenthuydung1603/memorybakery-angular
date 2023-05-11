@@ -173,10 +173,8 @@
                   <div class="col-7 left-title">Phí vận chuyển</div>
                   <div class="col-5 right-title">
                     <div class="row">
-                      <div class="col-12" style="font-weight:bold" id="shipping-fee">
-
+                      <div class="col-12" style="font-weight:bold"  id="shipping-fee" contenteditable="true">
                       </div>
-
                       </div>
                   </div>
               </div>
@@ -410,7 +408,7 @@
               <div  *ngFor="let item of data">
                   <p style="display: flex; justify-content: space-between;"><span> {{item.Name}} ({{item.size.Size}})</span> <span>{{item.qty}}x{{convertVND(item.size.PromotionPrice)}}</span></p>
               </div>
-              <div style="display: flex;margin-bottom: 19px;font-weight: bold; justify-content: space-between;"><span>Giảm giá</span></div>
+              <div style="display: flex;margin-bottom: 19px;font-weight: bold; justify-content: space-between;"><span>Giảm giá</span><div>{{discountMessage}} VND</div></div>
               <div style="display: flex;margin-bottom: 19px;font-weight: bold; justify-content: space-between;"><span>Phí vận chuyển</span><div id="shipping-fee"></div>{{shippingFeeValue}} VND</div>
               <div style="display: flex;margin-bottom: 19px; justify-content: space-between;font-weight: bold;color: red;"><span>Tổng cộng</span><span>{{ convertVND(calculateTotalPrice()+shippingFeeValue) }}</span></div>
               <div class="qr-code">

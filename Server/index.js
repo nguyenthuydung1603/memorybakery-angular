@@ -34,6 +34,21 @@ app.post("/users", cors(), async(req, res) => {
   await userCollection.insertOne(user)
   res.send(req.body)
 })
+app.post("/carts/:username", cors(), async (req, res) => {
+  const username = req.params.username;
+  const cart = req.body;
+  const result = await userCollection.findOneAndUpdate(
+    { UserName: username },
+    { $set: { Cart: cart } },
+    { returnOriginal: false }
+  );
+  if (result.value) {
+    res.send(result.value.Cart);
+  } else {
+    res.status(404).send("User not found");
+  }
+});
+
 app.post("/login", cors(), async(req, res) => {
   UserName=req.body.UserName;
   Password=req.body.Password
@@ -184,6 +199,7 @@ app.post("/cart",cors(),(req,res)=>{
   req.session.carts.push(product)
   res.send(product)
 })
+ 
 app.get("/cart",cors(),(req,res)=>{
   res.send(req.session.carts)
 })
@@ -353,13 +369,32 @@ const result = await orderCollection.find({ OrderStatus: orderstatus }).sort({ c
 res.send(result);
 });
 
+
+app.post("/newOrder/:username", cors(), async (req, res) => {
+  const username = req.params.username;
+  const order = req.body;
+  const insertedOrder = await orderCollection.insertOne(order);
+  const insertedOrderId = insertedOrder.insertedId;
+  const result = await userCollection.findOne({UserName:username});
+  if (result) {
+    result.Order.push(insertedOrderId);
+    await userCollection.updateOne(
+      { UserName: username },
+      { $set: { Order: result.Order } }
+    );
+    res.send(result.Order);
+  } else {
+    res.status(404).send("User not found");
+  }
+  });
+
 //CÁC API LIÊN QUAN ĐẾN MY ACCOUNT - CUSTOMER
 //API để truy xuất thông tin của một user có username nhất định
 app.get("/customer/:username",cors(),async (req,res)=>{
 const username = req.params.username;
 const result = await userCollection.findOne({UserName:username, "UserType.TypeName": "Customer"});
 if(result){
-  res.send(result);
+  res.send(result); 
 } else {
   res.status(404).send("User not found");
 }
@@ -700,3 +735,6 @@ try {
   res.status(500).send("Internal Server Error");
 }
 });
+
+// index.js
+

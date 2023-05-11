@@ -35,6 +35,20 @@
     "logLevel":"debug"
   },
   {
+    "context": ["/carts"],
+    "target": "http://localhost:6868",
+    "secure": true,
+    "changeOrigin":true,
+    "logLevel":"debug"
+  },
+  {
+    "context": ["/newOrder"],
+    "target": "http://localhost:6868",
+    "secure": true,
+    "changeOrigin":true,
+    "logLevel":"debug"
+  },
+  {
     "context": ["/users"],
     "target": "http://localhost:6868",
     "secure": true,

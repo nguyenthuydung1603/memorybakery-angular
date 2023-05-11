@@ -13,13 +13,15 @@ export class CartComponent {
   errMessage: any;
   discountMessage: any='0';
   voucherCode: any='';
+
   isApplying = false;
   constructor(private _http: HttpClient,private cartService:CartService) {
+
   }
   @ViewChild('quantityInput') quantityInput!: ElementRef;
   value=1
   price:any
-  code:string='SALE20'
+  code:string=''
   voucher:any
   promotion:any
   data:any=[]
@@ -28,8 +30,6 @@ export class CartComponent {
   ngOnInit() {
     this.listInCart = localStorage.getItem('cart')
     this.data = JSON.parse(this.listInCart)
-
-
   }
   onChange(value: number) {
     this.value = isNaN(value) ? 1 : value;
@@ -44,7 +44,6 @@ export class CartComponent {
       if (i._id == item._id) i.qty = item.qty
       return
     })
-
     localStorage.setItem('cart', JSON.stringify(this.data))
   }
     changeState() {
@@ -112,5 +111,15 @@ export class CartComponent {
     }
       handleError(error:HttpErrorResponse){
         return throwError(()=>new Error(error.message))
+  }
+  postCart(){
+    this.cartService.postCart().subscribe({
+      next: (data) => {
+        console.log('Cart data updated successfully');
+      },
+      error: (err) => {
+        console.log('Error updating cart data:', err);
+      }
+    });
   }
 }

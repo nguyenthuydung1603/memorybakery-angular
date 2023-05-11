@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable, Input } from '@angular/core';
 import { Product } from './models/Product';
 import { BehaviorSubject, Observable, catchError, map, retry, throwError } from 'rxjs';
+import { IOrders } from './models/Order';
 
 @Injectable({
   providedIn: 'root'
@@ -16,20 +17,35 @@ export class CartService {
   changeMessage(message: string) {
     this.messageSource.next(message);
   }
-  postCart(aProduct:any):Observable<any>
-  {
-  const headers=new HttpHeaders().set("Content-Type","application/json;charset=utf-8")
-  const requestOptions:Object={
-  headers:headers,
-  responseType:"text"
+  postCart():Observable<any> {
+    const token = localStorage.getItem('token');
+    const cartData = localStorage.getItem('cart')!;
+    console.log(JSON.parse(cartData));
+    const headers=new HttpHeaders().set("Content-Type","application/json;charset=utf-8")
+    const requestOptions:Object={
+      headers:headers,
+      responseType:"text"
+    }
+    return this._http.post<any>("/carts/"+token,JSON.parse(cartData),requestOptions).pipe(
+      map(res=>JSON.parse(res)),
+      retry(3),
+      catchError(this.handleError))
   }
-  return this._http.post<any>("/cart",JSON.stringify(aProduct),requestOptions).pipe(
-  map(res=>JSON.parse(res)as Array<Product>),
-  retry(3),
-  catchError(this.handleError))
+  handleError(error: HttpErrorResponse) {
+    return throwError(() => new Error(error.message));
   }
-  handleError(error:HttpErrorResponse){
-    return throwError(()=>new Error(error.message))
+  postOrder(aOrder:any):Observable<any> {
+    const token = localStorage.getItem('token');
+    console.log(aOrder);
+    const headers=new HttpHeaders().set("Content-Type","application/json;charset=utf-8")
+    const requestOptions:Object={
+      headers:headers,
+      responseType:"text"
+    }
+    return this._http.post<any>("/newOrder/"+token,JSON.stringify(aOrder),requestOptions).pipe(
+      map(res=>JSON.parse(res) as IOrders),
+      retry(3),
+      catchError(this.handleError))
   }
   getCart():Observable<any>
   {

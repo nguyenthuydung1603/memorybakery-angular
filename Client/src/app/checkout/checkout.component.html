@@ -44,7 +44,7 @@
         <div class="line"></div>
         <div class="ship_option">
             <div class="option">
-                <div><input type="radio" name="ship" id="DOB-method" checked></div>
+                <div><input type="radio" name="ship" id="DOB-method"  checked></div>
                 <div class="des left">Giao hàng tận nơi</div>
                 <div class="price-info">
                     <div class="price">
@@ -124,7 +124,7 @@
         <div class="col-1 img">
           <img [src]="item.Img[0]" style="border-radius: 50%" width="100%">
         </div>
-        <div style="margin: auto;" class="col-3 info-center left"> <b>{{item.Name}} ({{item.size.Size}}) </b></div>
+        <div style="margin: auto;" class="col-3 info-center left"> <b><span >{{item.Name}}</span> ({{item.size.Size}}) </b></div>
         <div style="margin: auto;" class="col-2 info-center"> {{convertVND(item.size.PromotionPrice)}}</div>
         <div style="margin: auto;" class="col-2 info-center">{{item.qty}}</div>
         <div style="margin: auto;" class="col-2 info-center">{{convertVND(item.size.PromotionPrice * item.qty)}}</div>
@@ -146,7 +146,7 @@
                 </h4>
               </div>
               <div class="">
-                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Hãy để lại những lời bạn muốn nhắn gửi đến Memory nhé!"></textarea>
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Hãy để lại những lời bạn muốn nhắn gửi đến Memory nhé!" [(ngModel)]="order.Note"></textarea>
               </div>
           </div>
           <div class="col-5 payment">
@@ -425,7 +425,7 @@
                   </a>
 
                   <a >
-                      <button type="modal-button" class="btn btn-primary main-input" >
+                      <button type="modal-button" (click)="postOrder()" class="btn btn-primary main-input" >
                           Hoàn thành
                       </button>
                   </a>

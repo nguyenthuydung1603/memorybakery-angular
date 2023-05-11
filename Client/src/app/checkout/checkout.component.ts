@@ -1,9 +1,10 @@
 import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
 import { MyAccountService } from '../services/my-account.service';
 import { LocationService } from '../services/location.service';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { IAddress } from '../models/Users';
 import { CartService } from '../cart.service';
+import { IOrders, OrderDetail } from '../models/Order';
 
 @Component({
   selector: 'app-checkout',
@@ -16,6 +17,7 @@ export class CheckoutComponent implements OnInit
  modal2: any
  modal3: any
  modal4: any
+ order=new IOrders()
  addressDefault:any=''
  shippingFeeValue:any
  data:any=[]
@@ -26,7 +28,7 @@ export class CheckoutComponent implements OnInit
   discountMessage:any=''
   selectedAddress:any;
   selectedAddresss:any
- constructor(private cartService:CartService ,private accountService: MyAccountService,cdRef: ChangeDetectorRef, private locationService: LocationService,private activateRoute:ActivatedRoute) {
+ constructor(private cartService:CartService ,private accountService: MyAccountService,cdRef: ChangeDetectorRef,private router: Router, private locationService: LocationService,private activateRoute:ActivatedRoute) {
   this.getListAddress();
   this.getAddressDefault()
   console.log(this.addressDefault);
@@ -247,5 +249,39 @@ public onClick(event: any): void {
   }
   closeAddressNew() {
     this.showAddAddress = false
+  }
+  postOrder(){
+    this.order.OrderDate=new Date(Date.now())
+    this.order.OrderStatus="Chờ xác nhận"
+    this.order.Details = [];
+
+  // Lặp qua mảng các sản phẩm và thêm các chi tiết đơn hàng vào đối tượng Order
+  for (const item of this.data) {
+    const detail = new OrderDetail({
+      ProductID: item._id,
+      ProductName: item.Name,
+      Size: item.size.Size,
+      UnitPrice: item.size.PromotionPrice,
+      Quantity: item.qty,
+      LineTotal: item.size.PromotionPrice * item.qty,
+      ReviewStatus: ''
+    });
+    this.order.Details.push(detail);
+    let Subtotal=0
+    Subtotal+=item.size.PromotionPrice * item.qty
+    this.order.SubTotal=Subtotal
+  }
+
+    this.cartService.postOrder(this.order).subscribe({
+      next:(data)=>{this.order=data},
+      error:(err)=>{this.errMessage=err}
+    })
+    alert("Bạn đã đặt hàng thành công");
+    localStorage.removeItem('cart')
+    this.cartService.postCart().subscribe({
+      next:(data)=>{},
+      error:(err)=>{this.errMessage=err}
+    })
+    this.router.navigate(['myAccount'])
   }
 }

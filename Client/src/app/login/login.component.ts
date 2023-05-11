@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service' ;
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClientService } from '../services/client.service';
+import { CartService } from '../cart.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,11 +16,13 @@ export class LoginComponent implements OnInit {
   returnUrl: string ='';
   errors:string=''
   dataUser: any
+  Cart:any=[]
   constructor(
      private formBuilder: FormBuilder,
      private router: Router,
      private authService: AuthService,
-    private loginService: ClientService
+    private loginService: ClientService,
+    private cart:CartService
   ) { }
   ngOnInit() {
      this.loginForm = this.formBuilder.group({
@@ -36,21 +39,41 @@ login() {
  }
  else{
   this.loginService.postLogin(this.f['userid'].value,this.f['password'].value).subscribe({
-      next:(data)=>{
-        this.dataUser = data
-        if (this.dataUser.UserName){
+    next: (userData) => {
+      console.log(userData.Cart);
+      this.dataUser = userData;
+      let listProducts = []
+      listProducts.push(this.dataUser.Cart)
+      if (this.dataUser.UserName){
         localStorage.setItem('isLoggedIn', "true");
         localStorage.setItem('token', this.f['userid'].value);
-        this.router.navigate([''])
-      }else {
+        this.router.navigate(['']);
+      } else {
         alert(`${this.dataUser.message}`)
       }
+      if (localStorage.getItem('cart') && localStorage.getItem('cart')!.length > 0) {
+        this.cart.postCart().subscribe({
+          next: (cartData) => {
+            console.log(cartData)
+            let listProduct = []
+            listProduct.push(cartData)
+            localStorage.setItem('cart',JSON.stringify(listProduct).slice(1,-1))
+            console.log('Cart data updated successfully');
+          },
+          error: (err) => {
+            console.log('Error updating cart data:', err);
+          }
+        });
+      } else {
+        localStorage.setItem('cart',JSON.stringify(listProducts).slice(1,-1))
+      }
     },
-      error:(err)=>{this.error=err}
-    })
-  }
-
- }
+    error: (err) => {
+      this.error = err;
+    }
+  });
+}
+}
 }
 
 

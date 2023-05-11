@@ -126,8 +126,19 @@ closePromotionNew() {
   this.showAddPromotion = false
 }
  promotion=new Voucher()
+ formattedExpireDate: string="";
+ formattedStartDate: string="";
+ convertToDisplayFormat(dateString: any): any {
+  const dateParts = dateString.split('-');
+  return `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+}
+
  postPromotion() {
   this.promotion.CreatedDate=new Date(Date.now())
+  // Ví dụ: Lưu giá trị formattedExpireDate vào promotion.ExpireDate trước khi gửi dữ liệu lên server
+  this.promotion.ExpireDate = this.convertToDisplayFormat(this.formattedExpireDate);
+  this.promotion.StartDate = this.convertToDisplayFormat(this.formattedStartDate);
+
    this._service.postPromotion(this.promotion).subscribe({
      next: (data) => {
        this.getPromotions();

@@ -300,12 +300,13 @@ button.close-btn:hover, button.reset-btn:hover {
   padding: 10px 40px 10px 40px;
 }
 .filter-options-container {
-  top: 30%;
-  left: 0;
+  top: 34%;
+  left: 20%;
   width: 20%;
   z-index: 9999;
-  position: relative;
+  position: absolute;
   width: 25%;
+  margin: 0!important;
 }
 .filter-options-container p {
   margin-bottom: 5px;

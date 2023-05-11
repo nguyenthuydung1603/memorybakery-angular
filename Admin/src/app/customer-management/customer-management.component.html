@@ -39,16 +39,16 @@
           <option value="">Chọn một điều kiện lọc</option>
           <option value="totalOrders">Số đơn hàng</option>
           <option value="totalOrderValue">Tổng giá trị đơn hàng</option>
-          <!-- <option value="option3">Điều kiện lọc 3</option> -->
         </select>
+        <div *ngIf="selectedFilterOption === 'totalOrders' || selectedFilterOption === 'totalOrderValue'">
+          <p>Bằng</p>
+          <select class="filter-options" [(ngModel)]="selectedSortOrder" (ngModelChange)="onSortOrderChange()">
+            <option value="asc">Tăng dần</option>
+            <option value="desc">Giảm dần</option>
+          </select>
+        </div>
     </div>
-    <div *ngIf="selectedFilterOption === 'totalOrders' || selectedFilterOption === 'totalOrderValue'">
-      <p>Bằng</p>
-      <select class="filter-options" [(ngModel)]="selectedSortOrder" (ngModelChange)="onSortOrderChange()">
-        <option value="asc">Tăng dần</option>
-        <option value="desc">Giảm dần</option>
-      </select>
-    </div>
+
 
 
 

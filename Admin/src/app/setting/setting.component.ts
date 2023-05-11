@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { SettingService } from '../setting.service';
 import { IUser, User } from '../models/User';
 import { faPlus, faFilter, faSearchPlus, faEdit, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
@@ -261,5 +261,13 @@ export class SettingComponent {
       selected: false
     }]
   }
+
+  // Đóng Modal khi click ra ngoài phạm vi của Modal
+@HostListener('document:click', ['$event'])
+public onClick(event: any): void {
+  if (event.target.classList.contains('fog')) {
+    this.actionCancel();
+  }
+}
 }
 

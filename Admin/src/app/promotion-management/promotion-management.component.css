@@ -1,5 +1,5 @@
 h3{
-    color: #E75C6B; 
+    color: #E75C6B;
    font-weight: bold;
 }
 thead{
@@ -19,13 +19,13 @@ thead{
     justify-content: space-between;
     align-items: center;
   }
-  
+
   .header-box h1 {
     font-size: 28px;
     font-weight: bold;
     color: #E75C6B;
   }
-  
+
   .header-box button {
     padding: 15px 0;
     border-radius: 10px;
@@ -35,7 +35,7 @@ thead{
     width: 25%;
     transition: .3s linear;
   }
-  
+
   .header-box button:hover {
     background-color: #fff;
     color: #E75C6B;
@@ -52,7 +52,7 @@ thead{
     justify-content: center;
     align-items: center;
   }
-  
+
 .form {
     width: 50%;
     max-height: 450px;
@@ -65,3 +65,142 @@ label{
     font-weight: bold;
     font-size: medium;
 }
+.content-box-action {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.content-box-action-container--button {
+  position: relative;
+  width: 25%;
+}
+
+.content-box-action--button,
+.content-box-action--search-input {
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 15px 10px;
+  border: 1px solid #000;
+}
+
+.content-box-action--button {
+  position: absolute;
+  width: 100%;
+}
+
+.content-box-action--search {
+  width: 72%;
+  position: relative;
+  height: 60px;
+}
+
+.content-box-action--search-input {
+  width: 100%;
+  position: absolute;
+  outline: none;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 25px;
+  font-size: 25px;
+}
+.promotion-new, .promotion-detail {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  width: 40%;
+  height: auto;
+  overflow-y: auto;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.promotion-new .title, .promotion-detail .title {
+  background-color: pink;
+  color: #e75c6b;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 25px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+button.close-btn {
+  background-color: #F38A95;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+.pagination-container {
+  width: 70%;
+  margin: 30px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination-container ul {
+  display: flex;
+  list-style: none;
+  justify-content: space-around;
+  align-items: center;
+  /* width: 100%; */
+  margin: 0;
+  padding: 0;
+}
+
+.pagination-container li {
+  cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 10px;
+  margin: 0 10px;
+}
+
+.pagination-container p {
+  cursor: pointer;
+}
+
+.pagination-container li:hover {
+  background-color: #E75C6B;
+  color: #fff;
+  transition: ease .5s;
+}
+
+.paginate-active {
+  background-color: #E75C6B;
+  color: #fff;
+}
+.edit-icon {
+  color: rgb(24, 225, 24);
+  margin-right: 10px;
+}
+
+.delete-icon {
+  color: red;
+}
+.col {
+  padding: 10px;
+}
+

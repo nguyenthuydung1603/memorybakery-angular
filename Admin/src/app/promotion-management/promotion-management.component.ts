@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { faPlus, faFilter, faSearchPlus, faEdit, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 import { AngularEditorConfig } from '@kolkov/angular-editor/public-api';
 import { PromotionService } from '../services/promotion.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Promotion } from './promotion';
+import { Voucher } from '../models/Voucher';
+import swal from '../custom-function/swal2';
 
 @Component({
   selector: 'app-promotion-management',
@@ -14,65 +16,67 @@ import { Promotion } from './promotion';
 export class PromotionManagementComponent {
     promotions:any;
     searchTerm: string = '';
-    promotion = new Promotion();
     errMessage:string=''
+    totalPage: any = [];
+    totalItem: any;
+    page: number = 1;
+    perPage: number = 10;
+    search: string = '';
+    isLoading = false;
+    selectedPromotion:any;
+    showDetail = false;
     constructor(private _service: PromotionService, private http: HttpClient,private router:Router,private activateRoute:ActivatedRoute,private _fs:PromotionService){
-    this._service.getPromotions().subscribe({
-      next:(data)=>{this.promotions=data},
-      error:(err)=>{this.errMessage=err}
-    })
-  }
-  
-    deletePromotion(_id:string){
-    if (confirm("Bạn có chắc chắn xóa?")==true)
-    {
-    this._service.deletePromotion(_id).subscribe({
-      next:(data)=>{this.promotion=data},
-      error:(err)=>{this.errMessage=err}
-    })
-    window.location.reload()
+      this.getPromotions();
     }
-    
-  }
-  
-  
-    config: AngularEditorConfig = {
-        editable: true,
-        spellcheck: true,
-        height: 'auto',
-        minHeight: '0',
-        maxHeight: 'auto',
-        width: 'auto',
-        minWidth: '0',
-        translate: 'yes',
-        enableToolbar: true,
-        showToolbar: true,
-        placeholder: 'Enter text here...',
-        defaultParagraphSeparator: '',
-        defaultFontName: '',
-        defaultFontSize: '',
-        fonts: [
-          {class: 'arial', name: 'Arial'},
-          {class: 'times-new-roman', name: 'Times New Roman'},
-          {class: 'calibri', name: 'Calibri'},
-          {class: 'comic-sans-ms', name: 'Comic Sans MS'}
-        ],
-        customClasses: [
-        {
-          name: 'quote',
-          class: 'quote',
+    getPromotions(){
+      this._service.getPromotions(this.page, this.search, this.perPage).subscribe({
+        next: (data) => {
+          if (data.data.length == 0) {
+            this.page = 1
+            this.getPromotions()
+          }
+          this.promotions = data.data
+          this.totalItem = data.totalItem
+          this.isLoading = false
+
+          let pageTmp = Math.ceil(this.totalItem / this.perPage)
+          this.totalPage = Array(pageTmp)
         },
-        {
-          name: 'redText',
-          class: 'redText'
-        },
-        {
-          name: 'titleText',
-          class: 'titleText',
-          tag: 'h1',
-        },
-      ],
-      };
+        error: (err) => {
+          this.errMessage = err
+          this.isLoading = false
+        }
+      })
+      this.isLoading = false
+    }
+    public submitForm() {
+      this.page = 1
+      this.getPromotions();
+      this.search = '';
+    }
+    paginateIcon(type: any) {
+      switch (type) {
+        case 'pre': {
+          this.page -= 1
+          if (this.page < 1) this.page = 1
+          this.getPromotions()
+          break
+        }
+        case 'next': {
+          this.page += 1
+          if (this.page > this.totalPage.length) this.page = 1
+          this.getPromotions()
+          break
+        }
+      }
+    }
+
+    paginate(page: any) {
+      this.page = page
+      this.getPromotions()
+    }
+
+
     faPlus = faPlus
   faFilter = faFilter
   faSearchPlus = faSearchPlus
@@ -82,16 +86,6 @@ export class PromotionManagementComponent {
   isCreate = false
   isUpdate = false
   isVarian = false
-  isLoading = false
-
-
-  public submitForm() {
-    this.isLoading = true
-    setTimeout(() => {
-      this.isLoading = false
-    }, 2000)
-
-  }
 
   public actionAdd() {
     this.isShow = true
@@ -108,13 +102,55 @@ export class PromotionManagementComponent {
     this.isVarian = false
     this.isUpdate = false
   }
-  postPromotion()
-  {
-    this._service.postPromotion(this.promotion).subscribe({
-    next:(data)=>{this.promotion=data},
-    error:(err)=>{this.errMessage=err}
-  })
 
-    alert("Bạn đã thêm sản phẩm thành công");
+  showPromotionDetail(promotion: any) {
+    this.selectedPromotion = promotion;
+    this.showDetail = true;
   }
+  closePromotionDetail() {
+    this.showDetail = false;
+  }
+  // Đóng Modal khi click ra ngoài phạm vi của Modal
+@HostListener('document:click', ['$event'])
+public onClick(event: any): void {
+  if (event.target.classList.contains('modal')) {
+    this.closePromotionDetail();
+    this.closePromotionNew();
+  }
+}
+showAddPromotion:boolean=false;
+showPromotionNew() {
+  this.showAddPromotion = true;
+}
+closePromotionNew() {
+  this.showAddPromotion = false
+}
+ promotion=new Voucher()
+ postPromotion() {
+  this.promotion.CreatedDate=new Date(Date.now())
+   this._service.postPromotion(this.promotion).subscribe({
+     next: (data) => {
+       this.getPromotions();
+       this.showAddPromotion = false;
+     },
+     error: (err) => {
+       this.errMessage = err;
+     }
+   });
+ }
+
+ deletePromotion(id: any) {
+  this._service.deletePromotion(id).subscribe({
+    next: (data) => {
+      this.getPromotions();
+      swal.success(data.message ?? 'Đã xoá thành công', 3000)
+    },
+    error: (err) => {
+      swal.error(err)
+    }
+  })
+}
+public handleDismiss(dismissMethod: any): void {
+}
+
 }

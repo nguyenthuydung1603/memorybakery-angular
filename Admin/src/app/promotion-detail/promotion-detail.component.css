@@ -1,5 +1,5 @@
 h1{
-    color: #E75C6B; 
+    color: #E75C6B;
    font-weight: bold;
 }
 button {
@@ -11,7 +11,7 @@ button {
     width: 25%;
     transition: .3s linear;
   }
-  
+
 button:hover {
     background-color: #fff;
     color: #E75C6B;
@@ -30,4 +30,51 @@ a {
     background-color: #fff;
     color: #E75C6B;
     border-color: #E75C6B;
+}
+.pagination-container {
+  width: 70%;
+  margin: 30px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination-container ul {
+  display: flex;
+  list-style: none;
+  justify-content: space-around;
+  align-items: center;
+  /* width: 100%; */
+  margin: 0;
+  padding: 0;
+}
+
+.pagination-container li {
+  cursor: pointer;
+  padding: 10px 15px;
+  border-radius: 10px;
+  margin: 0 10px;
+}
+
+.pagination-container p {
+  cursor: pointer;
+}
+
+.pagination-container li:hover {
+  background-color: #E75C6B;
+  color: #fff;
+  transition: ease .5s;
+}
+
+.paginate-active {
+  background-color: #E75C6B;
+  color: #fff;
+}
+.edit-icon {
+  color: rgb(24, 225, 24);
+  margin-right: 10px;
+}
+
+.delete-icon {
+  color: red;
 }

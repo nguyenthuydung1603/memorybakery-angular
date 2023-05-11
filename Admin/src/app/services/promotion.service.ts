@@ -3,23 +3,37 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, retry, throwError } from 'rxjs'
 import { Promotion } from '../promotion-management/promotion';
 import { IPromotion } from '../promotion-management/promotion';
+import { IVoucher } from '../models/Voucher';
 @Injectable({
   providedIn: 'root'
 })
 export class PromotionService {
   baseUrl: any;
-  constructor(private _http: HttpClient) { }
-  getPromotions():Observable<any>
-  {
-    const headers=new HttpHeaders().set("Content-Type","text/plain;charset=utf-8")
-    const requestOptions:Object={
-      headers:headers,
-      responseType:"text"
+  API_URL: string = 'http://localhost:6868'
+
+  headers = new HttpHeaders().set('Content-Type', 'text/plain;charset=utf-8')
+  requestOptions: Object = {
+    header: this.headers,
+    responseType: 'Text'
   }
-    return this._http.get<any>("http://localhost:6868/promotion/",requestOptions).pipe(
-      map(res=>JSON.parse(res) as Array<Promotion>),
+
+  headers2 = new HttpHeaders().set('Content-Type', 'application/json;charset=utf-8')
+  requestOptions2: Object = {
+    header: this.headers2,
+    responseType: 'Text'
+  }
+
+  constructor(private _http: HttpClient) { }
+  getPromotions(page: any, search: any, perPage: any): Observable<any> {
+    if (!page) page = 1;
+    if (!search) search = '';
+    if (!perPage) perPage = '';
+
+    return this._http.get<any>(`${this.API_URL}/promotion-admin?page=${page}&search=${search}&perPage=${perPage}`, this.requestOptions).pipe(
+      map(res => JSON.parse(res)),
       retry(3),
-      catchError(this.handleError))
+      catchError(this.handleError)
+    );
   }
   getPromotion(PromotionId:string):Observable<any>
   {
@@ -41,7 +55,7 @@ export class PromotionService {
       responseType:"text"
   }
     return this._http.post<any>("http://localhost:6868/promotion",JSON.stringify(aPromotion),requestOptions).pipe(
-      map(res=>JSON.parse(res) as Array<Promotion>),
+      map(res=>JSON.parse(res) as Array<IVoucher>),
       retry(3),
       catchError(this.handleError))
   }
@@ -65,8 +79,8 @@ export class PromotionService {
       headers:headers,
       responseType:"text"
     }
-    return this._http.delete<any>("http://localhost:6868/promotion"+_id,requestOptions).pipe(
-    map(res=>JSON.parse(res) as Array<IPromotion>),
+    return this._http.delete<any>("http://localhost:6868/promotion/"+_id,requestOptions).pipe(
+    map(res=>JSON.parse(res)),
     retry(3),
     catchError(this.handleError))
 
@@ -87,5 +101,5 @@ export class PromotionService {
     return throwError(()=>new Error(error.message))
   }
 }
-  
+
 

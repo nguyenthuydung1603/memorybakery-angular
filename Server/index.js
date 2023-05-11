@@ -333,31 +333,42 @@ function responseError(action, type) {
       "message": `Something went wrong! Please check again`
 }}
 // CÁC API LIÊN QUAN ĐẾN PROMOTION
-app.get("/promotion",cors(),async (req,res)=>{
-const result = await voucherCollection.find({}).toArray();
-res.send(result)
+
+app.get('/promotion-admin', cors(), async (req, res) => {
+  let query = null
+  let searchQuery = {}
+  let data
+  let perPage = Number(req.query.perPage) || 10
+  let page = req.query.page || 1
+  let totalItem
+  let lengthTotalItem
+  //params để search, có thể vừa kết hợp với sort ( đem lại trải nghiệm tốt hơn nếu cố định được sort và search tự do )
+  const search = req.query.search
+  if (search) searchQuery = { Code: { "$regex": `${search}.*`, "$options": "i" } }
+  data = await voucherCollection
+      .find(searchQuery)
+      .skip((perPage * page) - perPage)
+      .limit(perPage)
+      .toArray()
+      totalItem = await voucherCollection.find(searchQuery).toArray()
+      lengthTotalItem = totalItem.length
+
+  const finalData = {
+    totalItem: lengthTotalItem,
+    data: data
+  }
+
+  res.send(finalData)
 })
 app.get("/promotion/:id",cors(),async (req,res)=>{
 var o_id = new ObjectId(req.params["id"]);
 const result = await voucherCollection.find({_id:o_id}).toArray();
 res.send(result[0])
 })
-app.post('/promotion', cors(), (req, res) => {
-try {
-    voucherCollection.insertOne({
-        Code: req.body.Code,
-        Name: req.body.Name,
-        Discount: req.body. Discount,
-        Quantity: req.body.Quantity,
-        Condition: req.body.Condition,
-        CreatedAt: new Date().toISOString(),
-        StartDate: req.body.StartDate,
-        ExpireDate: req.body.ExpireDate
-    })
-    res.send(responseSuccess('Create', 'promotion'))
-} catch (e) {
-    res.send(responseError())
-}
+app.post("/promotion",cors(),async(req,res)=>{
+  await voucherCollection.insertOne(req.body)
+  //send message to client(send all database to client)
+  res.send(req.body)
 })
 app.delete('/promotion/:id',cors(),async(req,res)=>{ 
 var o_id = new ObjectId(req.params["id"]);

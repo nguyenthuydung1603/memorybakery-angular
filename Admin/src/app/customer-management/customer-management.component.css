@@ -130,26 +130,6 @@ pagination-controls {
   padding: 15px;
   margin: auto;
 }
-.fa-detail {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  background-image: url("https://cdn2.iconfinder.com/data/icons/picol-vector/32/view-512.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  font-size: 0;
-}
-.fa-delete {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  background-image: url("https://cdn-icons-png.flaticon.com/512/3405/3405244.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  font-size: 0;
-}
 .customer-detail {
   background-color: #fff;
   padding: 20px;

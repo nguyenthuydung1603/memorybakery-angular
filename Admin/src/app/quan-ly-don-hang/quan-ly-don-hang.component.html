@@ -1,12 +1,6 @@
-<h1>Quản lý đơn hàng</h1>
-<h4>Tất cả đơn hàng</h4>
-<hr>
 <div class="container">
-  <div>
-    <div class="row">
-      <div class="header-box">
-        <h1>Danh Sách Đơn Hàng</h1>
-      </div>
+    <div class="title">
+      <h4 class="title">Danh sách đơn hàng</h4>
     </div>
     <hr>
     <div class="d-flex justify-content-between">
@@ -48,7 +42,7 @@
                 <td>{{convertVND(+p.SubTotal)}}</td>
                 <td>
                   <div class="table-action">
-                    <fa-icon (click)="goToDetail(p._id)" [icon]="faEdit" class="edit-icon" [style]="{cursor: 'pointer'}"
+                    <fa-icon (click)="goToDetail()" [icon]="faEdit" class="edit-icon" [style]="{cursor: 'pointer'}"
                       size="lg"></fa-icon>
                     <fa-icon [icon]="faDelete" class="delete-icon" [style]="{cursor: 'pointer'}" size="lg"></fa-icon>
                   </div>
@@ -67,5 +61,10 @@
         </div>
       </div>
     </footer>
+</div>
+
+<div *ngIf="showDetail" class="modal">
+  <div class="order-detail">
+
   </div>
 </div>

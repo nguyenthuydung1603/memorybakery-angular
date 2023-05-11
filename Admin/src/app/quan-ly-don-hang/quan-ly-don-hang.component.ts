@@ -16,7 +16,7 @@ export class QuanLyDonHangComponent {
   orders: any;
   errMessage: string = ''
   constructor(public _service: OrderAPIService, private router: Router) {
-    this.getList()
+    this.getList();
   }
   config: AngularEditorConfig = {
     editable: true,
@@ -67,6 +67,7 @@ export class QuanLyDonHangComponent {
   isUpdate = false
   isVarian = false
   isLoading = false
+  showDetail=false
 
   //paginate
   page: number = 1
@@ -139,8 +140,8 @@ export class QuanLyDonHangComponent {
     return code.slice(-5)
   }
 
-  goToDetail(id: any) {
-    this.router.navigate([`/quanlydonhangchitiet/${id}`])
+  goToDetail() {
+    this.showDetail=true;
   }
 
   paginateIcon(type: any) {

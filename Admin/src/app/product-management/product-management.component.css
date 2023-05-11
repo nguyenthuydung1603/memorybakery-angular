@@ -1,6 +1,5 @@
 .container {
   width: 100%;
-  padding-top: 40px;
 }
 
 .header-box {
@@ -9,10 +8,14 @@
   align-items: center;
 }
 
-.header-box h1 {
-  font-size: 28px;
-  font-weight: bold;
-  color: #E75C6B;
+.header-box h4 {
+    width: 100%;
+    font-size: 40px;
+    color: var(--primary_color);
+    font-weight: bold;
+    margin: auto;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 20px;
 }
 
 .header-box button {

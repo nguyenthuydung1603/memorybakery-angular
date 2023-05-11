@@ -71,8 +71,8 @@
             <td>{{ c.Order.length}}</td>
             <td>{{c.orderValue | currency:'VND'}}</td>
             <td>
-              <fa-icon (click)="showCustomerDetail(c)" [icon]="faEdit" class="edit-icon"
-              [style]="{cursor: 'pointer'}" size="lg"></fa-icon>
+              <fa-icon (click)="showCustomerDetail(c)" [icon]="faEdit" class="edit-icon" [style]="{cursor: 'pointer'}"
+              size="lg"></fa-icon>
               <fa-icon
               [swal]="{ title: 'Bạn có chắc chắn muốn xoá ', showCancelButton: true }"
               (confirm)="deleteUser(c._id)" (dismiss)="handleDismiss($event)"

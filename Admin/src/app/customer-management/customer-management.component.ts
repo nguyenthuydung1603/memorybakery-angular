@@ -1,7 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { CustomerService } from '../services/customer.service';
-import { faDeleteLeft, faEdit, faFilter, faPlus, faSearchPlus } from '@fortawesome/free-solid-svg-icons';
+import { faDeleteLeft, faEdit, faFilter, faInfoCircle, faPlus, faSearchPlus } from '@fortawesome/free-solid-svg-icons';
 import swal from '../custom-function/swal2';
 
 @Component({
@@ -32,7 +32,7 @@ export class CustomerManagementComponent {
     faPlus = faPlus
     faFilter = faFilter
     faSearchPlus = faSearchPlus
-    faEdit = faEdit
+    faEdit = faInfoCircle
     faDelete = faDeleteLeft
     isShow = false
     isCreate = false

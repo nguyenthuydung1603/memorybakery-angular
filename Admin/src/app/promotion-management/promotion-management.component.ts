@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import { faPlus, faFilter, faSearchPlus, faEdit, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faFilter, faSearchPlus, faEdit, faDeleteLeft, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { AngularEditorConfig } from '@kolkov/angular-editor/public-api';
 import { PromotionService } from '../services/promotion.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -80,7 +80,7 @@ export class PromotionManagementComponent {
     faPlus = faPlus
   faFilter = faFilter
   faSearchPlus = faSearchPlus
-  faEdit = faEdit
+  faEdit = faInfoCircle
   faDelete = faDeleteLeft
   isShow = false
   isCreate = false

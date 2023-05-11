@@ -10,9 +10,9 @@ import { NG_VALIDATORS, Validator, AbstractControl } from '@angular/forms'
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements Validator {
+export class RegisterComponent {
   model: any = {};
-  rePassword: any
+  rePassword: any=''
   userType = new UserType('',[])
   user = new User('', '', '', '', '', '', '', '', '',this.userType,[],[],[],[],[]);
   password:any;
@@ -22,15 +22,7 @@ export class RegisterComponent implements Validator {
   errMessage: any;
   AgreeToTerms: boolean=false
   returnUrl: string ='/';
-  @Input('matchPassword') passwordControl!: AbstractControl;
-  validate(control: AbstractControl): { [key: string]: any } | null {
-    const password = this.passwordControl.value;
-    const confirmPassword = control.value;
-    if (password !== confirmPassword) {
-      return { 'matchPassword': true };
-    }
-    return null;
-  }
+
 
   constructor(private router:Router,private _service: ClientService){}
   postUser()
@@ -71,6 +63,7 @@ export class RegisterComponent implements Validator {
   alert("Bạn đã đăng kí thành công");
   localStorage.setItem('isLoggedIn', "true");
   localStorage.setItem('token', this.user.UserName);
-  this.router.navigate([this.returnUrl]);
+  window.location.reload()
+  window.location.replace('');
 }}
 

@@ -76,7 +76,7 @@ export class CartComponent {
     return totalPrice;
   }
   deleteAll(){
-    localStorage.removeItem('cart')
+    localStorage.setItem('cart', JSON.stringify([]));
     window.location.reload()
   }
   getPromotion(code: string, orderValue: number): void {

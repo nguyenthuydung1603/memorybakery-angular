@@ -1,6 +1,8 @@
 import { Component, HostListener } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { CustomerService } from '../services/customer.service';
+import { faDeleteLeft, faEdit, faFilter, faPlus, faSearchPlus } from '@fortawesome/free-solid-svg-icons';
+import swal from '../custom-function/swal2';
 
 @Component({
   selector: 'app-customer-management',
@@ -27,6 +29,11 @@ export class CustomerManagementComponent {
   showDetail = false;
   isShowModelSort = false
     // orther
+    faPlus = faPlus
+    faFilter = faFilter
+    faSearchPlus = faSearchPlus
+    faEdit = faEdit
+    faDelete = faDeleteLeft
     isShow = false
     isCreate = false
     isUpdate = false
@@ -74,6 +81,7 @@ export class CustomerManagementComponent {
     this.isLoading = false
   }
   public submitForm() {
+    this.page = 1
     this.getUsers();
     this.search = '';
   }
@@ -233,20 +241,17 @@ public onClick(event: any): void {
 formatOrderId(orderId: string): string {
   return 'Memory' + orderId.slice(-3);
 }
-deleteUser(id: string) {
-  if (confirm("Bạn có muốn xoá?")==true)
-  {
-    this.accountService.deleteUser(id).subscribe({
-        next: (data) => {
-          this.getUsers;
-          window.location.reload();
-        },
-        error: (err) => {
-          this.errMessage = err;
-        }
-    })
-  }
 
+deleteUser(id: any) {
+  this.accountService.deleteUser(id).subscribe({
+    next: (data) => {
+      this.getUsers();
+      swal.success(data.message ?? 'Đã xoá thành công', 3000)
+    },
+    error: (err) => {
+      swal.error(err)
+    }
+  })
 }
 
 ResetPassWord(id:string) {
@@ -258,6 +263,9 @@ ResetPassWord(id:string) {
       this.errMessage = err;
     }
   });
+}
+
+public handleDismiss(dismissMethod: any): void {
 }
 
 }

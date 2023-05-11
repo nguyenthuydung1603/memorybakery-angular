@@ -4,15 +4,12 @@
 
   <!-- Phần giao diện của Quản lý khách hàng -->
     <!-- Phần title -->
-    <div class="header-box">
-      <h1>Danh sách khách hàng</h1>
+    <div class="title">
+      <h4 class="title">Danh sách khách hàng</h4>
     </div>
 
     <!-- Phần 2 button Sắp xếp và tìm kiếm -->
-<div class="content-box">
-    <span class="content-box-title">
-      Tất cả sản phẩm
-    </span>
+    <div class="content-box">
     <div class="line"></div>
     <div class="content-box-action">
       <div class="content-box-action-container--sort">
@@ -29,8 +26,7 @@
       <form (ngSubmit)="submitForm()" class="content-box-action--search">
         <input class="content-box-action--search-input" [(ngModel)]="search" name="search"
             placeholder="Tìm Kiếm . . ." />
-        <fa-icon (click)="submitForm()" [style]="{cursor: 'pointer'}" size="lg"
-            class="search-icon"></fa-icon>
+        <span class="search-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
     </form>
     </div>
     <div class="filter-options-container shadow p-3 mb-5 bg-body rounded" *ngIf="isSelectedSort === 'Đơn hàng'">
@@ -75,8 +71,13 @@
             <td>{{ c.Order.length}}</td>
             <td>{{c.orderValue | currency:'VND'}}</td>
             <td>
-              <button (click)="showCustomerDetail(c)"><i class="fa fa-detail"></i></button>
-              <button (click)="deleteUser(c._id)"><i class="fa fa-delete" ></i></button>
+              <fa-icon (click)="showCustomerDetail(c)" [icon]="faEdit" class="edit-icon"
+              [style]="{cursor: 'pointer'}" size="lg"></fa-icon>
+              <fa-icon
+              [swal]="{ title: 'Bạn có chắc chắn muốn xoá ', showCancelButton: true }"
+              (confirm)="deleteUser(c._id)" (dismiss)="handleDismiss($event)"
+              [icon]="faDelete" class="delete-icon" [style]="{cursor: 'pointer'}"
+              size="lg"></fa-icon>
             </td>
           </tr>
         </tbody>
@@ -93,12 +94,12 @@
     </div>
 
     </div>
-</div>
+    </div>
 
 
 
 
-<div *ngIf="showDetail" class="modal">
+    <div *ngIf="showDetail" class="modal">
   <div class="customer-detail">
     <div class="function">
       <button class ="close-btn" (click)="closeCustomerDetail()">Quay lại</button>
@@ -207,6 +208,6 @@
       </table>
     </div>
   </div>
-</div>
+    </div>
 
 

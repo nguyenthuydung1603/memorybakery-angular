@@ -768,15 +768,46 @@ try {
 }
 }
 // API lấy danh sách customer 
-app.get("/customer-admin", cors(), async (req, res) => {
-try {
-  const users = await getUsersWithAddressAndOrder();
-  const customers = users.filter(user => user.UserType.TypeName === "Customer");
-  res.send(customers);
-} catch (err) {
-  console.log(err);
-  res.status(500).send("Internal Server Error");
-}
+app.get('/customer-admin', cors(), async (req, res) => {
+  let searchQuery = {};
+  let perPage = Number(req.query.perPage) || 10;
+  let page = req.query.page || 1;
+  let sortBy = req.query.sortBy;
+  let orderBy = req.query.orderBy;
+  let search = req.query.search;
+
+  if (search) {
+    searchQuery = { FullName: { $regex: `${search}.*`, $options: "i" } };
+  }
+
+  let users;
+  try {
+    users = await getUsersWithAddressAndOrder();
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Internal Server Error");
+    return;
+  }
+
+  let filteredUsers = users.filter(user => user.UserType.TypeName === "Customer" && user.FullName.match(new RegExp(search, "i")));
+
+  if (sortBy === 'name') {
+    if (orderBy === 'asc') {
+      filteredUsers.sort((a, b) => a.FullName.localeCompare(b.FullName));
+    } else if (orderBy === 'desc') {
+      filteredUsers.sort((a, b) => b.FullName.localeCompare(a.FullName));
+    }
+  }
+
+  let totalItem = filteredUsers.length;
+  let data = filteredUsers.slice((perPage * page) - perPage, perPage * page);
+
+  const finalData = {
+    totalItem: totalItem,
+    data: data
+  };
+
+  res.send(finalData);
 });
 // API hiển thị thông tin của 1 Customer
 app.get("/customer-admin/:id",cors(),async (req,res)=>{

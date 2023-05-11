@@ -1,48 +1,59 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<div class="container">
+
   <!-- Phần giao diện của Quản lý khách hàng -->
-  <div>
     <!-- Phần title -->
-    <div class="title">
-      <h4 class="title">Danh sách khách hàng</h4>
+    <div class="header-box">
+      <h1>Danh sách khách hàng</h1>
     </div>
 
     <!-- Phần 2 button Sắp xếp và tìm kiếm -->
-
-    <div class="filter-search-container">
-      <div class="filter-container" [ngClass]="{'filter-container-expand': showFilterOptions}">
-        <button class="filter-button" (click)="toggleFilterOptions()" >Thêm điều kiện lọc</button>
-        <span class="search-icon"><i class="fa-solid fa-filter"></i></span>
-        <div class="filter-options-container shadow p-3 mb-5 bg-body rounded" *ngIf="showFilterOptions">
-          <p>Hiển thị tất cả khách hàng theo:</p>
-          <select class="filter-options" [(ngModel)]="selectedFilterOption" (ngModelChange)="onFilterOptionChange()">
-            <option value="">Chọn một điều kiện lọc</option>
-            <option value="totalOrders">Số đơn hàng</option>
-            <option value="totalOrderValue">Tổng giá trị đơn hàng</option>
-            <!-- <option value="option3">Điều kiện lọc 3</option> -->
-          </select>
-
-          <div *ngIf="selectedFilterOption === 'totalOrders' || selectedFilterOption === 'totalOrderValue'">
-            <p>Bằng</p>
-            <select class="filter-options" [(ngModel)]="selectedSortOrder" (ngModelChange)="onSortOrderChange()">
-              <option value="asc">Tăng dần</option>
-              <option value="desc">Giảm dần</option>
-            </select>
-          </div>
-        </div>
+<div class="content-box">
+    <span class="content-box-title">
+      Tất cả sản phẩm
+    </span>
+    <div class="line"></div>
+    <div class="content-box-action">
+      <div class="content-box-action-container--sort">
+        <button id="sort-btn" (click)="isShowModelSort = !isShowModelSort" class="content-box-action--sort">
+          <fa-icon  [style]="{margin: '0 10px'}" size="lg"></fa-icon>
+          <span>{{isSelectedSort || 'Sắp xếp theo'}}</span>
+        </button>
+        <ul *ngIf="isShowModelSort" id="ulSort">
+          <li (click)="selectOption(itemSort)" [class.li-active]="itemSort == isSelectedSort" value="{{itemSort}}"
+              *ngFor="let itemSort of listSort">{{itemSort}}</li>
+        </ul>
       </div>
-      <div class="search-container" [ngClass]="{'search-container-shrink': showFilterOptions}">
-        <input type="text" class="search-input" placeholder="Tìm kiếm">
-        <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
-      </div>
+
+      <form (ngSubmit)="submitForm()" class="content-box-action--search">
+        <input class="content-box-action--search-input" [(ngModel)]="search" name="search"
+            placeholder="Tìm Kiếm . . ." />
+        <fa-icon (click)="submitForm()" [style]="{cursor: 'pointer'}" size="lg"
+            class="search-icon"></fa-icon>
+    </form>
+    </div>
+    <div class="filter-options-container shadow p-3 mb-5 bg-body rounded" *ngIf="isSelectedSort === 'Đơn hàng'">
+      <p>Hiển thị tất cả khách hàng theo:</p>
+        <select class="filter-options" [(ngModel)]="selectedFilterOption" (ngModelChange)="onFilterOptionChange()">
+          <option value="">Chọn một điều kiện lọc</option>
+          <option value="totalOrders">Số đơn hàng</option>
+          <option value="totalOrderValue">Tổng giá trị đơn hàng</option>
+          <!-- <option value="option3">Điều kiện lọc 3</option> -->
+        </select>
+    </div>
+    <div *ngIf="selectedFilterOption === 'totalOrders' || selectedFilterOption === 'totalOrderValue'">
+      <p>Bằng</p>
+      <select class="filter-options" [(ngModel)]="selectedSortOrder" (ngModelChange)="onSortOrderChange()">
+        <option value="asc">Tăng dần</option>
+        <option value="desc">Giảm dần</option>
+      </select>
     </div>
 
 
 
     <!-- Phân hiển thị danh sách -->
-    <div class="displayList">
+    <div class="content-box-table">
       <table>
         <thead>
           <tr>
@@ -55,7 +66,7 @@
             <th>Thao tác</th>
           </tr>
         </thead>
-        <tbody *ngFor="let c of customers| paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalCustomers }" >
+        <tbody *ngFor="let c of customers" class="tr-custom" >
           <tr>
             <td>{{c.FullName}}</td>
             <td>{{c.Phone}}</td>
@@ -71,15 +82,28 @@
         </tbody>
       </table>
 
-    <!-- Phân trang -->
-    <div class="pagination">
-      <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+      <!-- Phân trang -->
+      <div class="pagination-container">
+        <p (click)="paginateIcon('pre')"><i class="fa-solid fa-chevron-left"></i></p>
+        <ul>
+            <li *ngFor="let i of totalPage; let indexOfElement=index" (click)="paginate(indexOfElement + 1)"
+                [class.paginate-active]="page == indexOfElement + 1">{{indexOfElement + 1}}</li>
+        </ul>
+        <p (click)="paginateIcon('next')"><i class="fa-solid fa-chevron-right"></i></p>
     </div>
+
     </div>
-  </div>
 </div>
+
+
+
+
 <div *ngIf="showDetail" class="modal">
   <div class="customer-detail">
+    <div class="function">
+      <button class ="close-btn" (click)="closeCustomerDetail()">Quay lại</button>
+      <button class ="reset-btn" (click)="ResetPassWord(selectedCustomer._id)">Reset PassWord</button>
+    </div>
     <div class="title">Chi tiết khách hàng {{selectedCustomer.FullName}}</div>
     <div class="information">
       <div class="sub_title">Thông tin chung</div>
@@ -173,16 +197,15 @@
 
         <tbody >
           <tr *ngFor="let order of selectedCustomer.Order">
-                <td>{{ formatOrderId(order._id)}}</td>
+                <td>{{ order._id}}</td>
                 <td>{{ order.OrderDate }}</td>
                 <td ><span class="status">{{ order.OrderStatus}}</span></td>
                 <td>{{ order.SubTotal| currency:'VND' }}</td>
           </tr>
+
         </tbody>
       </table>
     </div>
-    <!-- Hiển thị các thông tin khác của người dùng -->
-    <button class ="close-btn" (click)="closeCustomerDetail()">Quay lại</button>
   </div>
 </div>
 

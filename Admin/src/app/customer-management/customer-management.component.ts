@@ -8,41 +8,56 @@ import { CustomerService } from '../services/customer.service';
   styleUrls: ['./customer-management.component.css']
 })
 export class CustomerManagementComponent {
-  pageSize = 10;
-  currentPage = 1;
-  totalCustomers =50;
+  // pagination & sort & search
+  totalPage: any = [];
+  totalItem: any;
+  page: number = 1;
+  perPage: number = 10;
+  search: string = '';
+  sortBy: string = '';
+  orderBy: string = '';
+  isLoading = false;
+  isSelectedSort: string = '';
+  //
   customers: any;
   errMessage:any
   totalOrders:number=0;
   totalOrderValue:number=0;
   selectedCustomer:any;
   showDetail = false;
+  isShowModelSort = false
+    // orther
+    isShow = false
+    isCreate = false
+    isUpdate = false
+    isVarian = false
+    updateMore = false
+    selectedOrderFilter: string = ''; // Thêm dòng này
+  listSort: Array<string> = [
+    'Tên (A -> Z)', 'Tên (Z -> A)','Đơn hàng'
+  ];
+
   constructor(private activateRoute:ActivatedRoute, private accountService: CustomerService) {
-    this.activateRoute.paramMap.subscribe((paramMap: ParamMap) => {
-      const _id = paramMap.get('id');
-      if (_id) {
-        this.accountService.getCustomer(_id).subscribe({
-          next: (data) => {
-            this.selectedCustomer = data;
-            console.log(this.selectedCustomer)
-          },
-          error: (err) => {
-            this.errMessage = err;
-          }
-        });
-      }
-    });
+
     this.getUsers();
   }
 
   getUsers() {
-    this.accountService.getCustomers().subscribe({
+     this.isLoading = true;
+    this.accountService.getCustomerList(this.page, this.sortBy, this.orderBy, this.search, this.perPage).subscribe({
       next: (data) => {
-        this.customers = data;
-        console.log( data)
-        this.totalOrders = data.totalOrders;
-        this.totalOrderValue = data.totalOrderValue;
-        this.totalCustomers = data.totalCustomers;
+        if (data.data.length == 0) {
+          this.page = 1
+          this.getUsers()
+        }
+        this.customers = data.data
+        this.totalItem = data.totalItem
+        this.isLoading = false
+
+        let pageTmp = Math.ceil(this.totalItem / this.perPage)
+        this.totalPage = Array(pageTmp)
+        this.totalOrders = data.data.totalOrders;
+        this.totalOrderValue = data.data.totalOrderValue;
         this.customers.forEach((c: any) => {
           let orderValue = 0;
           c.Order.forEach((o: any) => {
@@ -50,13 +65,57 @@ export class CustomerManagementComponent {
           });
           c.orderValue = orderValue;
         });
-        this.sortByTotalOrders(); // sắp xếp theo số order giảm dần
       },
       error: (err) => {
-        this.errMessage = err;
+        this.errMessage = err
+        this.isLoading = false
       }
-    });
+    })
+    this.isLoading = false
   }
+  public submitForm() {
+    this.getUsers();
+    this.search = '';
+  }
+  paginateIcon(type: any) {
+    switch (type) {
+      case 'pre': {
+        this.page -= 1
+        if (this.page < 1) this.page = 1
+        this.getUsers()
+        break
+      }
+      case 'next': {
+        this.page += 1
+        if (this.page > this.totalPage.length) this.page = 1
+        this.getUsers()
+        break
+      }
+    }
+  }
+
+  paginate(page: any) {
+    this.page = page
+    this.getUsers()
+  }
+  selectOption(item: string) {
+    this.isSelectedSort = item
+    this.isShowModelSort = false
+    switch (item) {
+      case 'Tên (A -> Z)': {
+        this.sortBy = 'name'
+        this.orderBy = 'asc'
+        break
+      }
+      case 'Tên (Z -> A)': {
+        this.sortBy = 'name'
+        this.orderBy = 'desc'
+        break
+      }
+    }
+    this.getUsers()
+  }
+
 
   sortByTotalOrders(): void {
     this.customers.sort((a: any, b: any) => {
@@ -189,4 +248,16 @@ deleteUser(id: string) {
   }
 
 }
+
+ResetPassWord(id:string) {
+  this.accountService.resetPassWord(id).subscribe({
+    next: (data) => {
+      alert("Thành công");
+    },
+    error: (err) => {
+      this.errMessage = err;
+    }
+  });
+}
+
 }

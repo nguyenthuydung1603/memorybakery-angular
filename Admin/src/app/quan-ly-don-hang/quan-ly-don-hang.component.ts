@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { OrderAPIService } from '../order-api.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor/public-api';
 import { Router } from '@angular/router';
 import { faDeleteLeft, faInfoCircle, faFilter, faPlus, faSearchPlus } from '@fortawesome/free-solid-svg-icons';
 import { functionCustom } from '../custom-function/functionCustom';
+import { IOrder, Order } from '../models/Order';
+import swal from '../custom-function/swal2';
 
 @Component({
   selector: 'app-quan-ly-don-hang',
@@ -15,6 +17,14 @@ export class QuanLyDonHangComponent {
   orderstatuss = ['Sắp xếp theo', 'Chờ xác nhận', 'Đang giao', 'Đã giao', 'Đã huỷ']
   orders: any;
   errMessage: string = ''
+  orderDetail!: IOrder
+  sumPriceOfProduct: number = 0
+  finalAmountPaid: any
+  amountOwed: any
+  curStatusType: any
+  isShow: boolean = false
+  isShowCancel: boolean = false
+  order = new Order()
   constructor(public _service: OrderAPIService, private router: Router) {
     this.getList();
   }
@@ -62,12 +72,11 @@ export class QuanLyDonHangComponent {
   faSearchPlus = faSearchPlus
   faEdit = faInfoCircle
   faDelete = faDeleteLeft
-  isShow = false
+
   isCreate = false
   isUpdate = false
   isVarian = false
   isLoading = false
-  showDetail=false
 
   //paginate
   page: number = 1
@@ -140,9 +149,126 @@ export class QuanLyDonHangComponent {
     return code.slice(-5)
   }
 
-  goToDetail() {
-    this.showDetail=true;
+  showDetail:boolean=false;
+  selectedOrder:any
+  showOrderDetail(order: any) {
+    this.selectedOrder = order;
+    this.orderDetail = this.selectedOrder
+    this.showDetail = true;
+    this.orderDetail.Details.map((or: any) => {
+      let tmp = 0
+      tmp = or.Quantity * or.UnitPrice
+      this.sumPriceOfProduct += tmp
+    })
+    this.actionType()
+    this.amountPaid()
   }
+  convertDate(date: any) {
+    return functionCustom.convertDate(date)
+  }
+
+  total() {
+    let costShip: number = this.orderDetail ? +this.orderDetail.CostShip : 0
+    return functionCustom.convertVND(this.sumPriceOfProduct + costShip)
+  }
+
+  actionType() {
+    switch (this.orderDetail.OrderStatus) {
+      case 'Đã giao': {
+        this.curStatusType = 'Đã giao'
+        this.isShow = false
+        this.isShowCancel = false
+        break
+      }
+      case 'Đã huỷ': {
+        this.curStatusType = 'Đã huỷ'
+        this.isShow = false
+        this.isShowCancel = false
+        break
+      }
+      case 'Chờ xác nhận': {
+        this.curStatusType = 'Xác nhận đơn hàng'
+        this.isShow = true
+        this.isShowCancel = true
+        break
+      }
+      case 'Đang giao': {
+        this.curStatusType = 'Đã giao'
+        this.isShow = true
+        this.isShowCancel = true
+        break
+      }
+    }
+  }
+
+  amountPaid() {
+    if (this.orderDetail.OrderStatus == 'Đã huỷ') {
+      this.finalAmountPaid = '0 VND'
+      this.amountOwed = '0 VND'
+      return
+    }
+
+    if (this.orderDetail.PaymentMethod == 1 && (this.orderDetail.OrderStatus == 'Đã giao' || this.orderDetail.OrderStatus == 'Đang giao')) {
+      this.finalAmountPaid = this.total()
+      this.amountOwed = '0 VND'
+    }
+
+    if (this.orderDetail.PaymentMethod == 1 && this.orderDetail.OrderStatus == 'Chờ xác nhận') {
+      this.finalAmountPaid = '0 VND'
+      this.amountOwed = this.total()
+    }
+
+    if (this.orderDetail.PaymentMethod == 0 && (this.orderDetail.OrderStatus == 'Đang giao' || this.orderDetail.OrderStatus == 'Chờ xác nhận')) {
+      this.finalAmountPaid = '0 VND'
+      this.amountOwed = this.total()
+    }
+
+    if (this.orderDetail.PaymentMethod == 0 && this.orderDetail.OrderStatus == 'Đã giao') {
+      this.finalAmountPaid = this.total()
+      this.amountOwed = '0 VND'
+    }
+  }
+  formattedDeliveryTime: string="";
+  changeOrderStatus(event: any, type: any) {
+
+    switch (type) {
+      case 'Xác nhận đơn hàng':
+        this.selectedOrder.OrderStatus = 'Đang giao'
+        break;
+      case 'Đã giao':
+        this.selectedOrder.OrderStatus = 'Đã giao'
+        break;
+
+      default:
+        this.selectedOrder.OrderStatus = 'Đã huỷ'
+        break
+    }
+
+    if (event != null) this.selectedOrder.Reason = event
+    this._service.putOrder(this.selectedOrder).subscribe({
+      next: (data) => {
+        swal.success(`${type} thành công`, 3000),
+        this.closeOrderDetail();
+
+      },
+      error: (err) => {
+        swal.error(err)
+      }
+    })
+
+  }
+
+  handleDismiss(e: any) { }
+
+  closeOrderDetail() {
+    this.showDetail = false;
+  }
+  @HostListener('document:click', ['$event'])
+public onClick(event: any): void {
+  if (event.target.classList.contains('modal')) {
+    this.closeOrderDetail();
+  }
+}
 
   paginateIcon(type: any) {
     switch (type) {

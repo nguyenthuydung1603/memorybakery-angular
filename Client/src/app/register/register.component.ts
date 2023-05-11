@@ -57,13 +57,20 @@ export class RegisterComponent {
     }
   this.userType.TypeName = "Customer"
   this._service.postUser(this.user).subscribe({
-  next:(data)=>{this.user=data},
+  next:(data)=>{this.user=data
+  if(this.user.UserName){
+    alert("Bạn đã đăng kí thành công");
+    localStorage.setItem('isLoggedIn', "true");
+    localStorage.setItem('token', this.user.UserName);
+    window.location.reload()
+    window.location.replace('');
+  } else{
+    alert(`${data.message}`)
+    window.location.reload()
+  }
+},
   error:(err)=>{this.errMessage=err}
   })
-  alert("Bạn đã đăng kí thành công");
-  localStorage.setItem('isLoggedIn', "true");
-  localStorage.setItem('token', this.user.UserName);
-  window.location.reload()
-  window.location.replace('');
+
 }}
 

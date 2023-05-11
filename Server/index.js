@@ -25,6 +25,10 @@ const blogCollection = database.collection("Blog")
 const voucherCollection = database.collection("Voucher");
 
 app.post("/users", cors(), async(req, res) => {
+  const existingUser = await userCollection.findOne({ UserName: req.body.UserName });
+  if (existingUser) {
+    res.send({"message":"Tài khoản đã tồn tại"});
+  } else {
   var crypto = require('crypto');
   salt = crypto.randomBytes(16).toString('hex');
   user=req.body;
@@ -33,6 +37,7 @@ app.post("/users", cors(), async(req, res) => {
   user.salt=salt
   await userCollection.insertOne(user)
   res.send(req.body)
+  }
 })
 app.post("/carts/:username", cors(), async (req, res) => {
   const username = req.params.username;
@@ -240,31 +245,9 @@ if(req.session.carts=null){
 })
 
 // CÁC API LIÊN QUAN ĐẾN BLOG
-app.get("/blog-admin",cors(),async (req,res)=>{ 
-  let query = null
-  let searchQuery = {}
-  let data
-  let perPage = Number(req.query.perPage) || 10
-  let page = req.query.page || 1
-  let totalItem
-  let lengthTotalItem
-  //params để search, có thể vừa kết hợp với sort ( đem lại trải nghiệm tốt hơn nếu cố định được sort và search tự do )
-  const search = req.query.search
-  if (search) searchQuery = { Title: { "$regex": `${search}.*`, "$options": "i" } }
-  data = await blogCollection
-      .find(searchQuery)
-      .skip((perPage * page) - perPage)
-      .limit(perPage)
-      .toArray()
-      totalItem = await blogCollection.find(searchQuery).toArray()
-      lengthTotalItem = totalItem.length
-
-  const finalData = {
-    totalItem: lengthTotalItem,
-    data: data
-  }
-
-  res.send(finalData)
+app.get("/getblog",cors(),async (req,res)=>{ 
+const result = await blogCollection.find({}).toArray();
+res.send(result)
 })
 
 app.get('/blogs-sorted', cors(), async (req, res) => {

@@ -17,6 +17,7 @@
 }
 /* CSS cho Tất cả --> Chờ xác nhận */
 .row {
+  white-space: nowrap;
   border: 3px solid var(--primary_color);
   border-radius: 50px;
   margin: 9px;
@@ -39,6 +40,7 @@ button {
   border: none;
   color: black;
   cursor: pointer;
+  white-space: nowrap;
 }
 .status {
   margin: auto;
@@ -91,4 +93,30 @@ button {
   height: 30px;
   margin-right: 10px;
   margin: auto;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.address-new {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  width: 50%;
+  height: auto;
+  overflow-y: auto;
+}
+
+
+.modal label, select, input {
+  margin-bottom: 20px;
 }

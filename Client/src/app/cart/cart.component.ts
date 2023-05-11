@@ -16,7 +16,10 @@ export class CartComponent {
 
   isApplying = false;
   constructor(private _http: HttpClient,private cartService:CartService) {
-
+    this.cartService.postCart().subscribe({
+      next:(data)=>{},
+      error:(err)=>{this.errMessage=err}
+    })
   }
   @ViewChild('quantityInput') quantityInput!: ElementRef;
   value=1

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MyAccountService } from '../services/my-account.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-my-account',
@@ -9,7 +10,8 @@ import { MyAccountService } from '../services/my-account.service';
 export class MyAccountComponent {
   user: any;
   errMessage:string='';
-  constructor(private accountService: MyAccountService) {
+
+  constructor(private accountService: MyAccountService,private authService: AuthService) {
     this.getUser();
   }
 
@@ -31,5 +33,10 @@ export class MyAccountComponent {
   // Viết hàm bấm vào đâu thì nhận ra giá của component div đó
   onSelectSubComponent(subComponent: string) {
     this.selectedSubComponent = subComponent;
+  }
+  logout() {
+    this.authService.logout();
+    alert('Bạn đã đăng xuất');
+    window.location.reload()
   }
 }

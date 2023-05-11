@@ -66,7 +66,8 @@ login() {
       if (this.dataUser.UserName){
         localStorage.setItem('isLoggedIn', "true");
         localStorage.setItem('token', this.f['userid'].value);
-        this.router.navigate(['']);
+        window.location.reload()
+        window.location.replace('');
       } else {
         alert(`${this.dataUser.message}`)
       }

@@ -90,14 +90,17 @@ a:hover{
   display: flex;
   /* justify-content: center; */
   /* align-items: center; */
-
+  margin-left: 20px;
 }
-.right-header-top div{
-  margin: 0 20px;
+.right-header-top div {
+  margin: 0 10px;
   width: max-content;
-
+  align-self: center
 }
-
+.right-header-top .isLogin {
+  margin: 0 10px;
+  width: max-content;
+}
 
 .right-header-top li a{
   padding: 0 24px;
@@ -163,6 +166,9 @@ ul{
   display: block;
 }
 
+.link-btn.active {
+  color: #E75C6B;
+}
 
 .header-bottom .nav >li >a::after{
   content: "";

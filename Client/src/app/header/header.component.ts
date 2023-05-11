@@ -2,6 +2,7 @@ import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { AuthGuard } from '../guards/auth.guard';
+import { MyAccountService } from '../services/my-account.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -10,8 +11,18 @@ import { AuthGuard } from '../guards/auth.guard';
 export class HeaderComponent {
   showHeader = false;
   login: boolean = false
-  constructor(private router: Router, private authService: AuthService,private authGuard:AuthGuard) {
+  user: any;
+  errMessage: any;
+  constructor(private accountService: MyAccountService,private router: Router, private authService: AuthService,private authGuard:AuthGuard) {
     this.login=this.authGuard.isLoggedIn()
+    this.accountService.getUser().subscribe({
+      next: (data) => {
+        this.user = data;
+      },
+      error: (err) => {
+        this.errMessage = err;
+      }
+    });
   }
   @HostListener('window:scroll', ['$event'])
   onScroll(event: Event) {

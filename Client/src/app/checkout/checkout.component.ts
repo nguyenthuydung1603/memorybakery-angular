@@ -34,6 +34,7 @@ export class CheckoutComponent implements OnInit
   this.getAddressDefault()
   console.log(this.addressDefault);
 
+
   this.cartService.currentMessage.subscribe(message => {
     this.discountMessage = message;
   });
@@ -284,7 +285,7 @@ public onClick(event: any): void {
       error:(err)=>{this.errMessage=err}
     })
     alert("Bạn đã đặt hàng thành công");
-    localStorage.removeItem('cart')
+    localStorage.setItem('cart', JSON.stringify([]));
     this.cartService.postCart().subscribe({
       next:(data)=>{},
       error:(err)=>{this.errMessage=err}

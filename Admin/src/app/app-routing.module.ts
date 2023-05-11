@@ -14,7 +14,7 @@ const routes: Routes = [
   {path:"dashboard",component:DashboardComponent},
   {path: 'product-management', component:ProductManagementComponent },
   {path: 'promotion', component:PromotionManagementComponent },
-  {path: 'blog', component:BlogManagementComponent},
+  {path: 'bloggg', component:BlogManagementComponent},
   {path: 'customer', component:CustomerManagementComponent},
   {path:"promotion_detail/:id",component: PromotionDetailComponent},
   {path: 'quanlydonhang', component:QuanLyDonHangComponent},

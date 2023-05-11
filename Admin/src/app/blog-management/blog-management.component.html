@@ -1,7 +1,7 @@
 <head>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
-<div class="container">
+<!-- <div class="container">
   <div>
     <div class="row">
       <div class="header-box">
@@ -60,9 +60,101 @@
       </table>
     </div>
   </div>
+</div> -->
+<div>
+  <div class="row">
+      <div class="header-box">
+          <h1>Danh sách tin tức</h1>
+      </div>
+  </div>
+  <hr>
+  <div class="content-box-action">
+      <div class="content-box-action-container--button">
+        <button (click)="showBlogNew()" class="content-box-action--button">Thêm bài viết mới</button>
+      </div>
+      <form (ngSubmit)="submitForm()" class="content-box-action--search">
+        <input class="content-box-action--search-input" [(ngModel)]="search" name="search"
+            placeholder="Tìm Kiếm . . ." />
+        <fa-icon (click)="submitForm()" [icon]="faSearchPlus" [style]="{cursor: 'pointer'}" size="lg"
+            class="search-icon"></fa-icon>
+      </form>
+  </div>
+<div class="display-list mt-3">
+  <table class="table text-center table-hover">
+    <thead>
+      <tr>
+        <th>Tiêu đề</th>
+        <th>Ngày tạo</th>
+        <th>Người viết</th>
+        <th>Chức năng</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let blog of blogs">
+        <td>{{blog.Title}}</td>
+        <td>{{blog.CreateDate}}</td>
+        <td>{{blog.Writer}}</td>
+        <td class="d-flex justify-content-end" >
+          <fa-icon (click)="showBlogDetail(blog)" [icon]="faEdit" class="edit-icon"
+          [style]="{cursor: 'pointer'}" size="lg"></fa-icon>
+          <!-- <fa-icon
+          [swal]="{ title: 'Bạn có chắc chắn muốn xoá ', showCancelButton: true }"
+          (confirm)="deleteBlog(p._id)" (dismiss)="handleDismiss($event)"
+          [icon]="faDelete" class="delete-icon" [style]="{cursor: 'pointer'}"
+          size="lg"></fa-icon> -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="pagination-container">
+  <p (click)="paginateIcon('pre')"><i class="fa-solid fa-chevron-left"></i></p>
+  <ul>
+      <li *ngFor="let i of totalPage; let indexOfElement=index" (click)="paginate(indexOfElement + 1)"
+          [class.paginate-active]="page == indexOfElement + 1">{{indexOfElement + 1}}</li>
+  </ul>
+  <p (click)="paginateIcon('next')"><i class="fa-solid fa-chevron-right"></i></p>
+</div>
+</div>
+<div *ngIf="showDetail" class="modal">
+  <div class="promotion-detail">
+    <div class="title">Chỉnh sửa bài viết</div>
+    <div class="information">
+      <hr>
+      <div class="row">
+          <div class="form-group">
+            <label class="col-sm-5 col-form-label">Tiêu đề:</label>
+            <input type="text" class="form-control-plaintext"  [(ngModel)]="selectedBlog.Title">
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-5 col-form-label">Mô tả:</label>
+            <ckeditor [editor]="Editor" name="ngModel" class="form-control-plaintext custom-ckeditor" [(ngModel)]="selectedBlog.Content" >
+            </ckeditor>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-5 col-form-label">Hình ảnh:</label>
+            <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload name="image">
+          </div>
+          <div class="form-group row">
+            <img src="{{selectedBlog.Image}}" alt="" style="width: 150px; height: 100px;">
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-5 col-form-label">Người viết:</label>
+            <input type="text" readonly="" class="form-control-plaintext" [(ngModel)]="selectedBlog.Writer">
+          </div>
+    </div>
+    <div class="function">
+      <button class ="close-btn" (click)="closeBlogDetail()">Quay lại</button>
+      <button class ="close-btn" (click)="putBlog()">Cập nhật</button>
+    </div>
+  </div>
 </div>
 
-<div class="fog" *ngIf="isCreate">
+
+
+
+<!-- <div class="fog" *ngIf="isCreate">
   <div class="form">
     <h1 class="text-center mt-5 mb-4">TẠO BÀI VIẾT MỚI</h1>
     <form>
@@ -121,4 +213,4 @@
         </div>
     </form>
 </div>
-</div>
+</div> -->

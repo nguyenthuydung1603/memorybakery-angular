@@ -4,10 +4,10 @@ export interface IBlog {
     CreateDate: any,
     Writer: string,
     Content: string,
-    Image: Array<string>,
+    Image: string;
     Outstanding: boolean
   }
-  
+
   export class Blog {
     constructor(
         public _id: string = '',
@@ -15,8 +15,7 @@ export interface IBlog {
         public CreateDate: any = '',
         public Writer: string = '',
         public Content: string = '',
-        public Image: Array<string> = [],
+        public Image: string = '',
         public Outstanding: boolean = false
     ) { }
   }
-  

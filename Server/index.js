@@ -240,9 +240,31 @@ if(req.session.carts=null){
 })
 
 // CÁC API LIÊN QUAN ĐẾN BLOG
-app.get("/getblog",cors(),async (req,res)=>{ 
-const result = await blogCollection.find({}).toArray();
-res.send(result)
+app.get("/blog-admin",cors(),async (req,res)=>{ 
+  let query = null
+  let searchQuery = {}
+  let data
+  let perPage = Number(req.query.perPage) || 10
+  let page = req.query.page || 1
+  let totalItem
+  let lengthTotalItem
+  //params để search, có thể vừa kết hợp với sort ( đem lại trải nghiệm tốt hơn nếu cố định được sort và search tự do )
+  const search = req.query.search
+  if (search) searchQuery = { Title: { "$regex": `${search}.*`, "$options": "i" } }
+  data = await blogCollection
+      .find(searchQuery)
+      .skip((perPage * page) - perPage)
+      .limit(perPage)
+      .toArray()
+      totalItem = await blogCollection.find(searchQuery).toArray()
+      lengthTotalItem = totalItem.length
+
+  const finalData = {
+    totalItem: lengthTotalItem,
+    data: data
+  }
+
+  res.send(finalData)
 })
 
 app.get('/blogs-sorted', cors(), async (req, res) => {

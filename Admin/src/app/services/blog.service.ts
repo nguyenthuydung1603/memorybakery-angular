@@ -9,6 +9,7 @@ import { IBlog } from '../models/Blog';
 })
 export class BlogService {
   API_URL: string = 'http://localhost:6868'
+
   headers = new HttpHeaders().set('Content-Type', 'text/plain;charset=utf-8')
   requestOptions: Object = {
     header: this.headers,
@@ -22,17 +23,16 @@ export class BlogService {
   }
 
   constructor(private _http: HttpClient) { }
-  getBlogs():Observable<any>
-  {
-  const headers=new HttpHeaders().set("Content-Type","text/plain;charset=utf-8")
-  const requestOptions:Object={
-  headers:headers,
-  responseType:"text"
-  }
-  return this._http.get<any>("/getblog",requestOptions).pipe(
-  map(res=>JSON.parse(res) as Array<IBlog>),
-  retry(3),
-  catchError(this.handleError))
+  getPromotions(page: any, search: any, perPage: any): Observable<any> {
+    if (!page) page = 1;
+    if (!search) search = '';
+    if (!perPage) perPage = '';
+
+    return this._http.get<any>(`${this.API_URL}/blog-admin?page=${page}&search=${search}&perPage=${perPage}`, this.requestOptions).pipe(
+      map(res => JSON.parse(res)),
+      retry(3),
+      catchError(this.handleError)
+    );
   }
 
 

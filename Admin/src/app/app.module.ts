@@ -19,6 +19,7 @@ import { PromotionDetailComponent } from './promotion-detail/promotion-detail.co
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { QuanLyDonHangOrderStatusComponent } from './quan-ly-don-hang-order-status/quan-ly-don-hang-order-status.component';
 import { SettingComponent } from './setting/setting.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { SettingComponent } from './setting/setting.component';
     FormsModule,
     HttpClientModule,
     AngularEditorModule,
-    SweetAlert2Module.forRoot()
+    SweetAlert2Module.forRoot(),
+    CKEditorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

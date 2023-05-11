@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { IOrder } from 'src/app/models/Users';
 import { MyAccountService } from 'src/app/services/my-account.service';
 
 @Component({
@@ -13,16 +15,22 @@ export class MyOrderComponent {
   filteredOrders: any[] = []; // tạo biến lưu trữ danh sách các đơn hàng đã được lọc
   selectedStatus: string = 'Tất cả';
   buttonLabel:string=""
+  selectedOrder:any;
+  Order = new IOrder()
+  activateRoute: any;
+  canceledOrders: any[] = [];
 
-
-  constructor(private accountService: MyAccountService) {
+  constructor(private accountService: MyAccountService, activateRoute:ActivatedRoute,private router:Router) {
     this.getListOrder();
   }
   getListOrder() {
     this.accountService.getListOrder().subscribe({
       next: (data) => {
         this.orders=data
+        // Lọc danh sách các đơn hàng theo trạng thái đã chọn
         this.filteredOrders = this.orders.filter((order: { OrderStatus: string; }) => order.OrderStatus === this.selectedStatus || this.selectedStatus === 'Tất cả');
+        // Lọc danh sách các đơn hàng đã huỷ
+        this.canceledOrders = this.orders.filter((order: { OrderStatus: string; }) => order.OrderStatus === 'Đã huỷ');
       },
       error: (err) => {
         this.errMessage = err;
@@ -33,26 +41,111 @@ export class MyOrderComponent {
   // Hàm này để chuyển đổi trang thái của Order, bấm qua từng Status thì chỉ hiện Order có Status đó thôi
   filterOrders(status: string): void {
     this.selectedStatus = status;
-    this.filteredOrders = this.orders.filter((order: { OrderStatus: string; }) => order.OrderStatus === this.selectedStatus || this.selectedStatus === 'Tất cả');
+    if (status === 'Đã huỷ') {
+      this.filteredOrders = this.canceledOrders;
+    } else {
+      this.filteredOrders = this.orders.filter((order: { OrderStatus: string; }) => order.OrderStatus === this.selectedStatus || this.selectedStatus === 'Tất cả');
+    }
   }
+
 
   // Nếu Order Status là Đã giao và Đã huỷ --> Button có tên Mua lại
   // Nếu Order Status là "Chờ xác nhận" --> Button có tên là Huỷ Đơn
   // Nếu Order Status là "Đang giao" --> Button có tên Xem chi tiết đơn hàng
   getButtonLabel(order: any): string {
-    if (order.OrderStatus === 'Đã giao'||order.OrderStatus === 'Đã huỷ') {
+    if (order.OrderStatus === 'Đã giao') {
       return 'Mua lại';
     } else if (order.OrderStatus === 'Chờ xác nhận') {
       return 'Huỷ đơn';
     }else if (order.OrderStatus === 'Đang giao') {
-      return 'Xem chi tiết';
+      return 'Đã nhận được hàng';
     } else {
-      return "";
+      return "Xem chi tiết đơn huỷ";
     }
   }
+
+  // Update lại trạng thái Order
+  // Khai báo thuộc tính otherReason để lưu giá trị của input
+  otherReason: string = "";
+
+  updateOrderStatus(id:string,aOrder:any) {
+    if (this.isOtherReasonSelected) {
+      this.selectedOrder.Reason = this.otherReason;
+    } else {
+      this.otherReason = "";
+    }
+    this.selectedOrder.CancelTime=new Date(Date.now())
+    this.accountService.updateOrderStatus(id,aOrder).subscribe({
+      next: (data) => {
+        this.getListOrder();
+      },
+      error: (err) => {
+        this.errMessage = err;
+      }
+    });
+    window.location.reload();
+    this.closeOrderDetail();
+  }
+
   // Hàm cắt ký tự và hiển thị giá trị đơn hàng
   formatOrderId(orderId: string): string {
     return '#MLB' + orderId.slice(-3);
   }
 
+  // Lấy Id
+  getOneOrder(orderId:string) {
+    this.accountService.getOneOrder(orderId).subscribe({
+      next: (data) => {
+        this.selectedOrder = data;
+        console.log(this.selectedOrder)
+        // Assign selected product values to book
+        this.Order = this.selectedOrder;
+      },
+      error: (err) => {
+        this.errMessage = err;
+        console.log(this.errMessage);
+      }
+    })
+  }
+  showEditOrder: boolean = false;
+  showOrderEdit(orderId: string) {
+    this.showEditOrder=true;
+    this.getOneOrder(orderId)
+
+  }
+  closeOrderDetail() {
+    this.showEditOrder = false
+  }
+
+  showCancelOrder: boolean = false;
+  showOrderCancel(orderId: string) {
+    this.showCancelOrder=true;
+    this.getOneOrder(orderId)
+
+  }
+  closeOrderCancel() {
+    this.showCancelOrder = false
+  }
+
+  isOtherReasonSelected = false;
+
+  onReasonChange() {
+    // Nếu giá trị được chọn là "Khác"
+    if (this.selectedOrder.Reason === "Khác") {
+      // Thì cho phép hiển thị input
+      this.isOtherReasonSelected = true;
+    } else {
+      // Ngược lại, ẩn input đi
+      this.isOtherReasonSelected = false;
+    }
+  }
+
+  // Đóng Modal khi click ra ngoài phạm vi của Modal
+@HostListener('document:click', ['$event'])
+public onClick(event: any): void {
+  if (event.target.classList.contains('modal')) {
+    this.closeOrderDetail();
+    this.closeOrderCancel()
+  }
+}
 }

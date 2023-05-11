@@ -641,6 +641,35 @@ if (result) {
 }
 });
 
+// API cập nhật lại AddressType của User
+app.put("/order/cancel-order/:orderId", cors(), async (req, res) => {
+  const orderId = new ObjectId(req.params["orderId"]);
+  
+  // Xóa đi trường OrderStatus của tất cả các địa chỉ
+  await orderCollection.updateOne(
+    { _id: orderId },
+    { $unset: { OrderStatus: ""} }
+  );
+  // Cập nhật OrderStatus của địa chỉ mới lên "Đã huỷ"
+  await orderCollection.updateOne(
+    { _id: orderId },
+    { $set: { 
+      OrderStatus: "Đã huỷ",
+      CancelTime:req.body.CancelTime,
+      Reason:req.body.Reason,
+      DeliveryTime:""
+    }}
+    // Set DeliveryTime = null 
+  );
+  
+  return res.send("Address changed successfully");
+});
+// API lấy 1 Order của 1 _id
+app.get("/orders/:orderId", cors(), async (req, res) => {
+  var o_id = new ObjectId(req.params["orderId"]);
+  const result = await orderCollection.find({_id:o_id}).toArray();
+  res.send(result[0])
+})
 //CÁC API LIÊN QUAN ĐẾN MY ACCOUNT - MY VOUCHER
 app.get("/voucher/list/:username", cors(), async (req, res) => {
 

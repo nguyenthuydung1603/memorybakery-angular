@@ -14,8 +14,8 @@ export class MyAddressComponent {
   cities: any[] = [];
   errMessage:any;
   selectedAddress:any; //Lấy thông tin địa chỉ của 1 _id cố định
+
   constructor(private accountService: MyAccountService,cdRef: ChangeDetectorRef, private locationService: LocationService,private activateRoute:ActivatedRoute) {
-    this.getListAddress();
     this.cities=[]
     this.locationService.getCities().subscribe( {
       next:(data)=>{
@@ -23,21 +23,7 @@ export class MyAddressComponent {
       },
       error:(err)=>(this.errMessage=err)
     });
-    // Lấy _id của địa chỉ
-    activateRoute.paramMap.subscribe((param: ParamMap) => {
-      let id = param.get("id");
-      if (id != null) {
-        this.accountService.getOneAddress(id).subscribe({
-          next: (data) => {
-            this.selectedAddress = data;
-          },
-          error: (err) => {
-            this.errMessage = err;
-            console.log(this.errMessage);
-          }
-        })
-      }
-    })
+    this.getListAddress();
   }
   // Hiển thị danh sách địa chỉ của User
   getListAddress(){
@@ -71,9 +57,38 @@ export class MyAddressComponent {
   closeAddressNew() {
     this.showAddAddress = false
   }
-  showAddressEdit() {
+
+  Address=new IAddress()
+  showAddressEdit(AddressId: string) {
     this.showEditAddress = true;
     this.showAddAddress = false;
+    this.accountService.getOneAddress(AddressId).subscribe({
+      next: (data) => {
+        this.selectedAddress = data;
+        console.log(data)
+        // Assign selected product values to book
+        this.Address = this.selectedAddress;
+      },
+      error: (err) => {
+        this.errMessage = err;
+        console.log(this.errMessage);
+      }
+    })
+  }
+
+  putAddress(aAddress:any){
+    this.accountService.putAddress(aAddress).subscribe({
+      next: (data) => {
+        this.getListAddress();
+        this.showEditAddress = false;
+      },
+      error: (err) => {
+        this.errMessage = err;
+      }
+    });
+  }
+  closeAddressEdit() {
+    this.showEditAddress = false
   }
 
   // Thêm địa chỉ mới
@@ -90,19 +105,6 @@ export class MyAddressComponent {
     });
   }
 
-  // Cập nhật địa chỉ
-  putAddress() {
-    this.accountService.putAddress(this.selectedAddress).subscribe({
-      next: (data) => {
-        this.getListAddress();
-        this.showAddAddress = false;
-      },
-      error: (err) => {
-        this.errMessage = err;
-      }
-    }
-    )
-  }
 
   // Xoá địa chỉ
   deleteAddress(id: string) {
@@ -168,6 +170,7 @@ export class MyAddressComponent {
 public onClick(event: any): void {
   if (event.target.classList.contains('modal')) {
     this.closeAddressNew();
+    this.closeAddressEdit()
   }
 }
 }

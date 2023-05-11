@@ -85,4 +85,15 @@ export class MyEditProfileComponent {
     this.putUser();
     this.showDetailProfile();
   }
+
+  ChangePassWord() {
+    this.accountService.putUser(this.Edituser.Pass).subscribe({
+      next: (data) => {
+        this.getUser();
+      },
+      error: (err) => {
+        this.errMessage = err;
+      }
+    });
+  }
 }

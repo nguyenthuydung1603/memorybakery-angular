@@ -71,11 +71,14 @@ p {
     height: 50px;
     font-size: 14px;
 }
-.text-center img{
-    width: 200px;
-    border-radius: 40%!important;
-    margin-bottom: 20px;
+img.rounded {
+  object-fit: cover;
+  aspect-ratio: 3/4;
+  width: 200px;
+  border-radius: 40%!important;
+  margin-bottom: 20px;
 }
+
 .col-9{
   border-right: 1px solid var(--primary_color);
 }

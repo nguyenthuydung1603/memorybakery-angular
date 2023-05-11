@@ -8,6 +8,7 @@ import { CustomerManagementComponent } from './customer-management/customer-mana
 import { PromotionDetailComponent } from './promotion-detail/promotion-detail.component';
 import { QuanLyDonHangComponent } from './quan-ly-don-hang/quan-ly-don-hang.component';
 import { ChiTietDonHangComponent } from './chi-tiet-don-hang/chi-tiet-don-hang.component';
+import { SettingComponent } from './setting/setting.component';
 
 const routes: Routes = [
   {path:"dashboard",component:DashboardComponent},
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path:"promotion_detail/:id",component: PromotionDetailComponent},
   {path: 'quanlydonhang', component:QuanLyDonHangComponent},
   {path: 'quanlydonhangchitiet', component:ChiTietDonHangComponent},
+  { path: 'setting', component: SettingComponent }
 ];
 
 @NgModule({

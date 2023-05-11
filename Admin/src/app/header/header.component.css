@@ -1,10 +1,10 @@
-#header{
+#header {
   background-color: white;
   /* position: fixed; */
   padding: 0px 5%;
   top: 0;
   left: 0;
-  right:0;
+  right: 0;
   z-index: 99;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   /* height: 126px; */
@@ -13,45 +13,55 @@
   transition: top .2s ease;
 
 }
-#header.show{
+
+#header.show {
   top: -1000px;
 }
-a{
+
+a {
   text-decoration: none;
   color: black;
 }
-a:hover{
+
+a:hover {
   color: var(--hover_color)
 }
-#header a{
+
+#header a {
   text-decoration: none;
   color: var(--primary_color);
 }
-#header a:hover{
+
+#header a:hover {
   color: var(--hover_color);
 }
+
 /* header-top */
-.header-top{
+.header-top {
   display: flex;
   align-items: center;
   justify-content: space-around;
   height: 80px;
 }
-.header-top img{
+
+.header-top img {
   height: 80px;
   width: 80px;
 }
-.header-top .btn-search .search{
+
+.header-top .btn-search .search {
   width: 400px;
   height: 50px;
   border: 0 white;
-  border-radius: 20px ;
+  border-radius: 20px;
   background-color: #FFEAE9;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
-.header-top .btn-search{
+
+.header-top .btn-search {
   position: relative;
 }
+
 .header-top .btn-search .ti-search {
   height: 40px;
   width: 40px;
@@ -64,11 +74,13 @@ a:hover{
   background-color: #FFEAE9;
   border-radius: 50%;
   margin: 2px;
-  border:  none;
+  border: none;
 }
-.header-top .btn-search .ti-search:hover{
+
+.header-top .btn-search .ti-search:hover {
   color: var(--hover_color);
 }
+
 .btn-search input {
 
   padding: 0 60px 0 20px;
@@ -78,37 +90,40 @@ a:hover{
 }
 
 
-.header-top .logo img{
+.header-top .logo img {
   width: 180px;
 }
-.right-header-top{
+
+.right-header-top {
   display: flex;
   /* justify-content: center; */
   align-items: center;
 
 }
-.right-header-top div{
+
+.right-header-top div {
   margin: 0 30px;
   width: max-content;
 
 }
 
 
-.right-header-top li a{
+.right-header-top li a {
   padding: 0 24px;
   line-height: 46px;
   display: block;
 }
 
 
-.right-header-top .account{
+.right-header-top .account {
   position: relative;
 }
-.right-header-top .account .sub-nav{
+
+.right-header-top .account .sub-nav {
   display: none;
   min-width: 240px;
   position: absolute;
-  top:100%;
+  top: 100%;
   background-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   margin: 0 auto;
@@ -116,10 +131,12 @@ a:hover{
   z-index: 1;
   padding-left: 0;
 }
-.right-header-top .account:hover .sub-nav{
+
+.right-header-top .account:hover .sub-nav {
   display: block;
 }
-.right-header-top .account .sub-nav a:hover{
+
+.right-header-top .account .sub-nav a:hover {
   background-color: bisque;
   color: var(--hover_color);
 }
@@ -181,6 +198,7 @@ a:hover{
   background: var(--primary_color);
   border-radius: 8px;
   transition: 0.2s ease;
+  cursor: pointer;
   /* border-right: 2px solid rgb(5, 68, 104); */
 }
 
@@ -192,4 +210,18 @@ a:hover{
 .wrapper .sidebar ul li a:hover:before,
 .wrapper .sidebar ul li a.active:before {
   display: block;
+}
+
+.permission a {
+  color: #d4d4e5;
+}
+
+.permission a:hover {
+  cursor: not-allowed !important;
+  background-color: #fff !important;
+  color: #d4d4e5 !important;
+}
+
+.permission a:hover span {
+  color: #d4d4e5 !important;
 }

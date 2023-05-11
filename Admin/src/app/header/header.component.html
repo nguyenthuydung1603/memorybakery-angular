@@ -34,45 +34,45 @@
 <div class="wrapper">
 <div class="sidebar">
   <ul>
-      <li>
-          <a href="./dashboard">
+      <li (click)="goTo('dashboard', null)">
+          <a class="custom">
               <span class="icon"><i class="fas fa-tachometer-alt green"></i></span>
               <span class="item green">Tổng quan</span>
           </a>
       </li>
-      <li>
-          <a href="./customer">
+      <li [class.permission]="checkPermission('QLKH') == false" (click)="goTo('customer', 'QLKH')">
+          <a class="custom">
               <span class="icon"><i  class="fas fa-user"></i></span>
               <span class="item">Khách hàng</span>
           </a>
       </li>
-      <li>
-          <a href="./quanlydonhang">
+      <li [class.permission]="checkPermission('QLĐH') == false" (click)="goTo('quanlydonhang', 'QLDH')">
+          <a class="custom">
               <span class="icon"><i class="fas fa-clipboard-list"></i></span>
               <span class="item">Đơn hàng</span>
           </a>
       </li>
-      <li>
-          <a href="./product-management">
+      <li [class.permission]="checkPermission('QLSP') == false" (click)="goTo('product-management', 'QLSP')">
+          <a class="custom">
               <span class="icon"><i class="fas fa-boxes"></i></span>
               <span class="item">Sản phẩm</span>
           </a>
       </li>
-      <li>
-          <a href="./promotion">
-              <span class="icon"><i class="fas fa-dolly"></i></span>
-              <span class="item">Khuyến mãi</span>
-          </a>
-      </li>
-      <li>
-          <a href="./blog">
+      <li [class.permission]="checkPermission('QLKM') == false" (click)="goTo('promotion', 'QLKM')">
+        <a class="custom">
+            <span class="icon"><i class="fas fa-cash-register"></i></span>
+            <span class="item">Khuyến mãi</span>
+        </a>
+    </li>
+      <li [class.permission]="checkPermission('QLBlog') == false" (click)="goTo('blog', 'QLBlog')">
+          <a class="custom">
               <span class="icon"><i class="fas fa-cash-register"></i></span>
               <span class="item">Blog</span>
           </a>
       </li>
 
-      <li>
-          <a href="#">
+      <li [class.permission]="checkPermission('Admin') == false" (click)="goTo('setting', 'Admin')">
+          <a class="custom">
               <span class="icon"><i class="fa-solid fa-gear"></i></span>
               <span class="item">Cài đặt</span>
           </a>

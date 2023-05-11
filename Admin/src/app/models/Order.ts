@@ -1,11 +1,12 @@
-export interface IOrder{
+export interface IOrder {
   _id: string;
-  OrderID:number;
+  OrderID: number;
   OrderDate: string;
   DeliveryTime: string;
   CancelTime: string;
   OrderStatus: string;
   CostShip: string;
+  PaymentMethod: any;
   Details: Array<IOrderDetails>;
   SubTotal: string;
   Note: string;
@@ -30,7 +31,7 @@ export class Order {
     public CancelTime: string = '',
     public OrderStatus: string = '',
     public CostShip: string = '',
-    public Details: Array<string> = [],
+    public Details: any = [],
     public SubTotal: string = '',
     public Note: string = '',
     public Reason: string = ''

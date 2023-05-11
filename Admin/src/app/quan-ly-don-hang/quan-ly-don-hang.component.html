@@ -6,65 +6,66 @@
     <div class="row">
       <div class="header-box">
         <h1>Danh Sách Đơn Hàng</h1>
-    </div>
+      </div>
     </div>
     <hr>
     <div class="d-flex justify-content-between">
       <div class="sort-function">
-        <select class="form-select">
-          <option value="" selected disabled>---  Sắp xếp theo  ---</option>
-          <option *ngFor="let orderstatus of orderstatuss">  {{ orderstatus}}</option>
+        <select [(ngModel)]="selectedStatus" (change)="changeListByStatus()" class="form-select">
+          <option [disabled]="orderstatus == 'Sắp xếp theo'" [ngValue]="orderstatus"
+            *ngFor="let orderstatus of orderstatuss"> {{ orderstatus}}</option>
 
         </select>
       </div>
 
       <div class="search-box">
-        <form class="d-flex">
-          <button (click)="SearchOrderStatus(orderstatus)" class="btn btn-outline-success" stype="submit"><i class="fa fa-search"></i></button>
-        </form>
+        <div class="d-flex">
+          <button (click)="reset()" class="btn btn-outline-success">Đặt lại danh sách</button>
+        </div>
       </div>
     </div>
 
-    <footer><div class="display-list mt-3">
-      <table class="table text-center table-hover">
-        <thead>
-          <tr >
-            <th></th>
-            <th>Mã đơn hàng</th>
-            <th>Ngày đặt</th>
-            <th>Ngày Giao</th>
-            <th>Trạng thái</th>
-            <th>Tổng tiền</th>
-            <th>Tùy chỉnh</th>
-          </tr>
-        </thead>
-        <tbody>
-          <ng-container *ngFor="let p of orders">
+    <footer>
+      <div class="display-list mt-3">
+        <table class="table text-center table-hover">
+          <thead>
             <tr>
-              <td><input type="checkbox" name="all" id="all" checked></td>
-                <td>{{p._id}}</td>
-                <td>{{p.OrderDate}}</td>
-                <td>{{p.DeliveryTime}}</td>
-                <td>{{p.OrderStatus}}</td>
-                <td>{{p.SubTotal}}</td>
-              <td class="d-flex justify-content-end" >
-                <div class="table-action">
-                  <a href="./quanlydonhangchitiet"><fa-icon  [icon]="faEdit" class="edit-icon"
-                    [style]="{cursor: 'pointer'}" size="lg"></fa-icon></a>
-                  <fa-icon [icon]="faDelete" class="delete-icon" [style]="{cursor: 'pointer'}"
-                      size="lg"></fa-icon>
-              </div>
-              </td>
+              <th>Mã đơn hàng</th>
+              <th>Ngày đặt</th>
+              <th>Ngày Giao</th>
+              <th>Trạng thái</th>
+              <th>Tổng tiền</th>
+              <th>Tùy chỉnh</th>
             </tr>
-          </ng-container>
-
-        </tbody>
-      </table>
-    </div></footer>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let p of orders">
+              <tr>
+                <td>{{getLast5Characters(p._id)}}</td>
+                <td>{{convertLocalDate(p.OrderDate)}}</td>
+                <td>{{convertLocalDate(p.DeliveryTime)}}</td>
+                <td>{{p.OrderStatus}}</td>
+                <td>{{convertVND(+p.SubTotal)}}</td>
+                <td>
+                  <div class="table-action">
+                    <fa-icon (click)="goToDetail(p._id)" [icon]="faEdit" class="edit-icon" [style]="{cursor: 'pointer'}"
+                      size="lg"></fa-icon>
+                    <fa-icon [icon]="faDelete" class="delete-icon" [style]="{cursor: 'pointer'}" size="lg"></fa-icon>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+        <div class="pagination-container">
+          <p (click)="paginateIcon('pre')"><i class="fa-solid fa-chevron-left"></i></p>
+          <ul>
+            <li *ngFor="let i of totalPage; let indexOfElement=index" (click)="paginate(+indexOfElement + 1)"
+              [class.paginate-active]="page == indexOfElement + 1">{{indexOfElement + 1}}</li>
+          </ul>
+          <p (click)="paginateIcon('next')"><i class="fa-solid fa-chevron-right"></i></p>
+        </div>
+      </div>
+    </footer>
   </div>
 </div>
-<div><button class="xacnhan" (click)="submitForm()">Xác nhận đơn hàng</button></div>
-
-
-
-

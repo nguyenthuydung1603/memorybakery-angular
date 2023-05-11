@@ -92,6 +92,7 @@ export class ProductManagementComponent {
     this.isLoading = false
   }
   public submitForm() {
+    this.page = 1
     this.getList()
     this.search = ''
   }

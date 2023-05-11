@@ -100,46 +100,57 @@ const result = await productCollection.find({ Rating: rate }).toArray();
 res.send(result);
 });
 app.get('/products-admin', cors(), async (req, res) => {
-let query = null
-let searchQuery = {}
-let data
-let perPage = Number(req.query.perPage) || 10
-let page = req.query.page || 1
-let totalItem = await productCollection.count()
+  let query = null
+  let searchQuery = {}
+  let data
+  let perPage = Number(req.query.perPage) || 10
+  let page = req.query.page || 1
+  let totalItem
+  let lengthTotalItem
 
-//để sort thì pass by param. ví dụ: /products?sortBy=&orderBy= là không truyền params thì nó sẽ ko sort
-//khi sort thì pass params như sau: /products?sortBy=name?orderBy=asc . . . còn lại thì tương tự
-const sortBy = req.query.sortBy
-const orderBy = req.query.orderBy
+  //để sort thì pass by param. ví dụ: /products?sortBy=&orderBy= là không truyền params thì nó sẽ ko sort
+  //khi sort thì pass params như sau: /products?sortBy=name?orderBy=asc . . . còn lại thì tương tự
+  const sortBy = req.query.sortBy
+  const orderBy = req.query.orderBy
 
-//params để search, có thể vừa kết hợp với sort ( đem lại trải nghiệm tốt hơn nếu cố định được sort và search tự do )
-const search = req.query.search
-if (search) searchQuery = { Name: { "$regex": `${search}.*`, "$options": "i" } }
+  //params để search, có thể vừa kết hợp với sort ( đem lại trải nghiệm tốt hơn nếu cố định được sort và search tự do )
+  const search = req.query.search
+  if (search) searchQuery = { Name: { "$regex": `${search}.*`, "$options": "i" } }
 
-if (sortBy == 'name' && orderBy == 'asc') query = { Name: 1 }
-else if (sortBy == 'name' && orderBy == 'desc') query = { Name: -1 }
+  if (sortBy == 'name' && orderBy == 'asc') query = { Name: 1 }
+  else if (sortBy == 'name' && orderBy == 'desc') query = { Name: -1 }
 
-if (sortBy == 'category' && orderBy == 'asc') query = { Category: 1 }
-else if (sortBy == 'category' && orderBy == 'desc') query = { Category: -1 }
+  if (sortBy == 'category' && orderBy == 'asc') query = { Category: 1 }
+  else if (sortBy == 'category' && orderBy == 'desc') query = { Category: -1 }
 
-if (query) data = await productCollection
-    .find(searchQuery)
-    .sort(query)
-    .skip((perPage * page) - perPage)
-    .limit(perPage)
-    .toArray()
-else data = await productCollection
-    .find(searchQuery)
-    .skip((perPage * page) - perPage)
-    .limit(perPage)
-    .toArray()
+  if (query) {
+    data = await productCollection
+      .find(searchQuery)
+      .sort(query)
+      .skip((perPage * page) - perPage)
+      .limit(perPage)
+      .toArray()
 
-const finalData = {
-    totalItem: totalItem,
+      totalItem = await productCollection.find(searchQuery).toArray()
+      lengthTotalItem = totalItem.length
+  }
+  else {
+    data = await productCollection
+      .find(searchQuery)
+      .skip((perPage * page) - perPage)
+      .limit(perPage)
+      .toArray()
+
+      totalItem = await productCollection.find(searchQuery).toArray()
+      lengthTotalItem = totalItem.length
+  }
+
+  const finalData = {
+    totalItem: lengthTotalItem,
     data: data
-}
+  }
 
-res.send(finalData)
+  res.send(finalData)
 })
 app.get('/product-admin/:id', cors(), async (req, res) => {
 const id = new ObjectId(req.params['id'])
@@ -359,16 +370,46 @@ res.send(result[0])
 
 // CÁC API LIÊN QUAN ĐẾN ORDER
 //API get order lên 
-app.get("/orders",cors(),async (req,res)=>{
-const result = await orderCollection.find({}).toArray();
-res.send(result)
-})
+app.get("/orders", cors(), async (req, res) => {
+  let perPage = Number(req.query.perPage) || 10
+  let page = req.query.page || 1
+  let totalItem = await orderCollection.count()
+  let status = req.query.status || null
+  let data
+  let result
+  if (status) {
+    result = await orderCollection
+      .find({ OrderStatus: status })
+      .skip((perPage * page) - perPage)
+      .limit(perPage)
+      .toArray()
+
+    let tmpItemLength = await orderCollection.find({ OrderStatus: status }).count()
+    data = {
+      data: result,
+      totalItem: tmpItemLength
+    }
+  } else {
+    result = await orderCollection
+      .find({})
+      .skip((perPage * page) - perPage)
+      .limit(perPage)
+      .toArray()
+
+    data = {
+      data: result,
+      totalItem: totalItem
+    }
+  }
+
+  res.send(data)
+}
+)
 app.get("/order/:orderstatus", cors(), async (req, res) => {
 const orderstatus = req.params.orderstatus;
 const result = await orderCollection.find({ OrderStatus: orderstatus }).sort({ cDate: -1 }).toArray();
 res.send(result);
 });
-
 
 app.post("/newOrder/:username", cors(), async (req, res) => {
   const username = req.params.username;
@@ -387,7 +428,36 @@ app.post("/newOrder/:username", cors(), async (req, res) => {
     res.status(404).send("User not found");
   }
   });
-
+  app.get("/order-detail/:id", cors(), async (req, res) => {
+    const id = new ObjectId(req.params['id'])
+    res.send(await orderCollection.findOne({ _id: id }))
+  })
+  
+  app.put('/order/:id', cors(), (req, res) => {
+    const id = new ObjectId(req.params['id'])
+    const filter = { _id: id }
+  
+    let isDone = false
+    if (req.body.OrderStatus == 'Đã giao') isDone = true
+  
+    orderCollection.updateOne(filter,
+      {
+        $set: {
+          OrderDate: req.body.OrderDate,
+          DeliveryTime: isDone ? new Date().toISOString() : '',
+          CancelTime: req.body.CancelTime,
+          OrderStatus: req.body.OrderStatus,
+          CostShip: req.body.CostShip,
+          Details: req.body.Details,
+          SubTotal: req.body.SubTotal,
+          Note: req.body.Note,
+          Reason: req.body.Reason,
+        }
+      }, function (err) {
+        if (err) throw err
+      })
+    res.send(responseSuccess('Update', 'order'))
+  })
 //CÁC API LIÊN QUAN ĐẾN MY ACCOUNT - CUSTOMER
 //API để truy xuất thông tin của một user có username nhất định
 app.get("/customer/:username",cors(),async (req,res)=>{
@@ -738,3 +808,124 @@ try {
 
 // index.js
 
+/////setting
+app.get('/staffs', cors(), async (req, res) => {
+  let perPage = Number(req.query.perPage) || 10
+  let page = req.query.page || 1
+  let totalItem
+  let nameQuery = req.query.search // là nơi sẽ nhận dữ liệu search từ front-end  dòng 1
+  // req = request (đầu vào, nơi nhận dữ liệu)
+  // query là phần phía sau dấu "?"
+  // hl 
+  // phía sau dấu = là giá trị của query
+  //query là search
+  // giá trị là Dung
+  let query
+  let data
+  let result
+  let lengthTotalItem
+  if (nameQuery) { // nếu nameQuery khác null và khác undefined dòng 2
+    query = { // dòng 3
+      'UserType.TypeName': 'Staff',
+      'FullName': { '$regex': `${nameQuery}.*`, "$options": "i" } // dòng 4
+    } // dòng 5
+    // query = object
+    result = await userCollection
+      .find(query) // dòng 6
+      .skip((perPage * page) - perPage)
+      .limit(perPage)
+      .toArray()
+
+    totalItem = await userCollection.find(query).toArray()
+    lengthTotalItem = totalItem.length
+  } else {
+    result = await userCollection
+      .find({ 'UserType.TypeName': 'Staff' })
+      .skip((perPage * page) - perPage)
+      .limit(perPage)
+      .toArray()
+
+    totalItem = await userCollection.find({ 'UserType.TypeName': 'Staff' }).toArray()
+    lengthTotalItem = totalItem.length
+  }
+
+
+  data = {
+    data: result,
+    totalItem: lengthTotalItem
+  }
+
+  res.send(data)
+})
+
+app.get('/staff/:id', cors(), async (req, res) => {
+  const id = new ObjectId(req.params['id'])
+  res.send(await userCollection.findOne({ _id: id }))
+})
+app.post('/staffs', cors(), async (req, res) => {
+  const cryp = require('crypto');
+  const salt = cryp.randomBytes(16).toString('hex');
+  const passHash = cryp.pbkdf2Sync(req.body.Password, salt, 1000, 64, `sha512`).toString(`hex`);
+
+  try {
+    userCollection.insertOne({
+      FullName: req.body.FullName,
+      Gender: '',
+      DateOfBirth: '',
+      Phone: '',
+      Image: '',
+      UserName: req.body.UserName,
+      Password: passHash,
+      salt: '',
+      CreateDate: new Date().toISOString(),
+      UserType: req.body.UserType,
+      Cart: [],
+      Order: [],
+      Product: [],
+      Address: [],
+      Voucher: [],
+    })
+    res.send(responseSuccess('Create', 'user'))
+  } catch (e) {
+    res.send(responseError())
+  }
+})
+
+app.put('/staffs/:id', cors(), async (req, res) => {
+  const id = new ObjectId(req.params['id'])
+  const filter = { _id: id }
+
+  userCollection.updateOne(filter,
+    {
+      $set: {
+        FullName: req.body.FullName,
+        Gender: req.body.Gender,
+        DateOfBirth: req.body.DateOfBirth,
+        Phone: req.body.Phone,
+        Image: req.body.Image,
+        UserName: req.body.UserName,
+        Password: req.body.Password,
+        salt: req.body.salt,
+        CreateDate: req.body.CreateDate,
+        UserType: req.body.UserType,
+        Cart: req.body.Cart,
+        Order: req.body.Order,
+        Product: req.body.Product,
+        Address: req.body.Address,
+        Voucher: req.body.Voucher,
+      }
+    }, function (err) {
+      if (err) throw err
+    })
+  res.send(responseSuccess('Update', 'user'))
+})
+
+app.delete('/staffs/:id', cors(), async (req, res) => {
+  const id = new ObjectId(req.params['id'])
+  const result = await userCollection.deleteOne({ _id: id })
+  if (result.deletedCount === 1) {
+    res.send(responseSuccess('Delete', 'user'))
+  } else {
+    res.send(responseError())
+  }
+})

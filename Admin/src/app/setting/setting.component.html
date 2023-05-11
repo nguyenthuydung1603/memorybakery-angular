@@ -1,0 +1,93 @@
+<div class="container">
+  <div class="header">
+      <span>Danh sách tài khoản</span>
+      <form class="search" (ngSubmit)="submitForm()">
+          <input name="search" type="text" placeholder="Tìm kiếm" [(ngModel)]="searchText" #search="ngModel">
+          <fa-icon (click)="submitForm()" class="search-icon" [icon]="faSearch" [style]="{cursor: 'pointer'}"
+              size="lg" class="search-icon"></fa-icon>
+      </form>
+  </div>
+  <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; margin: 20px 0;">
+      <button class="create-btn" (click)="actionCreate()">Tạo mới người dùng</button>
+      <!-- <button class="create-btn" (click)="resetList()">Đặt lại danh sách</button> -->
+  </div>
+  <div class="body">
+      <table>
+          <thead>
+              <tr>
+                  <th>Họ và tên</th>
+                  <th>Số điện thoại</th>
+                  <th>Vai trò</th>
+                  <th>Thao tác</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let u of listStaff">
+                  <td>{{u.FullName}}</td>
+                  <td>{{u.Phone}}</td>
+                  <td>
+                      <div style="width: 100%;">
+                          <span class="role-custom" *ngFor="let r of u.UserType.Role">
+                              {{ r.RoleName }}
+                          </span>
+                      </div>
+                  </td>
+                  <td>
+                      <div class="table-action">
+                          <fa-icon [icon]="faEdit" (click)="actionUpdate(u)" class="edit-icon"
+                              [style]="{cursor: 'pointer'}" size="lg"></fa-icon>
+                          <fa-icon
+                              [swal]="{ title: 'Bạn có chắc chắn muốn xoá người dùng tên ' + u.FullName,  showCancelButton: true }"
+                              (confirm)="deleteUser(u)" (dismiss)="handleDismiss($event)" [icon]="faDelete"
+                              class="delete-icon" [style]="{cursor: 'pointer'}" size="lg"></fa-icon>
+                      </div>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+
+      <div class="pagination-container">
+          <p (click)="paginateIcon('pre')"><i class="fa-solid fa-chevron-left"></i></p>
+          <ul>
+              <li *ngFor="let i of totalPage; let indexOfElement=index" (click)="paginate(+indexOfElement + 1)"
+                  [class.paginate-active]="page == indexOfElement + 1">{{indexOfElement + 1}}</li>
+          </ul>
+          <p (click)="paginateIcon('next')"><i class="fa-solid fa-chevron-right"></i></p>
+      </div>
+  </div>
+</div>
+
+<div *ngIf="isShow" class="fog">
+  <div class="form-popup">
+      <h3 *ngIf="isCreate">Tạo mới người dùng</h3>
+      <h3 *ngIf="isUpdate">Chỉnh sửa người dùng</h3>
+      <div class="form-input">
+          <label for="">Họ và tên</label>
+          <input type="text" [(ngModel)]="selectedUser.FullName" #fullName="ngModel">
+      </div>
+      <div class="form-input">
+          <label for="">Tên tài khoản</label>
+          <input type="text" [(ngModel)]="selectedUser.UserName" #userName="ngModel">
+      </div>
+      <div *ngIf="isUpdate" class="form-input">
+          <label for="">Mật khẩu</label>
+          <input type="text" value="********">
+      </div>
+      <div *ngIf="isCreate" class="form-input">
+          <label for="">Mật khẩu</label>
+          <input type="text" [(ngModel)]='selectedUser.Password'>
+      </div>
+      <span style="margin-left: 15px;">Vai trò</span>
+      <div class="role-container">
+          <div *ngFor="let role of listRole">
+              <input [id]="role.RoleName" type="checkbox" [checked]="role.selected" (change)="onChangeRole(role)">
+              <label [for]="role.RoleName">{{role.RoleName}}</label>
+          </div>
+      </div>
+      <div class="form-btn">
+          <button (click)="actionCancel()">Huỷ</button>
+          <button (click)="editUser()" *ngIf="isUpdate">Chỉnh sửa</button>
+          <button (click)="createUser()" *ngIf="isCreate">Tạo mới</button>
+      </div>
+  </div>
+</div>

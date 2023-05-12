@@ -63,14 +63,19 @@ export class CustomerManagementComponent {
 
         let pageTmp = Math.ceil(this.totalItem / this.perPage)
         this.totalPage = Array(pageTmp)
-        this.totalOrders = data.data.totalOrders;
-        this.totalOrderValue = data.data.totalOrderValue;
+        this.totalOrders = 0;
+        this.totalOrderValue = 0;
+
         this.customers.forEach((c: any) => {
           let orderValue = 0;
           c.Order.forEach((o: any) => {
-            orderValue += parseInt(o.SubTotal, 10);
+            if (o.OrderStatus !== 'Đã huỷ') { // Exclude canceled orders
+              orderValue += parseInt(o.SubTotal, 10);
+            }
           });
           c.orderValue = orderValue;
+          this.totalOrders += c.Order.length; // Count total orders excluding canceled ones
+          this.totalOrderValue += orderValue; // Sum order values excluding canceled orders
         });
       },
       error: (err) => {

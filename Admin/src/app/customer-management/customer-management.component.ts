@@ -29,17 +29,11 @@ export class CustomerManagementComponent {
   showDetail = false;
   isShowModelSort = false
     // orther
-    faPlus = faPlus
-    faFilter = faFilter
-    faSearchPlus = faSearchPlus
-    faEdit = faInfoCircle
-    faDelete = faDeleteLeft
-    isShow = false
-    isCreate = false
-    isUpdate = false
-    isVarian = false
-    updateMore = false
-    selectedOrderFilter: string = ''; // Thêm dòng này
+  faPlus = faPlus
+  faFilter = faFilter
+  faSearchPlus = faSearchPlus
+  faEdit = faInfoCircle
+  faDelete = faDeleteLeft
   listSort: Array<string> = [
     'Tên (A -> Z)', 'Tên (Z -> A)','Đơn hàng'
   ];
@@ -129,7 +123,6 @@ export class CustomerManagementComponent {
     this.getUsers()
   }
 
-
   sortByTotalOrders(): void {
     this.customers.sort((a: any, b: any) => {
       return b.Order.length - a.Order.length;
@@ -164,7 +157,6 @@ export class CustomerManagementComponent {
   selectedFilterOption: string = '';
   selectedSortOrder: string = 'asc';
 
-
   onFilterOptionChange() {
     this.selectedSortOrder = 'asc';
     // Thêm đoạn code sau để lọc lại danh sách khách hàng
@@ -172,7 +164,6 @@ export class CustomerManagementComponent {
       this.filterCustomers();
     }
   }
-
 
   onSortOrderChange() {
     if (this.selectedSortOrder === 'asc') {
@@ -257,17 +248,6 @@ deleteUser(id: any) {
       swal.error(err)
     }
   })
-}
-
-ResetPassWord(id:string) {
-  this.accountService.resetPassWord(id).subscribe({
-    next: (data) => {
-      alert("Thành công");
-    },
-    error: (err) => {
-      this.errMessage = err;
-    }
-  });
 }
 
 public handleDismiss(dismissMethod: any): void {

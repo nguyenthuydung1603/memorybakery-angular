@@ -78,30 +78,10 @@ export class PromotionManagementComponent {
 
 
     faPlus = faPlus
-  faFilter = faFilter
-  faSearchPlus = faSearchPlus
-  faEdit = faInfoCircle
-  faDelete = faDeleteLeft
-  isShow = false
-  isCreate = false
-  isUpdate = false
-  isVarian = false
-
-  public actionAdd() {
-    this.isShow = true
-  }
-
-  public actionUpdate(id: any) {
-    this.isShow = true
-    this.isUpdate = true
-  }
-
-  public actionCancel() {
-    this.isCreate = false
-    this.isShow = false
-    this.isVarian = false
-    this.isUpdate = false
-  }
+    faFilter = faFilter
+    faSearchPlus = faSearchPlus
+    faEdit = faInfoCircle
+    faDelete = faDeleteLeft
 
   showPromotionDetail(promotion: any) {
     this.selectedPromotion = promotion;
@@ -118,20 +98,20 @@ public onClick(event: any): void {
     this.closePromotionNew();
   }
 }
-showAddPromotion:boolean=false;
-showPromotionNew() {
+  showAddPromotion:boolean=false;
+  showPromotionNew() {
   this.showAddPromotion = true;
-}
-closePromotionNew() {
+  }
+  closePromotionNew() {
   this.showAddPromotion = false
-}
+  }
  promotion=new Voucher()
  formattedExpireDate: string="";
  formattedStartDate: string="";
  convertToDisplayFormat(dateString: any): any {
   const dateParts = dateString.split('-');
   return `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
-}
+  }
 
  postPromotion() {
   this.promotion.CreatedDate=new Date(Date.now())

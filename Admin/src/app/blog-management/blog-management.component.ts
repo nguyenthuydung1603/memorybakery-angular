@@ -7,7 +7,6 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Subscription } from 'rxjs';
-import { format } from 'date-fns';
 import swal from '../custom-function/swal2';
 
 @Component({
@@ -70,15 +69,15 @@ public onClick(event: any): void {
     this.closeBlogNew();
   }
 }
-showAddBlog:boolean=false;
-showBlogNew() {
+  showAddBlog:boolean=false;
+  showBlogNew() {
   this.showAddBlog = true;
-}
-closeBlogNew() {
+  }
+  closeBlogNew() {
   this.showAddBlog = false
-}
+  }
 
-getStaffBlogs() {
+  getStaffBlogs() {
   this._service.getStaffBlog().subscribe(
     (data) => {
       this.staffBlogs = data;
@@ -87,7 +86,7 @@ getStaffBlogs() {
       console.error(error); // Handle error case
     }
   );
-}
+  }
   public submitForm() {
     this.page = 1
     this.getBlogs();
@@ -117,14 +116,10 @@ getStaffBlogs() {
 
 
   faPlus = faPlus
-faFilter = faFilter
-faSearchPlus = faSearchPlus
-faEdit = faInfoCircle
-faDelete = faDeleteLeft
-isShow = false
-isCreate = false
-isUpdate = false
-isVarian = false
+  faFilter = faFilter
+  faSearchPlus = faSearchPlus
+  faEdit = faInfoCircle
+  faDelete = faDeleteLeft
 @Input()
   requiredFileType:any;
   fileName = '';
@@ -180,43 +175,8 @@ isVarian = false
       }
     );
   }
-
-// getOutstandingList() {
-//   this.service.getBlogsOutstanding().subscribe({
-//     next: (data) => {
-//       this.outstandingList = data
-//     },
-//     error: (err) => { this.errMess = err }
-//   })
-// }
-
-// getABlog(_id: any) {
-//   this.service.getABlog(_id).subscribe({
-//     next: (data) => {
-//       this.blogsList = data
-//     },
-//     error: (err) => { this.errMess = err }
-//   })
-// }
-
-// postABlog() {
-//   this.service.postABlog(this.blog).subscribe({
-//     next: (data) => {
-//       this.blogsList = data
-//     },
-//     error: (err) => { this.errMess = err }
-//   })
-// }
-// putABlog() {
-//   this.service.putABlog(this.blog).subscribe({
-//     next: (data) => {
-//       this.blogsList = data
-//     },
-//     error: (err) => { this.errMess = err }
-//   })
-// }
-newBlog = new Blog();
-postBlog()
+  newBlog = new Blog();
+  postBlog()
 {
   this.newBlog.CreateDate=new Date(Date.now())
   this._service.postBlog(this.newBlog).subscribe({
@@ -227,9 +187,9 @@ postBlog()
     },
     error:(err)=>{this.errMessage=err}
   })
-}
+  }
 
-deleteBlog(id: any) {
+  deleteBlog(id: any) {
   this._service.deleteBlog(id).subscribe({
     next: (data) => {
       this.getBlogs()
@@ -239,18 +199,14 @@ deleteBlog(id: any) {
       swal.error(err)
     }
   })
-}
+  }
 
-public handleDismiss(dismissMethod: any): void {
-}
+  public handleDismiss(dismissMethod: any): void {
+  }
 
-convertDate(date: any) {
-  let fDate = new Date(date)
-  return fDate.toLocaleString()
-}
-
-
-
-
+  convertDate(date: any) {
+    let fDate = new Date(date)
+    return fDate.toLocaleString()
+  }
 }
 

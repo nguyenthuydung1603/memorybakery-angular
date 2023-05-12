@@ -47,6 +47,15 @@ export class MyOrderComponent {
       this.filteredOrders = this.orders.filter((order: { OrderStatus: string; }) => order.OrderStatus === this.selectedStatus || this.selectedStatus === 'Tất cả');
     }
   }
+  getButtonClickAction(order: any): void {
+    if (order.OrderStatus === 'Đã huỷ') {
+      this.showOrderCancel(order._id);
+    } else if (order.OrderStatus === 'Chờ xác nhận') {
+      this.showOrderEdit(order._id);
+    } else if(order.OrderStatus === 'Đã giao') {
+      this.router.navigate(['/listProduct'])
+    }
+  }
 
 
   // Nếu Order Status là Đã giao và Đã huỷ --> Button có tên Mua lại

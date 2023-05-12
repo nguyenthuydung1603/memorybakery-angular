@@ -52,10 +52,11 @@
             <tr>
               <td>
                 <div class="button">
-                  <button  class="btn btn-primary" (click)="showOrderCancel(order._id)" >
+                  <button class="btn btn-primary" [ngClass]="{'cancel-button': order.OrderStatus === 'Đã huỷ'}" (click)="getButtonClickAction(order)">
                     {{ getButtonLabel(order) }}
                   </button>
                 </div>
+
               </td>
               <td colspan="2" class="info right">Tổng số tiền: </td>
               <td colspan="1" class="info">{{order.SubTotal | currency:'VND'}}</td>
@@ -134,7 +135,7 @@
             <tr>
               <td>
                 <div class="button">
-                  <button  class="btn btn-primary" (click)="showOrderCancel(order._id)" >
+                  <button  class="btn btn-primary" >
                     {{ getButtonLabel(order) }}
                   </button>
                 </div>
@@ -176,7 +177,7 @@
             <tr>
               <td>
                 <div class="button">
-                  <button  class="btn btn-primary" (click)="showOrderCancel(order._id)" >
+                  <button  class="btn btn-primary" [routerLink]="'/listProduct'" >
                     {{ getButtonLabel(order) }}
                   </button>
                 </div>

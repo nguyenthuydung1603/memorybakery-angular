@@ -92,16 +92,16 @@
     <tbody>
       <tr *ngFor="let blog of blogs">
         <td>{{blog.Title}}</td>
-        <td>{{blog.CreateDate}}</td>
+        <td>{{convertDate(blog.CreateDate)}}</td>
         <td>{{blog.Writer}}</td>
         <td class="d-flex justify-content-end" >
           <fa-icon (click)="showBlogDetail(blog)" [icon]="faEdit" class="edit-icon"
           [style]="{cursor: 'pointer'}" size="lg"></fa-icon>
-          <!-- <fa-icon
+          <fa-icon
           [swal]="{ title: 'Bạn có chắc chắn muốn xoá ', showCancelButton: true }"
-          (confirm)="deleteBlog(p._id)" (dismiss)="handleDismiss($event)"
+          (confirm)="deleteBlog(blog._id)" (dismiss)="handleDismiss($event)"
           [icon]="faDelete" class="delete-icon" [style]="{cursor: 'pointer'}"
-          size="lg"></fa-icon> -->
+          size="lg"></fa-icon>
         </td>
       </tr>
     </tbody>
@@ -117,14 +117,14 @@
 </div>
 </div>
 <div *ngIf="showDetail" class="modal">
-  <div class="promotion-detail">
+  <div class="blog-detail" *ngIf="selectedBlog">
     <div class="title">Chỉnh sửa bài viết</div>
     <div class="information">
       <hr>
-      <div class="row">
+      <div class="row" >
           <div class="form-group">
             <label class="col-sm-5 col-form-label">Tiêu đề:</label>
-            <input type="text" class="form-control-plaintext"  [(ngModel)]="selectedBlog.Title">
+            <input type="text" class="form-control-plaintext" [(ngModel)]="selectedBlog.Title">
           </div>
           <div class="form-group row">
             <label class="col-sm-5 col-form-label">Mô tả:</label>
@@ -141,7 +141,11 @@
           </div>
           <div class="form-group row">
             <label class="col-sm-5 col-form-label">Người viết:</label>
-            <input type="text" readonly="" class="form-control-plaintext" [(ngModel)]="selectedBlog.Writer">
+            <select class="form-select" [(ngModel)]="selectedBlog.Writer" (change)="updateSelectedWriter($event)">
+              <option disabled selected>{{selectedBlog.Writer}}</option>
+              <option *ngFor="let blog of staffBlogs" [value]="blog">{{ blog }}</option>
+            </select>
+
           </div>
     </div>
     <div class="function">
@@ -150,7 +154,50 @@
     </div>
   </div>
 </div>
+<div *ngIf="showAddBlog" class="modal">
+  <div class="blog-new">
+    <div class="title">Tạo tin tức mới</div>
+    <p>Để tạo tin tức mới, vui lòng điền các thông tin dưới đây:</p>
+    <div class="information">
+      <form >
+        <div class="col">
+          <label class="col-sm-5 col-form-label">Tiêu đề:</label>
+          <input type="text" class="form-control" name="Title" id="Title" placeholder="Tiêu đề:" required  [(ngModel)]="newBlog.Title">
+        </div>
+        <div class="col">
+          <label class="col-sm-5 col-form-label">Người viết:</label>
+          <select class="form-select" [(ngModel)]="newBlog.Writer" (change)="addSelectedWriter($event)">
+            <option disabled selected>Chọn người viết</option>
+            <option *ngFor="let sblog of staffBlogs" [value]="sblog">{{ sblog }}</option>
+          </select>
+        </div>
 
+        <div class="col">
+          <label class="col-sm-5 col-form-label">Mô tả:</label>
+            <ckeditor [editor]="Editor" name="ngModel" class="form-control-plaintext custom-ckeditor" [(ngModel)]="newBlog.Content" >
+            </ckeditor>
+        </div>
+
+        <div class="col">
+          <label class="col-sm-5 col-form-label">Hình ảnh:</label>
+          <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload name="image">
+        </div>
+        <div class="form-group row">
+          <img src="{{newBlog.Image}}" alt="" style="width: 150px; height: 100px;">
+        </div>
+
+        <div class="button">
+          <button type="button" class="btn btn-primary input" (click)="closeBlogNew()">
+                  Trở lại
+          </button>
+          <button type="button" class="btn btn-primary input" (click)="postBlog()" style="margin-left: 20px;">
+            Hoàn thành
+        </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 
 

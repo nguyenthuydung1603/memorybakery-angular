@@ -1,5 +1,5 @@
 export interface IBlog {
-    _id: string,
+    _id: any,
     Title: string,
     CreateDate: any,
     Writer: string,
@@ -10,7 +10,7 @@ export interface IBlog {
 
   export class Blog {
     constructor(
-        public _id: string = '',
+        public _id: any=null,
         public Title: string = '',
         public CreateDate: any = '',
         public Writer: string = '',

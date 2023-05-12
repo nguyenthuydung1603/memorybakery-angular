@@ -245,10 +245,51 @@ if(req.session.carts=null){
 })
 
 // CÁC API LIÊN QUAN ĐẾN BLOG
+<<<<<<< Updated upstream
 app.get("/getblog",cors(),async (req,res)=>{ 
 const result = await blogCollection.find({}).toArray();
 res.send(result)
 })
+=======
+app.get("/blog-admin", cors(), async (req, res) => {
+  let query = null;
+  let searchQuery = {};
+  let data;
+  let perPage = Number(req.query.perPage) || 10;
+  let page = req.query.page || 1;
+  let totalItem;
+  let lengthTotalItem;
+  //params để search, có thể vừa kết hợp với sort ( đem lại trải nghiệm tốt hơn nếu cố định được sort và search tự do )
+  const search = req.query.search;
+  if (search) searchQuery = { Title: { "$regex": `${search}.*`, "$options": "i" } };
+  data = await blogCollection
+    .find(searchQuery)
+    .skip((perPage * page) - perPage)
+    .limit(perPage)
+    .sort({ CreateDate: -1 }) // Sắp xếp theo ngày tạo từ mới tới cũ
+    .toArray();
+  totalItem = await blogCollection.find(searchQuery).toArray();
+  lengthTotalItem = totalItem.length;
+
+  const finalData = {
+    totalItem: lengthTotalItem,
+    data: data
+  };
+
+  res.send(finalData);
+});
+
+app.get("/blog-admin/blogStaff", async (req, res) => {
+  try {
+    const users = await userCollection.find({ "UserType.Role.RoleName": "QLBlog" }).toArray();
+    const usernames = users.map(user => user.FullName);
+    res.json(usernames);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred" });
+  }
+});
+>>>>>>> Stashed changes
 
 app.get('/blogs-sorted', cors(), async (req, res) => {
   let perPage = 5
@@ -278,21 +319,12 @@ app.get('/blog/:id', cors(), async (req, res) => {
   res.send(await blogCollection.findOne({ _id: id }))
 })
 
-app.post('/blogs', cors(), (req, res) => {
-try {
-    blogCollection.insertOne({
-        BlogID: null,
-        Title: req.body.title,
-        CreateDate: new Date().toISOString(),
-        Writer: req.body.writer,
-        Content: req.body.content,
-        Image: [],
-        Outstanding: req.body.outstanding
-    })
-    res.send(responseSuccess('Create', 'blog'))
-} catch (e) {
-    res.send(responseError())
-}
+//API thêm mới một Fashion
+app.post("/blogs",cors(),async(req,res)=>{
+  //put json Fashion into database
+  await blogCollection.insertOne(req.body)
+  //send message to client(send all database to client)
+  res.send(req.body)
 })
 
 app.put('/blogs/:id', cors(), (req, res) => {
@@ -314,6 +346,24 @@ blogCollection.updateOne(filter,
     })
 res.send(responseSuccess('Update', 'blog'))
 })
+
+app.put("/blogs",cors(),async(req,res)=>{
+  //update json Fashion into database
+  await blogCollection.updateOne(
+      {_id:new ObjectId(req.body._id)},//condition for update
+      { $set: { //Field for updating
+          Title: req.body.Title,
+          Writer:req.body.Writer,
+          Content:req.body.Content,
+          Image:req.body.Image,
+          CreateDate:req.body.CreateDate
+      }} )
+  //send Fahsion after updating
+  var o_id = new ObjectId(req.body._id);
+  const result = await blogCollection.find({_id:o_id}).toArray();
+  res.send(result[0])
+})
+
 
 app.delete('/blogs/:id', cors(), async (req, res) => {
 const id = new ObjectId(req.params['id'])

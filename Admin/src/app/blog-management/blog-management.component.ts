@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Subscription } from 'rxjs';
+import { format } from 'date-fns';
+import swal from '../custom-function/swal2';
 
 @Component({
   selector: 'app-blog-management',
@@ -26,28 +28,14 @@ export class BlogManagementComponent {
   isLoading = false;
   selectedBlog:any;
   showDetail = false;
-  Blog=new Blog()
+  blog=new Blog()
+  staffBlogs: any[]=[];
   constructor(private _service: BlogService, private http: HttpClient,private router:Router,private activateRoute:ActivatedRoute){
     this.getBlogs();
-    activateRoute.paramMap.subscribe((param) => {
-      let id = param.get("id");
-      if (id != null) {
-        this._service.getABlog(id).subscribe({
-          next: (data) => {
-            this.selectedBlog = data;
-            // Assign selected product values to book
-            this.Blog = this.selectedBlog;
-          },
-          error: (err) => {
-            this.errMessage = err;
-            console.log(this.errMessage);
-          }
-        })
-      }
-    })
+    this.getStaffBlogs();
   }
   getBlogs(){
-    this._service.getPromotions(this.page, this.search, this.perPage).subscribe({
+    this._service.getBlogs(this.page, this.search, this.perPage).subscribe({
       next: (data) => {
         if (data.data.length == 0) {
           this.page = 1
@@ -68,8 +56,8 @@ export class BlogManagementComponent {
     this.isLoading = false
   }
   showBlogDetail(blog: any) {
-    this.selectedBlog = blog;
     this.showDetail = true;
+    this.selectedBlog = blog;
   }
   closeBlogDetail() {
     this.showDetail = false;
@@ -88,6 +76,17 @@ showBlogNew() {
 }
 closeBlogNew() {
   this.showAddBlog = false
+}
+
+getStaffBlogs() {
+  this._service.getStaffBlog().subscribe(
+    (data) => {
+      this.staffBlogs = data;
+    },
+    (error) => {
+      console.error(error); // Handle error case
+    }
+  );
 }
   public submitForm() {
     this.page = 1
@@ -139,13 +138,15 @@ isVarian = false
       reader.readAsDataURL(file);
       reader.onload = () => {
         this.selectedBlog.Image = reader.result!.toString();
+        this.newBlog.Image = reader.result!.toString();
       };
       reader.onerror = (error) => {
         console.log('Error: ', error);
       };
     }
     this.selectedBlog.Image=this.fileName
-    this.Blog.Image=this.fileName
+    this.blog.Image=this.fileName
+    this.newBlog.Image=this.fileName
   }
   cancelUpload() {
     this.uploadSub.unsubscribe();
@@ -155,18 +156,31 @@ isVarian = false
   this.uploadProgress = 0;
   this.uploadSub = new Subscription();
   }
-  putBlog() {
-    this.selectedBlog.CreatedDate=new Date(Date.now())
-    this._service.putABlog(this.selectedBlog).subscribe({
-      next: (data) => {
-        this.getBlogs();
-        this.closeBlogDetail()
-      },
-      error: (err) => {
-        this.errMessage = err;
-      }
-    });
+  updateSelectedWriter(event: any) {
+    this.selectedBlog.Writer = event.target.value;
   }
+  addSelectedWriter(event: any) {
+    this.newBlog.Writer = event.target.value;
+  }
+
+  putBlog() {
+    this.selectedBlog.CreateDate = new Date()
+    this._service.putABlog(this.selectedBlog).subscribe(
+      (data) => {
+        // Cập nhật blog đã cập nhật thành công vào danh sách blogs hiện tại
+        const updatedIndex = this.blogs.findIndex((blog: any) => blog._id === this.selectedBlog._id);
+        if (updatedIndex !== -1) {
+          this.blogs[updatedIndex] = this.selectedBlog;
+        }
+        swal.success(data.message ?? 'Đã chỉnh sửa Blog thành công')
+        this.closeBlogDetail(); // Đóng modal chi tiết blog
+      },
+      (error) => {
+        this.errMessage = error;
+      }
+    );
+  }
+
 // getOutstandingList() {
 //   this.service.getBlogsOutstanding().subscribe({
 //     next: (data) => {
@@ -201,18 +215,34 @@ isVarian = false
 //     error: (err) => { this.errMess = err }
 //   })
 // }
-// deleteBlog(_id: any) {
-//   if (confirm("Bạn có chắc chắn xóa?")==true){
-//   this.service.deleteBlog(_id).subscribe({
-//     next: (data) => {
-//       this.blogsList = data
-//     },
-//     error: (err) => { this.errMess = err }
+newBlog = new Blog();
+postBlog()
+{
+  this.newBlog.CreateDate=new Date(Date.now())
+  this._service.postBlog(this.newBlog).subscribe({
+    next:(data)=>{
+      this.getBlogs();
+      this.showAddBlog = false;
+      swal.success(data.message ?? 'Đã thêm mới 1 Blog thành công')
+    },
+    error:(err)=>{this.errMessage=err}
+  })
+}
 
-//   })
-//   window.location.reload()
-// }
-// }
+deleteBlog(id: any) {
+  this._service.deleteBlog(id).subscribe({
+    next: (data) => {
+      this.getBlogs()
+      swal.success(data.message ?? 'Đã xoá thành công', 1500)
+    },
+    error: (err) => {
+      swal.error(err)
+    }
+  })
+}
+
+public handleDismiss(dismissMethod: any): void {
+}
 
 convertDate(date: any) {
   let fDate = new Date(date)

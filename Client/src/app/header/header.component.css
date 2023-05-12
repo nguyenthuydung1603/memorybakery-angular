@@ -166,9 +166,6 @@ ul{
   display: block;
 }
 
-.link-btn.active {
-  color: #E75C6B;
-}
 
 .header-bottom .nav >li >a::after{
   content: "";
@@ -187,6 +184,13 @@ ul{
 .now>a{
   color: var(--hover_color)!important;
 }
+.main.active {
+  color: var(--hover_color)!important;
+}
+.promotion.active {
+  color: var(--hover_color)!important;
+}
+
 
 .header-bottom .sub-nav{
   display: none;

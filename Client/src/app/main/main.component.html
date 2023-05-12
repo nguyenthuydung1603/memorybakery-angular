@@ -42,11 +42,11 @@
       </div>
   <!-- Category -->
   <div class="category">
-      <a href="./productBanhkem.html" class="type_category"><img src="../assets/img/Category/Bánh sinh nhật.png" alt=""><span>Bánh kem</span></a>
-      <a href="./productCupcakes.html" class="type_category"><img src="../assets/img/Category/Cupcake.png" alt=""><span>Cupcakes</span></a>
-      <a href="./productBanhquy.html" class="type_category"><img src="../assets/img/Category/Bánh quy.png" alt=""><span>Bánh quy</span></a>
-      <a href="./productDonuts.html" class="type_category"><img src="../assets/img/Category/Donut.png" alt=""><span>Donuts</span></a>
-      <a href="./productBanhmi.html" class="type_category"><img src="../assets/img/Category/Bánh mì.png" alt=""><span>Bánh mì</span></a>
+      <a [routerLink]="['/listProduct']" [queryParams]="{category: 'Bánh kem'}" class="type_category"><img src="../assets/img/Category/Bánh sinh nhật.png" alt=""><span>Bánh kem</span></a>
+      <a [routerLink]="['/listProduct']" [queryParams]="{category: 'Cupcakes'}" class="type_category"><img src="../assets/img/Category/Cupcake.png" alt=""><span>Cupcakes</span></a>
+      <a [routerLink]="['/listProduct']" [queryParams]="{category: 'Bánh quy'}" class="type_category"><img src="../assets/img/Category/Bánh quy.png" alt=""><span>Bánh quy</span></a>
+      <a [routerLink]="['/listProduct']" [queryParams]="{category: 'Donuts'}" class="type_category"><img src="../assets/img/Category/Donut.png" alt=""><span>Donuts</span></a>
+      <a [routerLink]="['/listProduct']" [queryParams]="{category: 'Bánh mì'}" class="type_category"><img src="../assets/img/Category/Bánh mì.png" alt=""><span>Bánh mì</span></a>
   </div>
 
   <!-- New Product -->

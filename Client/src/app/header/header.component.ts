@@ -1,8 +1,11 @@
 import { Component, HostListener } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { AuthGuard } from '../guards/auth.guard';
 import { MyAccountService } from '../services/my-account.service';
+import { ProductAPIService } from '../product-api.service';
+import { CartService } from '../cart.service';
+import { IProduct } from '../models/Product';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -13,7 +16,17 @@ export class HeaderComponent {
   login: boolean = false
   user: any;
   errMessage: any;
-  constructor(private accountService: MyAccountService,private router: Router, private authService: AuthService,private authGuard:AuthGuard) {
+  currentPage: any = 1
+  totalPage: any
+  perPage: number = 9
+  listProductPerPage: any = []
+  product: IProduct[] = [];
+  products: any;
+  cart = []
+  Category: any;
+  isActive = false;
+
+  constructor(public _service: ProductAPIService, public _cart: CartService,private accountService: MyAccountService,private router: Router, private authService: AuthService,private authGuard:AuthGuard) {
     this.login=this.authGuard.isLoggedIn()
     this.accountService.getUser().subscribe({
       next: (data) => {
@@ -45,6 +58,21 @@ export class HeaderComponent {
     alert('Bạn đã đăng xuất');
     window.location.reload()
   }
+  getListProductByCategory(Category: any,fpage: any = 1) {
+    this._service.getListProductByCategory(Category).subscribe({
+      next: (data: IProduct[]) => {
+        this.listProductPerPage = []
+        this.currentPage = fpage
+        let pageTmp = Math.ceil(data.length / this.perPage)
+        this.totalPage = Array(pageTmp)
+
+        for (let i = (fpage - 1) * this.perPage; i < (fpage * this.perPage); i++) {
+          if (data[i]) this.listProductPerPage.push(data[i])
+        }
+      },
+      error: (err) => { this.errMessage = err }
+    })
+    }
 }
 
 

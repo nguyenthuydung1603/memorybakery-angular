@@ -3,6 +3,7 @@ import { IProduct, Product } from '../models/Product';
 import { ProductAPIService } from '../product-api.service';
 import { CartService } from '../cart.service';
 import { functionCustom } from '../custom-function/functionCustom';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-list-product',
   templateUrl: './list-product.component.html',
@@ -22,8 +23,11 @@ export class ListProductComponent {
   cart = []
   Category: any;
   errMessage: string = ''
-  constructor(public _service: ProductAPIService, public _cart: CartService) {
+  constructor(private route: ActivatedRoute,public _service: ProductAPIService, public _cart: CartService) {
     this.getList()
+    this.route.queryParams.subscribe((params) => {
+      const category = params['category'];
+      this.getListProductByCategory(category, 1);})
   }
   getList(fpage: any = 1) {
     this._service.getProducts().subscribe({

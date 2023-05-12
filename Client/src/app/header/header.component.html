@@ -56,15 +56,15 @@
                       <i class="nav-arrow-down ti-angle-down"></i>
                   </a>
                   <ul class="sub-nav">
-                      <li class="type_category"><a routerLink="./productBanhkem.html"> Bánh kem</a></li>
-                      <li class="type_category"><a routerLink="./productCupcakes.html"> Cupcakes</a></li>
-                      <li class="type_category"><a routerLink="./productBanhquy.html"> Bánh quy</a></li>
-                      <li class="type_category"><a routerLink="./productDonuts.html"> Donuts</a></li>
-                      <li class="type_category"><a routerLink="./productBanhmi.html"> Bánh mì</a></li>
+                      <li class="type_category"><a [routerLink]="['/listProduct']" [queryParams]="{category: 'Bánh kem'}"> Bánh kem</a></li>
+                      <li class="type_category"><a [routerLink]="['/listProduct']" [queryParams]="{category: 'Cupcakes'}"> Cupcakes</a></li>
+                      <li class="type_category"><a [routerLink]="['/listProduct']" [queryParams]="{category: 'Bánh quy'}"> Bánh quy</a></li>
+                      <li class="type_category"><a [routerLink]="['/listProduct']" [queryParams]="{category: 'Donuts'}"> Donuts</a></li>
+                      <li class="type_category"><a [routerLink]="['/listProduct']" [queryParams]="{category: 'Bánh mì'}"> Bánh mì</a></li>
                   </ul>
           </li>
-          <li class="main now"  ><a class="link-btn" routerLink=""><span> Trang chủ</span></a></li>
-          <li class="promotion" ><a  class="link-btn" routerLink="./promotion">Khuyến mãi</a></li>
+          <li class="main"  ><a class="link-btn" routerLink=""><span> Trang chủ</span></a></li>
+          <li class="promotion" ><a class="link-btn" routerLink="./promotion">Khuyến mãi</a></li>
           <li class="story btnn"><a routerLink="./aboutUs">Câu chuyện thương hiệu</a></li>
           <li class="blog"><a routerLink="./blog">Tin tức</a></li>
           <li class="contact"><a routerLink="./contact">Liên hệ</a></li>

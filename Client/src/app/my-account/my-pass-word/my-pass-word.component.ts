@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import swal from 'src/app/custom-function/swal2';
 import { MyAccountService } from 'src/app/services/my-account.service';
 
 @Component({
@@ -21,6 +22,9 @@ export class MyPassWordComponent {
       }
     })
   }
+  currP: any = ''
+  newP: any = ''
+  newPAgain: any = ''
   showPassword = false;
   newPassword = '';
   showNewPassword = false;
@@ -34,6 +38,28 @@ export class MyPassWordComponent {
     }else if (passwordType === 'reNew') {
       this.showReNewPassword = !this.showReNewPassword;
     }
+  }
+
+  changePass() {
+
+    if (this.newP != this.newPAgain) return swal.error('Mật khẩu mới và xác nhận mật khẩu phải trùng nhau !!!', 3000)
+
+    if (this.newP == ''
+      || this.newPAgain == ''
+      || this.currP == '') return swal.error('Phải điền đầy đủ thông tin để tiếp tục !!!', 3000)
+
+    let param = {
+      newPassword: this.newP,
+      password: this.currP
+    }
+    this.accountService.changePassword(this.user, param).subscribe({
+      next: (data) => {
+        this.currP = ''
+        this.newP = ''
+        this.newPAgain = ''
+        swal.success(data.message)
+      }, error: (err) => swal.error(err)
+    })
   }
 
 }

@@ -5,7 +5,7 @@
       <label for="inputPassword" class="col-sm-4 col-form-label">Mật khẩu hiện tại</label>
       <div class="col-sm-7">
         <div class="input-group">
-          <input type="{{showPassword ? 'text' : 'password'}}" class="form-control " id="inputPassword" [(ngModel)]="user.User.Password" required>
+          <input type="{{showPassword ? 'text' : 'password'}}" class="form-control " id="inputPassword" [(ngModel)]="currP" required>
           <div class="input-group-append">
             <button class="btn" type="button" (click)="toggleShowPassword('current')">
               <i class="fa" [ngClass]="{'fa-eye': !showPassword, 'fa-eye-slash': showPassword}"></i>
@@ -18,7 +18,7 @@
       <label for="newPassword" class="col-sm-4 col-form-label">Mật khẩu mới</label>
       <div class="col-sm-7">
         <div class="input-group">
-          <input type="{{showNewPassword ? 'text' : 'password'}}" class="form-control " id="newPassword" [(ngModel)]="newPassword" required>
+          <input type="{{showNewPassword ? 'text' : 'password'}}" class="form-control " id="newPassword" [(ngModel)]="newP" required>
           <div class="input-group-append">
             <button class="btn" type="button" (click)="toggleShowPassword('new')">
               <i class="fa" [ngClass]="{'fa-eye': !showNewPassword, 'fa-eye-slash': showNewPassword}"></i>
@@ -31,7 +31,7 @@
       <label for="newPassword" class="col-sm-4 col-form-label">Nhập lại mật khẩu mới</label>
       <div class="col-sm-7">
         <div class="input-group">
-          <input type="{{showNewPassword ? 'text' : 'password'}}" class="form-control " id="newPassword" [(ngModel)]="newPassword" required>
+          <input type="{{showNewPassword ? 'text' : 'password'}}" class="form-control " id="newPassword" [(ngModel)]="newPAgain" required>
           <div class="input-group-append">
             <button class="btn" type="button" (click)="toggleShowPassword('reNew')">
               <i class="fa" [ngClass]="{'fa-eye': !showReNewPassword, 'fa-eye-slash': showReNewPassword}"></i>
@@ -42,7 +42,7 @@
     </div>
     <!-- Phần button -->
     <div class="button">
-      <button type="button" class="btn btn-primary input">
+      <button (click)="changePass()" type="button" class="btn btn-primary input">
         Lưu
       </button>
     </div>

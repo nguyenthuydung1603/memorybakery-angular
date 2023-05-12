@@ -223,4 +223,13 @@ export class MyAccountService {
       catchError(this.handleError)
     )
   }
+
+  changePassword(user: any, param:any): Observable<any> {
+    return this._http.post<any>(`http://localhost:6868/change-pass-admin/${user._id}`, param).pipe(
+      map(res => res),
+      retry(3),
+      catchError(this.handleError)
+    )
+  }
+
 }

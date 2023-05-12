@@ -27,21 +27,23 @@ export class MyAddressComponent {
     this.getListAddress();
   }
   // Hiển thị danh sách địa chỉ của User
-  getListAddress(){
+  getListAddress() {
     this.accountService.getListAddress().subscribe({
       next: (data) => {
         this.addresses = data;
+        this.CheckDefaultAddress(); // Kiểm tra địa chỉ mặc định
       },
       error: (err) => {
         this.errMessage = err;
       }
-    })
+    });
   }
+
   isDefaultAddress: boolean = false;
   // Kiểm tra xem có địa chỉ mặc định hay không
   CheckDefaultAddress() {
     for (let i = 0; i < this.addresses.length; i++) {
-      if (this.addresses.Address[i].AddressType === "Default") {
+      if (this.addresses[i].AddressType === "Default") {
         this.isDefaultAddress = true;
         break;
       }
@@ -54,7 +56,36 @@ export class MyAddressComponent {
   showAddressNew() {
     this.showAddAddress = true;
     this.showEditAddress = false;
+
+    // Kiểm tra nếu người dùng chưa có địa chỉ nào hoặc không có địa chỉ mặc định
+    if (this.addresses.length === 0 || !this.isDefaultAddress) {
+      // Tạo một địa chỉ mới với AddressType là ""
+      const newAddress: IAddress = {
+        AddressName: '',
+        AddressPhone: '',
+        City: '',
+        Town: '',
+        Ward: '',
+        DetailAddress: '',
+        AddressType: ''
+      };
+
+      // Gán địa chỉ mới cho biến address
+      this.address = { ...newAddress }; // Tạo một bản sao của địa chỉ mới để tránh tham chiếu cùng vùng nhớ
+    } else {
+      // Nếu người dùng đã có địa chỉ mặc định, đặt các trường thông tin trống
+      this.address = {
+        AddressName: '',
+        AddressPhone: '',
+        City: '',
+        Town: '',
+        Ward: '',
+        DetailAddress: '',
+        AddressType: ''
+      };
+    }
   }
+
   closeAddressNew() {
     this.showAddAddress = false
   }
@@ -75,6 +106,9 @@ export class MyAddressComponent {
       }
     })
   }
+
+
+
 
   putAddress(aAddress:any){
     if (this.selectedAddress.AddressName == ''
@@ -101,17 +135,27 @@ export class MyAddressComponent {
   // Thêm địa chỉ mới
   address=new IAddress()
   postAddress() {
-    if (this.address.AddressName == ''
-      || this.address.AddressPhone == ''
-      || this.address.City == ''
-      || this.address.Town == ''
-      || this.address.Ward == ''
-      || this.address.DetailAddress == '') return swal.error('Phải nhập tất cả các thông tin để tạo mới địa chỉ!', 2000)
+    if (
+      this.address.AddressName == '' ||
+      this.address.AddressPhone == '' ||
+      this.address.City == '' ||
+      this.address.Town == '' ||
+      this.address.Ward == '' ||
+      this.address.DetailAddress == ''
+    ) {
+      return swal.error('Phải nhập tất cả các thông tin để tạo mới địa chỉ!', 2000);
+    }
+
+    if (!this.isDefaultAddress) {
+      // Nếu không có địa chỉ mặc định, thiết lập AddressType là "Default"
+      this.address.AddressType = 'Default';
+    }
+
     this.accountService.postAddress(this.address).subscribe({
       next: (data) => {
         this.getListAddress();
         this.showAddAddress = false;
-        swal.success(data.message ?? 'Đã tạo mới địa chỉ thành công', 2000)
+        swal.success(data.message ?? 'Đã tạo mới địa chỉ thành công', 2000);
       },
       error: (err) => {
         this.errMessage = err;

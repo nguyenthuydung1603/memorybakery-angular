@@ -68,7 +68,7 @@ import { MatchPasswordDirective } from './match-password.directive';
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

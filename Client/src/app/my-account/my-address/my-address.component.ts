@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, HostListener } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import swal from 'src/app/custom-function/swal2';
 import { IAddress } from 'src/app/models/Users';
 import { LocationService } from 'src/app/services/location.service';
 import { MyAccountService } from 'src/app/services/my-account.service';
@@ -19,7 +20,7 @@ export class MyAddressComponent {
     this.cities=[]
     this.locationService.getCities().subscribe( {
       next:(data)=>{
-        this.cities=data
+        this.cities=data;
       },
       error:(err)=>(this.errMessage=err)
     });
@@ -66,7 +67,6 @@ export class MyAddressComponent {
       next: (data) => {
         this.selectedAddress = data;
         console.log(data)
-        // Assign selected product values to book
         this.Address = this.selectedAddress;
       },
       error: (err) => {
@@ -77,10 +77,17 @@ export class MyAddressComponent {
   }
 
   putAddress(aAddress:any){
+    if (this.selectedAddress.AddressName == ''
+    || this.selectedAddress.AddressPhone == ''
+    || this.selectedAddress.City == ''
+    || this.selectedAddress.Town == ''
+    || this.selectedAddress.Ward == ''
+    || this.selectedAddress.DetailAddress == '') return swal.error('Phải nhập tất cả các thông tin để cập nhật địa chỉ!', 2000)
     this.accountService.putAddress(aAddress).subscribe({
       next: (data) => {
         this.getListAddress();
         this.showEditAddress = false;
+        swal.success(data.message ?? 'Đã chỉnh sửa địa chỉ thành công',2000)
       },
       error: (err) => {
         this.errMessage = err;
@@ -94,10 +101,17 @@ export class MyAddressComponent {
   // Thêm địa chỉ mới
   address=new IAddress()
   postAddress() {
+    if (this.address.AddressName == ''
+      || this.address.AddressPhone == ''
+      || this.address.City == ''
+      || this.address.Town == ''
+      || this.address.Ward == ''
+      || this.address.DetailAddress == '') return swal.error('Phải nhập tất cả các thông tin để tạo mới địa chỉ!', 2000)
     this.accountService.postAddress(this.address).subscribe({
       next: (data) => {
         this.getListAddress();
         this.showAddAddress = false;
+        swal.success(data.message ?? 'Đã tạo mới địa chỉ thành công', 2000)
       },
       error: (err) => {
         this.errMessage = err;
@@ -141,6 +155,7 @@ export class MyAddressComponent {
   selectedDistrictName: string = '';
   Wards: any[] = [];
   selectedWardName: string = '';
+
   onCityChange(): void {
     console.log(this.address.City);
 

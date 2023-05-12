@@ -145,8 +145,6 @@ export class ProductManagementComponent {
     this.listCreateImageTmp = []
     this.resetProductObject()
     this.resetVariantObject()
-    // this.product = new Product()
-    // this.variant = new Variant()
   }
 
   resetProductObject() {

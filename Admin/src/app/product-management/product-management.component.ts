@@ -1,7 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { faPlus, faFilter, faSearchPlus, faEdit, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 
-
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Product, Variant } from '../models/Product';
 import { functionCustom } from '../custom-function/functionCustom';
@@ -35,6 +35,7 @@ export class ProductManagementComponent {
   isVarian = false
   isLoading = false
   updateMore = false
+  public Editor = ClassicEditor;
 
   // binding sort
   isSelectedSort: string = ''

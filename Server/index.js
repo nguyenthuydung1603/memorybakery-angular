@@ -1001,7 +1001,7 @@ app.post('/staffs', cors(), async (req, res) => {
       Image: '',
       UserName: req.body.UserName,
       Password: passHash,
-      salt: '',
+      salt: salt,
       CreateDate: new Date().toISOString(),
       UserType: req.body.UserType,
       Cart: [],

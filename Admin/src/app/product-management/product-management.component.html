@@ -142,8 +142,10 @@
       </div>
       <div class="form-input" style="display: flex; flex-direction: column; align-items: flex-start;">
           <label for="">Mô tả</label>
-          <angular-editor [(ngModel)]="product.Description" #description="ngModel"
-              [placeholder]="'Enter text here...'"></angular-editor>
+          <!-- <angular-editor [(ngModel)]="product.Description" #description="ngModel"
+              [placeholder]="'Enter text here...'"></angular-editor> -->
+              <ckeditor [editor]="Editor" name="ngModel" class="form-control-plaintext custom-ckeditor" [(ngModel)]="product.Description" >
+              </ckeditor>
       </div>
       <div class="form-input">
           <label for="">Hình ảnh sản phẩm</label>

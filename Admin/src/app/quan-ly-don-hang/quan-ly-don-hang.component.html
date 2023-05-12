@@ -138,7 +138,7 @@
       <button class="cancel-button" *ngIf="isShowCancel"
         [swal]="{ title: 'Lý do huỷ đơn hàng: ', input: 'text', showCancelButton: true }"
         (confirm)="changeOrderStatus($event, 'Đã huỷ')" (dismiss)="handleDismiss($event)">
-        Huỷ
+        Huỷ đơn hàng
       </button>
       <button class="button" *ngIf="isShowCancel" (click)="changeOrderStatus(null, curStatusType)">{{curStatusType}}</button>
     </div>

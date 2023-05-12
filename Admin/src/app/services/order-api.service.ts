@@ -1,8 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, retry, throwError } from 'rxjs';
-import { Order } from './models/Order';
-import { IOrder } from './models/Order';
+import { IOrder } from '../models/Order';
 
 @Injectable({
   providedIn: 'root'

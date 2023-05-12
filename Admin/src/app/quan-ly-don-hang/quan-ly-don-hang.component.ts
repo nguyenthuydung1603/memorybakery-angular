@@ -1,11 +1,11 @@
 import { Component, HostListener } from '@angular/core';
-import { OrderAPIService } from '../order-api.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor/public-api';
 import { Router } from '@angular/router';
 import { faDeleteLeft, faInfoCircle, faFilter, faPlus, faSearchPlus } from '@fortawesome/free-solid-svg-icons';
 import { functionCustom } from '../custom-function/functionCustom';
 import { IOrder, Order } from '../models/Order';
 import swal from '../custom-function/swal2';
+import { OrderAPIService } from '../services/order-api.service';
 
 @Component({
   selector: 'app-quan-ly-don-hang',

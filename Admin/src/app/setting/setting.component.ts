@@ -1,9 +1,9 @@
 import { Component, HostListener } from '@angular/core';
-import { SettingService } from '../setting.service';
 import { IUser, User } from '../models/User';
 import { faPlus, faFilter, faSearchPlus, faEdit, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 import swal from '../custom-function/swal2';
 import { functionCustom } from '../custom-function/functionCustom';
+import { SettingService } from '../services/setting.service';
 
 
 @Component({

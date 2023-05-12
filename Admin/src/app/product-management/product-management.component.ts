@@ -1,11 +1,12 @@
 import { Component, HostListener } from '@angular/core';
 import { faPlus, faFilter, faSearchPlus, faEdit, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
-import { ProductAdminService } from '../product-admin.service';
+
 
 import { DomSanitizer } from '@angular/platform-browser';
 import { Product, Variant } from '../models/Product';
 import { functionCustom } from '../custom-function/functionCustom';
 import swal from '../custom-function/swal2';
+import { ProductAdminService } from '../services/product-admin.service';
 @Component({
   selector: 'app-product-management',
   templateUrl: './product-management.component.html',

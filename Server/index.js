@@ -245,12 +245,12 @@ if(req.session.carts=null){
 })
 
 // CÁC API LIÊN QUAN ĐẾN BLOG
-<<<<<<< Updated upstream
+
 app.get("/getblog",cors(),async (req,res)=>{ 
 const result = await blogCollection.find({}).toArray();
 res.send(result)
 })
-=======
+
 app.get("/blog-admin", cors(), async (req, res) => {
   let query = null;
   let searchQuery = {};
@@ -289,7 +289,6 @@ app.get("/blog-admin/blogStaff", async (req, res) => {
     res.status(500).json({ error: "An error occurred" });
   }
 });
->>>>>>> Stashed changes
 
 app.get('/blogs-sorted', cors(), async (req, res) => {
   let perPage = 5

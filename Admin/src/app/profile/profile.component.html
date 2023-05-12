@@ -1,0 +1,55 @@
+<div class="container">
+  <h3 class="title">Tài khoản của tôi</h3>
+  <div class="menu">
+      <h5 [class.active]="isShowInfo == true" (click)="isShowInfo = true">Thông tin tài khoản</h5>
+      <h5 [class.active]="isShowInfo == false" (click)="isShowInfo = false">Bảo mật</h5>
+  </div>
+  <hr>
+  <div>
+      <div class="profile-info" *ngIf="isShowInfo">
+          <div class="form">
+              <div class="form-input">
+                  <label for="userName">Tên đăng nhập</label>
+                  <input id="userName" type="text" [(ngModel)]="user.UserName" disabled="true">
+              </div>
+              <div class="form-input">
+                  <label for="fullName">Họ và tên</label>
+                  <input id="fullName" type="text" [(ngModel)]="user.FullName">
+              </div>
+              <div class="form-input">
+                  <label for="phone">Số điện thoại</label>
+                  <input id="phone" type="text" [(ngModel)]="user.Phone">
+              </div>
+              <div class="form-input">
+                  <label for="date">Ngày sinh</label>
+                  <input id="date" type="date" [ngModel]="user.DateOfBirth | date:'yyyy-MM-dd'"
+                      (ngModelChange)="user.DateOfBirth = $event">
+              </div>
+              <button (click)="updateProfile()">Lưu</button>
+
+          </div>
+          <div class="profile-image">
+              <img [src]="user.Image" alt="">
+              <input style="display: none;" type="file" #fileUpload name="Image" (change)="onFileChange($event)">
+              <button (click)="fileUpload.click()">Chọn ảnh mới</button>
+          </div>
+      </div>
+      <div class="profile-secure" *ngIf="!isShowInfo">
+          <div class="form">
+              <div class="form-input">
+                  <label for="userName">Mật khẩu hiện tại</label>
+                  <input id="userName" type="text" [(ngModel)]="currP">
+              </div>
+              <div class="form-input">
+                  <label for="fullName">Mật khẩu mới</label>
+                  <input id="fullName" type="text" [(ngModel)]="newP">
+              </div>
+              <div class="form-input">
+                  <label for="phone">Xác nhận mật khẩu</label>
+                  <input id="phone" type="text" [(ngModel)]="newPAgain">
+              </div>
+              <button (click)="changePass()">Đổi mật khẩu</button>
+          </div>
+      </div>
+  </div>
+</div>

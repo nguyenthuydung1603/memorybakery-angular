@@ -1054,3 +1054,62 @@ app.delete('/staffs/:id', cors(), async (req, res) => {
     res.send(responseError())
   }
 })
+
+app.post("/login-admin", async function (req, res) {
+  const cryp = require('crypto');
+
+  try {
+    const user = await userCollection.findOne({ UserName: req.body.userName })
+    if (user) {
+      let hash = cryp.pbkdf2Sync(req.body.password, user.salt, 1000, 64, `sha512`).toString(`hex`)
+      if (user.Password == hash) {
+        res.send(
+          {
+            data: user,
+            message: 'Đăng nhập thành công'
+          }
+        )
+      } else {
+        res.send({ 'message': 'Mật khẩu không đúng, vui lòng kiểm tra lại!' })
+      }
+    } else {
+      res.send({ 'message': 'Tài khoản không tồn tại, vui lòng kiểm tra lại!' })
+    }
+  } catch (error) {
+    res.status(400).json({ error })
+  }
+})
+
+app.post("/change-pass-admin/:id", async function (req, res) {
+  const id = new ObjectId(req.params['id'])
+  const filter = { _id: id }
+  const cryp = require('crypto');
+  // cho pass mới nha
+  const salt = cryp.randomBytes(16).toString('hex')
+  const passHash = cryp.pbkdf2Sync(req.body.newPassword, salt, 1000, 64, `sha512`).toString(`hex`)
+  try {
+    const user = await userCollection.findOne(filter)
+    if (user) {
+      let hash = cryp.pbkdf2Sync(req.body.password, user.salt, 1000, 64, `sha512`).toString(`hex`)
+      if (user.Password == hash) {
+        userCollection.updateOne(filter,
+          {
+            $set: {
+              Password: passHash,
+              salt: salt,
+            }
+          }, function (err) {
+            if (err) throw err
+          })
+        res.send({ 'message': 'đã đổi mật khẩu thành công' })
+
+      } else {
+        res.send({ 'message': 'Mật khẩu hiện tại không đúng, vui lòng kiểm tra lại!' })
+      }
+    } else {
+      res.send({ 'message': 'Tài khoản không tồn tại, vui lòng kiểm tra lại!' })
+    }
+  } catch (error) {
+    res.status(400).json({ error })
+  }
+})

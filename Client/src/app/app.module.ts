@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
@@ -18,7 +18,6 @@ import { PaymentPolicyComponent } from './payment-policy/payment-policy.componen
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { BlogDetailComponent } from './blog-detail/blog-detail.component';
@@ -32,6 +31,7 @@ import { MyVoucherComponent } from './my-account/my-voucher/my-voucher.component
 import { MyProductComponent } from './my-account/my-product/my-product.component';
 import { MyReviewComponent } from './my-account/my-review/my-review.component';
 import { MatchPasswordDirective } from './match-password.directive';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,6 +69,7 @@ import { MatchPasswordDirective } from './match-password.directive';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

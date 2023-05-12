@@ -49,6 +49,15 @@ export class SettingService {
     )
   }
 
+  changePassword(user: any, param:any): Observable<any> {
+    return this._http.post<any>(`${this.API_URL}/change-pass-admin/${user._id}`, param).pipe(
+      map(res => res),
+      retry(3),
+      catchError(this.handleError)
+    )
+  }
+
+
   putAStaff(staff: any): Observable<any> {
     return this._http.put<any>(`${this.API_URL}/staffs/${staff._id}`, staff).pipe(
       map(res => res),

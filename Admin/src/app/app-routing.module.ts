@@ -7,6 +7,8 @@ import { BlogManagementComponent } from './blog-management/blog-management.compo
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
 import { QuanLyDonHangComponent } from './quan-ly-don-hang/quan-ly-don-hang.component';
 import { SettingComponent } from './setting/setting.component';
+import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {path:"dashboard",component:DashboardComponent},
@@ -15,7 +17,10 @@ const routes: Routes = [
   {path: 'bloggg', component:BlogManagementComponent},
   {path: 'customer', component:CustomerManagementComponent},
   {path: 'quanlydonhang', component:QuanLyDonHangComponent},
-  { path: 'setting', component: SettingComponent }
+  { path: 'setting', component: SettingComponent },
+  { path: '', component: LoginComponent },
+  { path: 'profile', component: ProfileComponent },
+
 ];
 
 @NgModule({

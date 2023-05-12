@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="login-box">
+      <img src="../../assets/img/login.jpg" alt="">
+      <form (ngSubmit)="login()" class="login-form">
+          <h1>Đăng nhập tài khoản</h1>
+          <div class="form-input">
+              <label for="username">
+                  Tên tài khoản
+              </label>
+              <input type="text" id="username" placeholder="Tên tài khoản" [(ngModel)]="loginForm.userName" name="username">
+          </div>
+          <div class="form-input">
+              <label for="password">
+                  Mật khẩu
+              </label>
+              <input type="password" id="password" placeholder="Mật khẩu" [(ngModel)]="loginForm.password" name="password">
+          </div>
+          <button>Đăng nhập</button>
+      </form>
+  </div>
+</div>

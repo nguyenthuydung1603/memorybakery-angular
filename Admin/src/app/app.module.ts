@@ -17,6 +17,8 @@ import { BlogManagementComponent } from './blog-management/blog-management.compo
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { SettingComponent } from './setting/setting.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -29,7 +31,9 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     ProductManagementComponent,
     PromotionManagementComponent,
     BlogManagementComponent,
-    SettingComponent
+    SettingComponent,
+    LoginComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

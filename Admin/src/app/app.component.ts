@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { IUser } from './models/User';
+import { Router, Event, NavigationStart, NavigationEnd, NavigationError } from '@angular/router';
+import swal from './custom-function/swal2';
 
 @Component({
   selector: 'app-root',
@@ -7,59 +10,52 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Admin';
-
-  //
-  constructor() {
-    this.initFakeUser()
+  currentRoute: string = ''
+  isLogin: boolean = false
+  user!: IUser
+  constructor(private _router: Router) {
+    this.getCurrentUser()
+    this.checkRoute()
   }
 
+  onChangeLoginState(eventData: any) {
+    this.isLogin = eventData
+  }
 
-  initFakeUser() {
-    let user = {
-      "_id": {
-        "$oid": "644e0ec30aedb75801f99e00"
-      },
-      "FullName": "Nguyễn Thuỳ Dung",
-      "Gender": "Nữ",
-      "DateOfBirth": "05/15/1995",
-      "Phone": "0987654321",
-      "Image": "user4.jpg",
-      "UserName": "thuydung",
-      "Password": "2348b47d07369069de08605ded61acd6379f9babf252c50bbc7f4d758cd8623001d0707a523a5fc36296f351d9150217f8af8aa5b98735fef5ecfb36ec724772",
-      "salt": "fb6934133e0006ce022c008ecd4a0298",
-      "CreateDate": "10/01/2023",
-      "UserType": {
-        "TypeName": "Staff",
-        "Role": [
-          {
-            "RoleName": "Admin"
-          },
-          {
-            "RoleName": "QLSP"
-          }
-        ]
-      },
-      "Cart": [
-        {
-          "ProductID": "",
-          "Size": "",
-          "Quantity": ""
-        }
-      ],
-      "Order": [
-        ""
-      ],
-      "Product": [
-        ""
-      ],
-      "Address": [
-        "64525ed5eba527f557f50183"
-      ],
-      "Voucher": [
-        ""
-      ]
+  getCurrentUser() {
+    let user: any = sessionStorage.getItem('user')
+    if (user) {
+      this.user = JSON.parse(user)
+      this.isLogin = true
+    } else {
+      this.isLogin = false
     }
-    sessionStorage.setItem('user', JSON.stringify(user))
   }
+
+  checkUserExist() {
+    let user: any = sessionStorage.getItem('user')
+    if (!user) {
+      this.isLogin = false
+      swal.error('Phiên đăng nhập đã hết hạn!')
+    }
+  }
+
+  checkRoute() {
+    this.currentRoute = "";
+    this._router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationStart) {
+        this.checkUserExist()
+      }
+
+      if (event instanceof NavigationEnd) {
+        this.currentRoute = event.url;
+      }
+
+      if (event instanceof NavigationError) {
+        console.log(event.error);
+      }
+    });
+  }
+
 }
 

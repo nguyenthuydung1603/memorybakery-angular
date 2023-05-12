@@ -1,29 +1,23 @@
 <div id="header">
   <div class="header-top">
      <div class="logo">
-          <a href=""><img src="../assets/img/logo.jpg" alt=""></a>
-     </div>
-     <div class="btn-search" >
-      <form class="inputSearch" onsubmit="submitForm(event)">
-          <input type="text" class="search" id="inputvalue" placeholder="Tìm kiếm">
-          <button class="ti-search"><i style="color: var(--primary_color);font-size: 25px;display: flex; align-items: center;"  class="fa-solid fa-magnifying-glass"></i></button>
-      </form>
+          <a><img src="../assets/img/logo.jpg" alt=""></a>
      </div>
       <div class="right-header-top">
-          <div class="account">
-              <a href="#" >
-                  <img style="width: 50px; height: 50px;" src="../assets/img/image.jpg" alt="">
-                 <span>@duongdaibang</span>
+          <div class="account" style="display: flex; align-items: center;">
+              <a routerLink="profile">
+                  <img style="width: 50px; height: 50px; border-radius: 50%; margin-right: 20px;" [src]="user.Image" alt="">
+                 <span>{{user.FullName}}</span>
               </a>
 
           </div>
-          <div class="cart">
-              <a href="./cart">
+          <div>
+              <a href="#">
                 <i style="font-size: 30px;" class="fa-solid fa-bell"></i>
                   </a>
           </div>
           <div class="phone">
-              <a href="#">
+              <a>
                 <i style="font-size: 30px;" class="fa-solid fa-envelope-open-text"></i>
               </a>
           </div>
@@ -46,7 +40,7 @@
               <span class="item">Khách hàng</span>
           </a>
       </li>
-      <li [class.permission]="checkPermission('QLĐH') == false" (click)="goTo('quanlydonhang', 'QLDH')">
+      <li [class.permission]="checkPermission('QLĐH') == false" (click)="goTo('quanlydonhang', 'QLĐH')">
           <a class="custom">
               <span class="icon"><i class="fas fa-clipboard-list"></i></span>
               <span class="item">Đơn hàng</span>
@@ -64,7 +58,7 @@
             <span class="item">Khuyến mãi</span>
         </a>
     </li>
-      <li [class.permission]="checkPermission('QLBlog') == false" (click)="goTo('bloggg', 'QLBlog')">
+      <li [class.permission]="checkPermission('QLBlog') == false" (click)="goTo('blog', 'QLBlog')">
           <a class="custom">
               <span class="icon"><i class="fas fa-cash-register"></i></span>
               <span class="item">Blog</span>
@@ -78,7 +72,7 @@
           </a>
       </li>
       <li>
-          <a href="#">
+          <a (click)="logout()">
               <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
               <span class="item">Đăng xuất</span>
           </a>

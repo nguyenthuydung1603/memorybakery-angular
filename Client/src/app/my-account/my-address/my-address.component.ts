@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, HostListener } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import swal from 'src/app/custom-function/swal2';
 import { IAddress } from 'src/app/models/Users';
 import { LocationService } from 'src/app/services/location.service';
@@ -16,7 +17,7 @@ export class MyAddressComponent {
   errMessage:any;
   selectedAddress:any; //Lấy thông tin địa chỉ của 1 _id cố định
 
-  constructor(private accountService: MyAccountService,cdRef: ChangeDetectorRef, private locationService: LocationService,private activateRoute:ActivatedRoute) {
+  constructor(private accountService: MyAccountService,private cdRef: ChangeDetectorRef, private locationService: LocationService,private activateRoute:ActivatedRoute) {
     this.cities=[]
     this.locationService.getCities().subscribe( {
       next:(data)=>{
@@ -97,15 +98,22 @@ export class MyAddressComponent {
     this.accountService.getOneAddress(AddressId).subscribe({
       next: (data) => {
         this.selectedAddress = data;
-        console.log(data)
+        console.log(data);
+
+        // Assign values to City, Town, and Ward properties
+        this.selectedAddress.City = data.City;
+        this.selectedAddress.Town = data.Town;
+        this.selectedAddress.Ward = data.Ward;
+
         this.Address = this.selectedAddress;
       },
       error: (err) => {
         this.errMessage = err;
         console.log(this.errMessage);
       }
-    })
+    });
   }
+
 
 
 
@@ -179,13 +187,16 @@ export class MyAddressComponent {
       })
     }
   }
-
+  public handleDismiss(dismissMethod: any): void {
+  }
+  faEdit = faEdit
   // Thay đổi địa chỉ mặc định
   putAddressDefault(id: string){
     this.accountService.putAddressDefault(id).subscribe({
       next: (data) => {
         this.getListAddress();
-        location.reload();
+
+        swal.success(data.message ?? 'Đã đặt địa chỉ mặc định thành công', 2000);
       },
       error: (err) => {
         this.errMessage = err;

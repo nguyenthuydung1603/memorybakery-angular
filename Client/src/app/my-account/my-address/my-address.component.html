@@ -16,6 +16,7 @@
         </div>
         <div class="col-3">
           <button class="btn btn-link" (click)="showAddressEdit(address._id)">Cập nhật</button> <span style="color:#E75C6B">|</span>
+          <button class="btn btn-link" (click)="putAddressDefault(address._id)" >Thiết lập mặc định</button> <span style="color:#E75C6B">|</span>
           <button class="btn btn-link" (click)="deleteAddress(address._id)">Xoá</button>
         </div>
       </div>
@@ -105,19 +106,16 @@
             </select>
         </div>
 
-        <div class="col">
-          <select class="form-select form-select-sm mb-3" id="district" required  [(ngModel)]="selectedAddress.Town" name="district" (change)="onDistrictChange()">
-            <option value="">Chọn quận/huyện</option>
-            <option *ngFor="let district of districts" [value]="district.Name">{{ district.Name }}</option>
-          </select>
-        </div>
+        <select class="form-select form-select-sm mb-3" id="district" required  [(ngModel)]="selectedAddress.Town" name="district" (change)="onDistrictChange()">
+          <option value="">Chọn quận/huyện</option>
+          <option *ngFor="let district of selectedAddress.City?.Districts" [value]="district.Name">{{ district.Name }}</option>
+        </select>
 
-        <div class="col">
-          <select class="form-select form-select-sm mb-3" id="ward" [(ngModel)]="selectedAddress.Ward" name="ward" >
-            <option value="">Chọn phường/ xã</option>
-            <option *ngFor="let w of Wards" [value]="w.Name">{{ w.Name }}</option>
-          </select>
-        </div>
+        <select class="form-select form-select-sm mb-3" id="ward" [(ngModel)]="selectedAddress.Ward" name="ward" >
+          <option value="">Chọn phường/ xã</option>
+          <option *ngFor="let ward of selectedAddress.Town?.Wards" [value]="ward.Name">{{ ward.Name }}</option>
+        </select>
+
         </div>
 
         <!-- Dòng 3 -->

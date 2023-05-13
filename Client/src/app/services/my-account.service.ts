@@ -112,7 +112,7 @@ export class MyAccountService {
         headers:headers,
         responseType:"text"
       }
-      return this._http.get<any>("/address/setDefault/${token}/${AddressId}",requestOptions).pipe(
+      return this._http.put<any>("/address/setDefault/"+token+"/"+AddressId,requestOptions).pipe(
         map(res => JSON.parse(res)),
         retry(3),
         catchError(this.handleError)

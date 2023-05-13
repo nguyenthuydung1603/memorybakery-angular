@@ -20,6 +20,7 @@ export class CustomerManagementComponent {
   orderBy: string = '';
   isLoading = false;
   isSelectedSort: string = '';
+ showSelectedSort: boolean= false;
   //
   customers: any;
   errMessage:any
@@ -41,6 +42,12 @@ export class CustomerManagementComponent {
   constructor(private activateRoute:ActivatedRoute, private accountService: CustomerService) {
 
     this.getUsers();
+  }
+
+  closeModal(){
+    if(this.isSelectedSort==="Đơn hàng") {
+      this.isShowModelSort=false
+    }
   }
 
   getUsers() {
@@ -107,7 +114,7 @@ export class CustomerManagementComponent {
   }
   selectOption(item: string) {
     this.isSelectedSort = item
-    this.isShowModelSort = false
+    this.isShowModelSort = true
     switch (item) {
       case 'Tên (A -> Z)': {
         this.sortBy = 'name'
@@ -232,6 +239,7 @@ closeFilterOptions() {
 public onClick(event: any): void {
   if (event.target.classList.contains('modal')) {
     this.closeCustomerDetail();
+    this.closeModal();
   }
 }
 formatOrderId(orderId: string): string {

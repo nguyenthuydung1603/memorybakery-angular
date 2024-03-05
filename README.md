@@ -91,4 +91,8 @@ This project is a result of the incredible collaboration of 5 talented individua
 
 - **MongoDB:** Store product data and customer information.
 
+## Testing 🌟
+
+- **Purpose:** Verify the correctness of the application's functionalities.
+- **Test Case Details:** [Memory Bakery Test Cases](https://docs.google.com/spreadsheets/d/1Y4IUFWEu5qElE72NTBjbkKHqV2wk8lWZ8nI66ZgIbUs/edit?usp=sharing)
 
